@@ -13,19 +13,24 @@ function classExtends(child: any, parent: any){
 }
 
 export async function setupRoutes(app: express.Application){
+    
     const controllers = loadControllers()    
     const repository = new OrmRepository(await mikroHelper.getEm())
-    controllers.forEach(async (controller: any) => {
-        const router = Router()
-        const instance = new controller(repository)
-        console.log('registrando rota', controller)
 
-        if(classExtends(controller, PrivateController)){
+    controllers.forEach(async (controller: any) => {
+
+        const router = Router()        
+        const instance = new controller(repository)
+        const isPrivate = classExtends(controller, PrivateController)
+    
+        if(isPrivate){
             router.use((req: any, res: express.Response, next: any) => {
                 res.send({ message: "essa rota é privada" })
                 req; next;
             })
         }
+
+        console.log('registrando rota', instance.method, instance.base_url, 'is private:', isPrivate)
 
         const callback =  (req: HttpRequest ): Promise<HttpResponse> => instance.handle(req) 
         registerRoute(router, instance.base_url, { method: instance.method, callback } )
