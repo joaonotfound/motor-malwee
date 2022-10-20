@@ -20,7 +20,7 @@
   ],
   "typings": "./lib/index.d.ts",
   "scripts": {
-    "start": "npm run build && tsc-alias && node ./dist/main/index.js",
+    "start": "rm -rf ./dist && npm run build && tsc-alias && node ./dist/main/index.js",
     "build": "tsc",
     "lint": "tslint -c tslint.json src/**/*.ts",
     "prepublish": "npm run build"

@@ -19,15 +19,17 @@ export async function setupRoutes(app: express.Application){
         const router = Router()
         const instance = new controller(repository)
         console.log('registrando rota', controller)
-        const callback =  (req: HttpRequest ): Promise<HttpResponse> => instance.handle(req) 
 
-        registerRoute(router, instance.base_url, { method: "GET", callback } )
         if(classExtends(controller, PrivateController)){
             router.use((req: any, res: express.Response, next: any) => {
                 res.send({ message: "essa rota é privada" })
                 req; next;
             })
         }
+
+        const callback =  (req: HttpRequest ): Promise<HttpResponse> => instance.handle(req) 
+        registerRoute(router, instance.base_url, { method: instance.method, callback } )
+    
         app.use(router)
     })
 }
