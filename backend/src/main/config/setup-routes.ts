@@ -1,43 +1,33 @@
-import loadControllers from "../helpers/load-controllers"
-// import { PublicController } from "@/presentation/models/public-controller"
-import { Router } from "express"
 import * as express from 'express'
-import { Controller } from "@/presentation/models/controller-model"
+import { Router } from "express"
+
+import loadControllers from "../helpers/load-controllers"
 import { registerRoute } from "./register-route"
+import { mikroHelper } from '@/infra/mikro-orm/helpers/mikro-helper'
+import { OrmRepository } from '@/infra/mikro-orm/protocols/orm-repository'
 import { PrivateController } from "@/presentation/models/private-controller"
-import { OrmRepository } from "@/infra/mikro-orm/protocols/orm-repository"
-import { mikroHelper } from "@/infra/mikro-orm/helpers/mikro-helper"
-// import { RouteModel } from "@/presentation/models/route-model"
+import { HttpRequest, HttpResponse } from '@/presentation/protocols'
 
 function classExtends(child: any, parent: any){
     return Object.getOwnPropertyDescriptor(child, 'prototype')?.value instanceof parent
 }
 
-export function setupRoutes(app: express.Application){
-    const controllers = loadControllers()
-    
+export async function setupRoutes(app: express.Application){
+    const controllers = loadControllers()    
+    const repository = new OrmRepository(await mikroHelper.getEm())
     controllers.forEach(async (controller: any) => {
-        let router: Router = Router()
-        const repository = new OrmRepository(await mikroHelper.getEm())
-        const instance: Controller = new controller(repository)
-        const routes = instance.export()
+        const router = Router()
+        const instance = new controller(repository)
+        console.log('registrando rota', controller)
+        const callback =  (req: HttpRequest ): Promise<HttpResponse> => instance.handle(req) 
 
+        registerRoute(router, instance.base_url, { method: "GET", callback } )
         if(classExtends(controller, PrivateController)){
             router.use((req: any, res: express.Response, next: any) => {
-                res.send({ message: "essa rota é privada"})
+                res.send({ message: "essa rota é privada" })
                 req; next;
             })
         }
-        
-        routes.forEach(route =>{ 
-            const bounded_route = {
-                ...route,
-                callback: Object.bind(instance, route.callback)(),
-            }
-            // console.log(bounded_route)
-            registerRoute(router, { base_url: instance.base_url, route: bounded_route })
-        })
-    
         app.use(router)
     })
 }
