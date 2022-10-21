@@ -1,8 +1,9 @@
 import { Entity } from "./entity-model";
 
-class UserEntity extends Entity {
-    username: string = ''
-    password: string = ''    
+export class UserEntity extends Entity {
+    constructor( readonly username: string, readonly password: string, readonly email: string ){ 
+        super()
+    }
 }
 
-export const userEntity = new UserEntity()
+export const userEntity = new UserEntity('', '', '')

@@ -12,10 +12,10 @@ export class User extends BaseEntity{
   @Property()
   password: string
 
-  constructor(username: string, email: string, password: string){
-    super()
-    this.username = username
-    this.email = email
-    this.password = password
+  constructor(params: { username: string, email: string, password: string, id: number, status: number }){
+    super(params)
+    this.username = params.username
+    this.email = params.email
+    this.password = params.password
   }
 }

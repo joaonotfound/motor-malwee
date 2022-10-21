@@ -6,11 +6,17 @@ import { mikroHelper } from '@/infra/mikro-orm/helpers/mikro-helper'
 import { EntityManager, IDatabaseDriver, Connection } from '@mikro-orm/core'
 import { EntityRepository } from "@mikro-orm/mysql";
 
-class MikroCollection<T> implements Collection<T> {
+class MikroCollection<T extends Entity> implements Collection<T> {
     constructor(
-        private readonly repository: EntityRepository<any>
+        private readonly repository: EntityRepository<any>,
+        private readonly ormEntity: any
     ){}
-    
+
+    async save(entity: T){
+        const ormEntity = new this.ormEntity(entity)
+        await this.repository.persistAndFlush(ormEntity)
+    }
+
     async find(where: Partial<Entity> | Partial<T>): Promise<T[]>{
         return await this.repository.find(where)
 }}
@@ -22,8 +28,7 @@ interface JoinEntities<T extends Entity, Q extends BaseEntity>{
 
 export type Zip = Array<JoinEntities<any, any>>
 
-export class MikroRepository implements Repository{
-    
+export class MikroRepository implements Repository{    
     constructor( 
         private em: EntityManager<IDatabaseDriver<Connection>>,
         private readonly entities: Zip
@@ -34,9 +39,13 @@ export class MikroRepository implements Repository{
         return new MikroRepository(em, entities)
     }
 
+    private findOrmEntity<T extends Entity>(entity: T) {
+        return this.entities.find( zip => entity.constructor == zip.value.constructor )?.ormEntity
+    }
+
     collection<T extends Entity>(entity: T): Collection<T> {
-        const found = this.entities.find( zip => entity.constructor == zip.value.constructor )
-        const collection = new MikroCollection<T>(this.em.getRepository(found?.ormEntity!))
+        const ormEntity = this.findOrmEntity(entity)
+        const collection = new MikroCollection<T>(this.em.getRepository(ormEntity), ormEntity)
         return collection
     }
 }
