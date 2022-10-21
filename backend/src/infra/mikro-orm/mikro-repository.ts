@@ -35,9 +35,7 @@ export class MikroRepository implements Repository{
     }
 
     collection<T extends Entity>(entity: T): Collection<T> {
-        console.log(entity, this.entities)
-        // todo: fix error, right-hand side of instanceof is not callable
-        const found = this.entities.find( zip => entity instanceof zip.value )
+        const found = this.entities.find( zip => entity.constructor == zip.value.constructor )
         const collection = new MikroCollection<T>(this.em.getRepository(found?.ormEntity!))
         return collection
     }
