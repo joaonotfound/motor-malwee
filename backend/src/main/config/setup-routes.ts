@@ -5,18 +5,14 @@ import loadControllers from "../helpers/load-controllers"
 import { registerRoute } from "./register-route"
 import { PrivateController } from "@/presentation/models/private-controller"
 import { HttpRequest, HttpResponse } from '@/presentation/protocols'
-import { MikroRepository, Zip } from '@/infra/mikro-orm/mikro-repository'
-import { userEntity } from '@/data/entities/user-entity'
-import { User } from '@/infra/mikro-orm/entities'
+import { MikroRepository } from '@/infra/mikro-orm/mikro-repository'
+import { entities } from '../entities'
 
 function classExtends(child: any, parent: any){
     return Object.getOwnPropertyDescriptor(child, 'prototype')?.value instanceof parent
 }
 
 export async function setupRoutes(app: express.Application){
-    const entities: Zip = [
-        { value: userEntity, ormEntity: User }
-    ]
     const controllers = loadControllers()    
     const repository = await MikroRepository.create(entities)
 
