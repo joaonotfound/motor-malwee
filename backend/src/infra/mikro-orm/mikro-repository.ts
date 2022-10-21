@@ -22,10 +22,12 @@ class MikroCollection<T extends Entity> implements Collection<T> {
         await this.repository.persistAndFlush(ormEntity)
     }
 
+    async findOne(where: Partial<Entity> | Partial<T>): Promise<T>{
+        return await this.repository.findOne(where)
+    }
+    
     async find(where: Partial<Entity> | Partial<T>): Promise<T[]>{
-        const response = await this.repository.find(where)
-        console.log(response)
-        return response
+        return await this.repository.find(where)
 }}
 
 interface JoinEntities<T extends Entity, Q extends BaseEntity>{
