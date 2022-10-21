@@ -1,4 +1,4 @@
-import { Repository } from "@/data/repository"
+import { Repository } from "@/domain/repository"
 import { ControllerMethod } from './controller-method'
 
 export class Controller {
