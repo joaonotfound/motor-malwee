@@ -12,13 +12,20 @@ class MikroCollection<T extends Entity> implements Collection<T> {
         private readonly ormEntity: any
     ){}
 
-    async save(entity: T){
+    async update(entity: T){
+        const ormEntity = new this.ormEntity(entity)
+        await this.repository.nativeUpdate({ id: ormEntity.id }, ormEntity)
+    }
+
+    async save(entity: T){        
         const ormEntity = new this.ormEntity(entity)
         await this.repository.persistAndFlush(ormEntity)
     }
 
     async find(where: Partial<Entity> | Partial<T>): Promise<T[]>{
-        return await this.repository.find(where)
+        const response = await this.repository.find(where)
+        console.log(response)
+        return response
 }}
 
 interface JoinEntities<T extends Entity, Q extends BaseEntity>{
