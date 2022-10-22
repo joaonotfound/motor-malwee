@@ -1,10 +1,12 @@
 import { missingParam, invalidParam, ok, HttpRequest, alreadyInUse } from "@/presentation";
-import { Repository, userEntity, EmailValidator } from "@/domain";
+import { Repository, userEntity, EmailValidator, Encrypter, TokenManager } from "@/domain";
 
 export class CreateAccountController {
     constructor(
         private readonly emailValidator: EmailValidator,
-        private readonly repository: Repository
+        private readonly encrypter: Encrypter,
+        private readonly repository: Repository,
+        private readonly tokenManager: TokenManager
     ){}
 
     async isInUse(where: any): Promise<boolean> {
@@ -33,13 +35,25 @@ export class CreateAccountController {
         if(await this.isInUse({ username: params.username })){
             return alreadyInUse('username')
         }
-
-        const account = await this.repository.collection(userEntity).save({
+        
+        const account = {
             username: params.username,
             email: params.email,
             password: params.password
-        })
+        }
 
-        return ok(account)
+        const safe_account = {
+            ...account, 
+            password: await this.encrypter.encrypt(account.password)
+        }
+        const response_account = {
+            username: account.username,
+            email: account.email
+        }
+        const token = await this.tokenManager.generate(response_account)
+
+        await this.repository.collection(userEntity).save(safe_account)
+
+        return ok({ created: true, account: response_account, token })
     }
 }
