@@ -1,3 +1,5 @@
-import { Controller } from "./controller-model";
+import { Controller, PermissionLevel } from "./controller-model";
 
-export abstract class PrivateController extends Controller {}
+export abstract class PrivateController extends Controller {
+    permission_level: PermissionLevel = 'private'
+}
