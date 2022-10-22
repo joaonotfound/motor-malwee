@@ -1,9 +1,12 @@
-import { userEntity } from "@/data/entities/user-entity";
 import { ok } from "../helpers/ok";
-import { PublicController } from "../models/public-controller";
+import { Get } from "../decorators";
+import { Repository } from "@/domain/repository";
+import { userEntity } from "@/domain/entities/user-entity";
 
-export default class Login extends PublicController {
-    base_url: string = '/auth/login'
+@Get('/auth/login', 'public')
+export default class Login {
+    constructor( private readonly repository: Repository ){}
+
     async handle(){
         console.log(await this.repository.collection(userEntity).find({ id: 1 }))
         return ok({ message: 'rota alcançada com sucesso. '})
