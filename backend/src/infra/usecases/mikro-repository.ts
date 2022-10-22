@@ -3,7 +3,7 @@ import { EntityRepository } from "@mikro-orm/mysql";
 
 import { Entity, Repository, Collection  } from "@/domain"
 import { mikroHelper } from '@/infra'
-import { BaseEntity } from "../entities"
+import { BaseEntity } from "../mikro-orm/entities"
 
 
 class MikroCollection<T extends Entity> implements Collection<T> {
