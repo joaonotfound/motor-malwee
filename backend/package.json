@@ -21,10 +21,14 @@
   ],
   "typings": "./lib/index.d.ts",
   "scripts": {
+    "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
+    "test:verbose": "jest --passWithNoTests --runInBand",
+    "test:unit": "npm test -- --watch -c jest-unit-config.js",
+    "test:integration": "npm test -- --watch -c jest-integration-config.js",
+    "test:staged": "jest --passWithNoTests --findRelatedTests",
+    "test:ci": "npm test -- --coverage",
     "start": "rm -rf ./dist && npm run build && tsc-alias && node ./dist/main/index.js",
-    "build": "tsc",
-    "lint": "tslint -c tslint.json src/**/*.ts",
-    "prepublish": "npm run build"
+    "build": "tsc"
   },
   "mikro-orm": {
     "useTsNode": true,
@@ -36,7 +40,10 @@
   "devDependencies": {
     "@mikro-orm/cli": "^5.4.2",
     "@types/express": "^4.17.14",
+    "@types/jest": "^29.2.0",
     "@types/jsonwebtoken": "^8.5.9",
+    "jest": "^29.2.1",
+    "ts-jest": "^29.0.3",
     "tsc-alias": "^1.7.0"
   }
 }
