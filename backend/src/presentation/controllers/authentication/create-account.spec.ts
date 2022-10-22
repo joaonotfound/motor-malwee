@@ -1,5 +1,5 @@
 import { EmailValidator } from "@/domain"
-import { missingParam, createRepositoryStub, alreadyInUse } from "@/presentation/helpers"
+import { missingParam, createRepositoryStub, alreadyInUse, invalidParam } from "@/presentation/helpers"
 import { HttpRequest, HttpResponse } from "@/presentation/protocols"
 import { CreateAccountController } from "./create-account"
 
@@ -56,6 +56,20 @@ describe('CreateAccount', () => {
         const response: HttpResponse = await sut.handle(request)
         expect(response).toEqual(missingParam('username'))
     })
+    test('should return invalid email', async () => {
+        const { sut, emailValidatorStub } = makeSut()
+        jest.spyOn(emailValidatorStub, 'validate').mockResolvedValueOnce({ is_valid: false })
+        const request: HttpRequest = {
+            params: {
+                username: 'valid-username',
+                email: 'invalid-email',
+                password: 'valid-password'
+            },
+            body: {}
+        }
+        const response: HttpResponse = await sut.handle(request)
+        expect(response).toEqual(invalidParam('email'))
+    })
     test('should return email already in use', async () => {
         const { sut, collectionStub } = makeSut()
         jest.spyOn(collectionStub, 'findOne').mockImplementation(
@@ -76,6 +90,27 @@ describe('CreateAccount', () => {
         }
         const response: HttpResponse = await sut.handle(request)
         expect(response).toEqual(alreadyInUse('email'))
+    })
+    test('should return username already in use', async () => {
+        const { sut, collectionStub } = makeSut()
+        jest.spyOn(collectionStub, 'findOne').mockImplementation(
+            async (where: any) => {
+                if(where.username){
+                    return {}
+                }
+                return 
+            }
+        )
+        const request: HttpRequest = {
+            params: {
+                username: 'already-in-use-username',
+                email: 'valid-email',
+                password: 'valid-password'
+            },
+            body: {}
+        }
+        const response: HttpResponse = await sut.handle(request)
+        expect(response).toEqual(alreadyInUse('username'))
     })
     test('should return username already in use', async () => {
         const { sut, collectionStub } = makeSut()
