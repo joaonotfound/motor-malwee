@@ -1,6 +1,6 @@
 import * as fs from 'fs'
 import * as path from 'path'
-import { Controller } from '../../presentation/models/controller-model'
+import { Controller } from '@/presentation'
 
 export default (): Array<Controller>  => {
     const response: any = []

@@ -1,4 +1,4 @@
-import { HttpRequest } from "@/presentation/protocols";
+import { HttpRequest } from "@/presentation";
 import { Request } from "express";
 
 export function HttpRequestAdapter (request: Request): HttpRequest{
