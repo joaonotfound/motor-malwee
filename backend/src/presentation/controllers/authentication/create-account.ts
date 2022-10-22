@@ -29,14 +29,14 @@ export class CreateAccountController {
             return invalidParam('email')
         }
 
-        if(await this.isInUse({ email: params.email })){
-            return alreadyInUse('email')
-        }
-        
         if(await this.isInUse({ username: params.username })){
             return alreadyInUse('username')
         }
-        
+
+        if(await this.isInUse({ email: params.email })){
+            return alreadyInUse('email')
+        }
+                
         const account = {
             username: params.username,
             email: params.email,
