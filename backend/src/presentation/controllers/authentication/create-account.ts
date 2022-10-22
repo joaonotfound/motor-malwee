@@ -1,6 +1,7 @@
-import { missingParam, invalidParam, ok, HttpRequest, alreadyInUse } from "@/presentation";
+import { missingParam, invalidParam, ok, HttpRequest, alreadyInUse, Post } from "@/presentation";
 import { Repository, userEntity, EmailValidator, Encrypter, TokenManager } from "@/domain";
 
+@Post('/auth/logon', 'public')
 export class CreateAccountController {
     constructor(
         private readonly emailValidator: EmailValidator,
@@ -23,7 +24,7 @@ export class CreateAccountController {
             }
         }
 
-        const validationEmail = await this.emailValidator.validate(request.body.email)
+        const validationEmail = await this.emailValidator.validate(params.email)
         if (!validationEmail.is_valid) {
             return invalidParam('email')
         }
