@@ -3,7 +3,7 @@ import { Request } from "express";
 
 export function HttpRequestAdapter (request: Request): HttpRequest{
     return {
-        params: request.params,
+        params: request.query,
         body: request.body
     }
 }
