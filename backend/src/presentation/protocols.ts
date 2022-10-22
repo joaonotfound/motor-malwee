@@ -2,6 +2,7 @@
 
 export interface HttpRequest<P=any, T=any>{
     params: P,
+    headers?: any,
     body: T
 }
 
