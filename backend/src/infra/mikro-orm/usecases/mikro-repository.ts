@@ -1,7 +1,7 @@
 import { Entity } from "@/domain/entities/entity-model";
-import { Repository } from "@/domain/repository";
-import { Collection } from "@/domain/repository";
-import { BaseEntity } from "./entities";
+import { Repository } from "@/domain/usecases/repository";
+import { Collection } from "@/domain/usecases/repository";
+import { BaseEntity } from "../entities";
 import { mikroHelper } from '@/infra/mikro-orm/helpers/mikro-helper'
 import { EntityManager, IDatabaseDriver, Connection } from '@mikro-orm/core'
 import { EntityRepository } from "@mikro-orm/mysql";

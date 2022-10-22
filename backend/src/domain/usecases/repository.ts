@@ -1,4 +1,4 @@
-import { Entity } from "./entities/entity-model";
+import { Entity } from "../entities/entity-model";
 
 export interface Collection<T>{ 
     find( where: Partial<T> | Partial<Entity> ): Promise<T[]>
