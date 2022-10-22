@@ -1,4 +1,4 @@
-import { HttpRequest, HttpResponse } from "@/presentation/protocols";
+import { HttpRequest, HttpResponse } from "@/presentation";
 import { Response, Request } from "express";
 import { HttpRequestAdapter } from "./http-request-adapter";
 

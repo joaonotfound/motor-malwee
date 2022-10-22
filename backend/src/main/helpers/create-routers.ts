@@ -1,7 +1,6 @@
-import { Controller } from "@/presentation/models/controller-model"
-import { HttpResponse, HttpRequest } from "@/presentation/protocols"
-import  { Router, Response } from "express"
-import { registerRoute } from "../config/register-route"
+import { Controller, HttpResponse, HttpRequest } from "@/presentation"
+import { Router, Response } from "express"
+import { registerRoute } from "../config"
 
 export function createRouters(...controllers: Array<Controller & { handle(_: any): Promise<HttpResponse> }> | any ): Router[] {
     const response: Router[] = []

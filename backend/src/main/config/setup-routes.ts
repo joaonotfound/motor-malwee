@@ -1,9 +1,9 @@
 import * as express from 'express'
 import { Router } from "express"
 
-import { MikroRepository } from '@/infra/mikro-orm/mikro-repository'
+import { MikroRepository } from '@/infra'
 import { entities } from '../entities'
-import Login from '@/presentation/controllers/get-auth-login'
+import { Login } from '@/presentation'
 import { createRouters } from '../helpers/create-routers'
 
 export async function setupRoutes(app: express.Application){

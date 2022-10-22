@@ -1,4 +1,4 @@
-import { PermissionLevel } from "../models/controller-model"
+import { PermissionLevel } from "../models"
 import { createTemplateDecorator } from "./create-template-decorator"
 
 const default_permission_level: PermissionLevel = 'private'

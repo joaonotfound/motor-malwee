@@ -1,6 +1,4 @@
-import { ControllerMethod } from "../models/controller-method"
-import { Controller } from "../models/controller-model"
-import { PermissionLevel } from "../models/controller-model"
+import { ControllerMethod, Controller, PermissionLevel } from "../models"
 
 export function createTemplateDecorator(url: string, method: ControllerMethod, permission_level: PermissionLevel) {
     return function wrapper(originalConstructor: any): any {

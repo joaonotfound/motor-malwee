@@ -1,10 +1,9 @@
 import { ok } from "../helpers/ok";
 import { Get } from "../decorators";
-import { Repository } from "@/domain/repository";
-import { userEntity } from "@/domain/entities/user-entity";
+import { Repository,  userEntity } from "@/domain";
 
 @Get('/auth/login', 'public')
-export default class Login {
+export class Login {
     constructor( private readonly repository: Repository ){}
 
     async handle(){

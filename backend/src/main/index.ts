@@ -1,4 +1,4 @@
-import { setupRoutes } from "./config/setup-routes";
+import { setupRoutes } from "./config";
 import { makeApp } from "./factory/app";
 
 async function main(){
