@@ -5,7 +5,7 @@ export interface Validation<T>{
 }
 
 type token = string
-export interface TokenManager<T=any>{
-    create(args: T): token,
-    validate(token: token): Validation<T>
+export interface TokenManager<T extends Object =any>{
+    create(args: T): Promise<token>,
+    validate(token: token): Promise<Validation<T>>
 }
