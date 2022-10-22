@@ -1,8 +1,25 @@
-import { EmailValidator } from "@/domain"
-import { missingParam, createRepositoryStub, alreadyInUse, invalidParam } from "@/presentation/helpers"
+import { EmailValidator, Encrypter, TokenManager, Validation } from "@/domain"
+import { missingParam, createRepositoryStub, alreadyInUse, invalidParam, ok } from "@/presentation/helpers"
 import { HttpRequest, HttpResponse } from "@/presentation/protocols"
 import { CreateAccountController } from "./create-account"
 
+const makeEncrpterStub = () => {
+    return new class EncrypterStub implements Encrypter {
+        async encrypt(_: string): Promise<string> {
+            return 'hashed_password'
+        }        
+    }
+}
+const makeTokenManagerStub = () => {
+    return new class TokenManagerStub implements TokenManager {
+        async generate(_: any): Promise<string> {
+            return 'token'
+        }
+        async validate(_: string): Promise<Validation<any>> {
+            return { is_valid: true, arguments: {} }
+        }        
+    }
+}
 const makeEmailValidatorStub = () => {
     class EmailValidatorStub implements EmailValidator {  
         async validate(_: string) {
@@ -14,9 +31,12 @@ const makeEmailValidatorStub = () => {
 
 const makeSut = () => {
     const emailValidatorStub = makeEmailValidatorStub()
+    const encrypterStub = makeEncrpterStub()
+    const tokenManagerStub = makeTokenManagerStub()
     const { collectionStub, repositoryStub } = createRepositoryStub()
-    const sut = new CreateAccountController(emailValidatorStub, repositoryStub)
-    return { sut, emailValidatorStub, repositoryStub, collectionStub }
+    
+    const sut = new CreateAccountController(emailValidatorStub, encrypterStub, repositoryStub, tokenManagerStub )
+    return { sut, emailValidatorStub, repositoryStub, collectionStub, encrypterStub, tokenManagerStub }
 }
 
 describe('CreateAccount', () => {
@@ -112,6 +132,7 @@ describe('CreateAccount', () => {
         const response: HttpResponse = await sut.handle(request)
         expect(response).toEqual(alreadyInUse('username'))
     })
+
     test('should return username already in use', async () => {
         const { sut, collectionStub } = makeSut()
         jest.spyOn(collectionStub, 'findOne').mockImplementation(
@@ -133,4 +154,26 @@ describe('CreateAccount', () => {
         const response: HttpResponse = await sut.handle(request)
         expect(response).toEqual(alreadyInUse('username'))
     })
+
+    test('should return 200 if the account was created.', async () => {
+        const { sut } = makeSut()
+        const request: HttpRequest = {
+            params: {
+                username: 'valid-username',
+                email: 'valid-email',
+                password: 'valid-password'
+            },
+            body: {}
+        }
+        const response = await sut.handle(request)
+        expect(response).toEqual(
+            ok({
+                created: true,
+                account: {
+                    username: 'valid-username',
+                    email: 'valid-email'
+                },
+                token: 'token'
+            })
+        )})
 })
