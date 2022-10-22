@@ -1,4 +1,4 @@
-import { missingParam, invalidParam, ok, HttpRequest, alreadyInUse, Post } from "@/presentation";
+import { invalidParam, ok, HttpRequest, alreadyInUse, Post, RequiredParams } from "@/presentation";
 import { Repository, userEntity, EmailValidator, Encrypter, TokenManager } from "@/domain";
 
 @Post('/auth/logon', 'public')
@@ -14,15 +14,9 @@ export class CreateAccountController {
         return await this.repository.collection(userEntity).findOne(where) ? true : false
     }
 
+    @RequiredParams('username', 'password', 'email')
     async handle(request: HttpRequest) {
         const params = request.params
-        const requiredFields = ['username', 'password', 'email']
-
-        for (const field of requiredFields) {
-            if (!params[field]) {
-                return missingParam(field)
-            }
-        }
 
         const validationEmail = await this.emailValidator.validate(params.email)
         if (!validationEmail.is_valid) {
