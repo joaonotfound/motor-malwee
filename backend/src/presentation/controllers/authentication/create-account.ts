@@ -10,7 +10,7 @@ export class CreateAccountController {
         private readonly tokenManager: TokenManager
     ){}
 
-    async isInUse(where: any): Promise<boolean> {
+    private async isInUse(where: any): Promise<boolean> {
         return await this.repository.collection(userEntity).findOne(where) ? true : false
     }
 
@@ -41,13 +41,14 @@ export class CreateAccountController {
             ...account, 
             password: await this.encrypter.encrypt(account.password)
         }
+        
         const response_account = {
             username: account.username,
             email: account.email
         }
-        const token = await this.tokenManager.generate(response_account)
 
         await this.repository.collection(userEntity).save(safe_account)
+        const token = await this.tokenManager.generate(response_account)
 
         return ok({ created: true, account: response_account, token })
     }
