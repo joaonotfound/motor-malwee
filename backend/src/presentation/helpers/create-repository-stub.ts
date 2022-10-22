@@ -12,9 +12,12 @@ class CollectionStub implements Collection<any> {
 }
     
 class RepositoryStub implements Repository {
-    collection(_: any){ return new CollectionStub() }    
+    constructor(private _collection: Collection<any>){}
+    collection(_: any){ return this._collection }    
 }
 
 export function createRepositoryStub() {
-    return new RepositoryStub()
+    const collectionStub = new CollectionStub()
+    const repositoryStub = new RepositoryStub(collectionStub)
+    return { collectionStub, repositoryStub }
 }
