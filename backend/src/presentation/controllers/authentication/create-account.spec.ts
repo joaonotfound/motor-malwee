@@ -43,11 +43,11 @@ describe('CreateAccount', () => {
     test('should return missing param if no email is provided', async () => {
         const { sut } = makeSut()
         const request: HttpRequest = {
-            params: {
+            body: {
                 username: 'valid-username',
                 password: 'valid-password'
             },
-            body: {}
+            params: {}
         }
         const response: HttpResponse = await sut.handle(request)
         expect(response).toEqual(missingParam('email'))
@@ -55,11 +55,11 @@ describe('CreateAccount', () => {
     test('should return missing param if no password is provided', async () => {
         const { sut } = makeSut()
         const request: HttpRequest = {
-            params: {
+            body: {
                 username: 'valid-username',
                 email: 'valid-email'
             },
-            body: {}
+            params: {}
         }
         const response: HttpResponse = await sut.handle(request)
         expect(response).toEqual(missingParam('password'))
@@ -67,11 +67,11 @@ describe('CreateAccount', () => {
     test('should return missing param if no email is provided', async () => {
         const { sut } = makeSut()
         const request: HttpRequest = {
-            params: {
+            body: {
                 email: 'valid-email',
                 password: 'valid-password'
             },
-            body: {}
+            params: {}
         }
         const response: HttpResponse = await sut.handle(request)
         expect(response).toEqual(missingParam('username'))
@@ -80,12 +80,12 @@ describe('CreateAccount', () => {
         const { sut, emailValidatorStub } = makeSut()
         jest.spyOn(emailValidatorStub, 'validate').mockResolvedValueOnce({ is_valid: false })
         const request: HttpRequest = {
-            params: {
+            body: {
                 username: 'valid-username',
                 email: 'invalid-email',
                 password: 'valid-password'
             },
-            body: {}
+            params: {}
         }
         const response: HttpResponse = await sut.handle(request)
         expect(response).toEqual(invalidParam('email'))
@@ -101,12 +101,12 @@ describe('CreateAccount', () => {
             }
         )
         const request: HttpRequest = {
-            params: {
+            body: {
                 username: 'valid-username',
                 email: 'already-in-use-email',
                 password: 'valid-password'
             },
-            body: {}
+            params: {}
         }
         const response: HttpResponse = await sut.handle(request)
         expect(response).toEqual(alreadyInUse('email'))
@@ -122,12 +122,12 @@ describe('CreateAccount', () => {
             }
         )
         const request: HttpRequest = {
-            params: {
+            body: {
                 username: 'already-in-use-username',
                 email: 'valid-email',
                 password: 'valid-password'
             },
-            body: {}
+            params: {}
         }
         const response: HttpResponse = await sut.handle(request)
         expect(response).toEqual(alreadyInUse('username'))
@@ -144,12 +144,12 @@ describe('CreateAccount', () => {
             }
         )
         const request: HttpRequest = {
-            params: {
+            body: {
                 username: 'already-in-use-username',
                 email: 'valid-email',
                 password: 'valid-password'
             },
-            body: {}
+            params: {}
         }
         const response: HttpResponse = await sut.handle(request)
         expect(response).toEqual(alreadyInUse('username'))
@@ -158,12 +158,12 @@ describe('CreateAccount', () => {
     test('should return 200 if the account was created.', async () => {
         const { sut } = makeSut()
         const request: HttpRequest = {
-            params: {
+            body: {
                 username: 'valid-username',
                 email: 'valid-email',
                 password: 'valid-password'
             },
-            body: {}
+            params: {}
         }
         const response = await sut.handle(request)
         expect(response).toEqual(

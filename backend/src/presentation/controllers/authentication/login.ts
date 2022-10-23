@@ -14,7 +14,7 @@ export class LoginController {
 
     @RequiredParams('email', 'password')
     async handle(request: HttpRequest){
-        const { email, password } = request.params
+        const { email, password } = request.body
         
         const validation = await this.emailValidator.validate(email)
         if(!validation.is_valid){

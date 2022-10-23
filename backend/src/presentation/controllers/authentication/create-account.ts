@@ -16,35 +16,32 @@ export class CreateAccountController {
 
     @RequiredParams('username', 'password', 'email')
     async handle(request: HttpRequest) {
-        const params = request.params
+        const { email, password, username } = request.body
 
-        const validationEmail = await this.emailValidator.validate(params.email)
+        const validationEmail = await this.emailValidator.validate(email)
         if (!validationEmail.is_valid) {
             return invalidParam('email')
         }
 
-        if(await this.isInUse({ username: params.username })){
+        if(await this.isInUse({ username })){
             return alreadyInUse('username')
         }
 
-        if(await this.isInUse({ email: params.email })){
+        if(await this.isInUse({ email })){
             return alreadyInUse('email')
         }
                 
         const account = {
-            username: params.username,
-            email: params.email,
-            password: params.password
+            username, email, password
         }
 
         const safe_account = {
             ...account, 
-            password: await this.encrypter.encrypt(account.password)
+            password: await this.encrypter.encrypt(password)
         }
         
         const response_account = {
-            username: account.username,
-            email: account.email
+            username, email
         }
 
         await this.repository.collection(userEntity).save(safe_account)
