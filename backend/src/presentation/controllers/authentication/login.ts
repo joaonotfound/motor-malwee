@@ -1,4 +1,4 @@
-import { EmailValidator, Encrypter, Repository, userEntity } from "@/domain";
+import { EmailValidator, Encrypter, Repository, TokenManager, userEntity } from "@/domain";
 import { Get, RequiredParams } from "@/presentation/decorators";
 import { invalidCredentials, invalidParam, ok } from "@/presentation/helpers";
 import { HttpRequest } from "@/presentation/protocols";
@@ -8,7 +8,8 @@ export class LoginController {
     constructor(
         private readonly emailValidator: EmailValidator,
         private readonly repository: Repository,
-        private readonly encrypter: Encrypter
+        private readonly encrypter: Encrypter,
+        private readonly tokenManager: TokenManager
     ){}
 
     @RequiredParams('email', 'password')
@@ -21,12 +22,17 @@ export class LoginController {
         }
         
         const safe_password = await this.encrypter.encrypt(password)
-        const possible_user = await this.repository.collection(userEntity).findOne({ email, password: safe_password })
+        const account = await this.repository.collection(userEntity).findOne({ email, password: safe_password })
 
-        if(!possible_user){
+        if(!account){
             return invalidCredentials()
         }
-
-        return ok({ message: 'login succesfully'})
+        const response = {
+            username: account.username,
+            password: account.password
+        }        
+        const token = await this.tokenManager.generate(response)
+        
+        return ok({ token, account })
     }
 }

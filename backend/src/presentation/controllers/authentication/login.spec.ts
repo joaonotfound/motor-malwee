@@ -1,7 +1,7 @@
-import { missingParam, invalidParam, invalidCredentials } from "@/presentation/helpers"
+import { missingParam, invalidParam, invalidCredentials, ok } from "@/presentation/helpers"
 import { HttpRequest } from "@/presentation/protocols"
 import { LoginController } from "./login"
-import { EmailValidator, Encrypter } from "@/domain"
+import { EmailValidator, Encrypter, TokenManager, Validation } from "@/domain"
 import { createRepositoryStub } from '../../helpers/create-repository-stub'
 
 const makeEncrpterStub = () => {
@@ -19,13 +19,23 @@ const makeEmailValidatorStub = () => {
     }
     return new EmailValidatorStub()
 }
-
+const makeTokenManagerStub = () => {
+    return new class TokenManagerStub implements TokenManager {
+        async generate(_: any): Promise<string> {
+            return 'token'
+        }
+        async validate(_: string): Promise<Validation<any>> {
+            return { is_valid: true, arguments: {} }
+        }        
+    }
+}
 const makeSut = () => {
     const emailValidator = makeEmailValidatorStub()
     const encrypterStub = makeEncrpterStub()
+    const tokenManagerStub = makeTokenManagerStub()
     const { repositoryStub, collectionStub } = createRepositoryStub()
-    const sut = new LoginController(emailValidator, repositoryStub, encrypterStub)
-    return { sut, emailValidator, encrypterStub, repositoryStub, collectionStub }
+    const sut = new LoginController(emailValidator, repositoryStub, encrypterStub, tokenManagerStub )
+    return { sut, emailValidator, encrypterStub, repositoryStub, collectionStub, tokenManagerStub }
 }
 
 describe('Login Controller', () => {
@@ -71,8 +81,7 @@ describe('Login Controller', () => {
             async (_) => {
                 return null
             }
-        )
-        
+        )        
         const request: HttpRequest = {
             params: {
                 email: 'invalid-email',
@@ -82,5 +91,25 @@ describe('Login Controller', () => {
         }        
         const response = await sut.handle(request)
         expect(response).toEqual(invalidCredentials())
+    })
+
+    test('should return 200 if valid credentials', async () => {
+        const { sut, collectionStub } = makeSut()
+        jest.spyOn(collectionStub, 'findOne').mockImplementationOnce(
+            async () => ({ username: 'valid-username', email: 'valid-email'})
+        )
+        const request: HttpRequest = {
+            params: {
+                email: 'valid-email',
+                password: 'valid-password'
+            },
+            body: {}
+        }     
+        const response = await sut.handle(request)
+        expect(response).toEqual(
+            ok({
+                account: { username: 'valid-username', email: "valid-email" },
+                token: 'token'
+            }))
     })
 })
