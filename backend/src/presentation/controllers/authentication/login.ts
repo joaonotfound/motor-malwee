@@ -3,7 +3,7 @@ import { Get, RequiredParams } from "@/presentation/decorators";
 import { invalidCredentials, invalidParam, ok } from "@/presentation/helpers";
 import { HttpRequest } from "@/presentation/protocols";
 
-@Get('/auth/login')
+@Get('/auth/logon', 'public')
 export class LoginController {
     constructor(
         private readonly emailValidator: EmailValidator,
