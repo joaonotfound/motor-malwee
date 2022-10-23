@@ -29,10 +29,10 @@ export class LoginController {
         }
         const response = {
             username: account.username,
-            password: account.password
+            email: account.email
         }        
         const token = await this.tokenManager.generate(response)
         
-        return ok({ token, account })
+        return ok({ token, account: response })
     }
 }
