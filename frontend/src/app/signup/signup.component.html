@@ -1,0 +1,29 @@
+<form [formGroup]="form" class="form">    
+    <div class="form-header">
+        <logo></logo>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Usuário</mat-label>
+      <input matInput placeholder="Usuário" formControlName="username" required> 
+      <mat-error *ngIf="form.controls['username'].invalid">Usuário inválido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="email" formControlName="email" required>
+        <mat-error *ngIf="form.controls['email'].invalid">Email inválido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Digite sua senha</mat-label>
+      <input matInput type="password" formControlName="password" required>
+      <mat-error *ngIf="form.controls['password'].invalid">Senha inválida</mat-error>
+    </mat-form-field>
+
+    <div class="form-actions">
+        <a routerLink="/login">Já tem uma conta? </a>
+        <button mat-raised-button color="primary" (click)="signup()">Cadastrar</button>
+    </div>    
+
+  </form>
