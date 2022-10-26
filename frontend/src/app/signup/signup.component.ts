@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms'
+import { Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class SignupComponent implements OnInit {
 
   constructor( 
     private readonly fb: FormBuilder,
-    private readonly auth: AuthenticationService
+    private readonly auth: AuthenticationService,
+    private readonly router: Router
   ) { }
 
   createForm() {
@@ -35,6 +37,9 @@ export class SignupComponent implements OnInit {
     const email = this.form.get('email')?.value
     const password = this.form.get('password')?.value
     
-    this.auth.signup(username, email, password)
+    const success = await this.auth.signup(username, email, password)
+    if(success){
+      this.router.navigateByUrl('/home')
+    }
   }
 }

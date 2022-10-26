@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {  Validators, FormGroup, FormBuilder } from '@angular/forms'
+import { Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private readonly fb: FormBuilder,
-    private readonly auth: AuthenticationService
+    private readonly auth: AuthenticationService,
+    private readonly router: Router
   ) { }
 
   ngOnInit(): void {}
@@ -28,12 +30,15 @@ export class LoginComponent implements OnInit {
     }) 
   }
 
-  login(){
+  async login(){
     if(this.form.invalid) return
 
     const username = this.form.get('email')?.value
     const password = this.form.get('password')?.value
-    
-    this.auth.login(username, password)
+
+    const success = await this.auth.login(username, password)
+    if(success){
+      this.router.navigateByUrl('/home')
+    }
   }
 }
