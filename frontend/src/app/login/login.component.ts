@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {  Validators, FormGroup, FormBuilder } from '@angular/forms'
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit {
   saveCredentials: any  = ''
 
   constructor(
-    private readonly fb: FormBuilder
+    private readonly fb: FormBuilder,
+    private readonly auth: AuthenticationService
   ) { }
 
   ngOnInit(): void {}
@@ -27,14 +29,11 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    if(this.form.invalid){
-      alert(`Insira um usuário e senha válidos`)
-      return;
-    }
+    if(this.form.invalid) return
 
-    const username = this.form.get('username')
-    const password = this.form.get('password')
+    const username = this.form.get('email')?.value
+    const password = this.form.get('password')?.value
     
-    console.log('authenticando...')
+    this.auth.login(username, password)
   }
 }
