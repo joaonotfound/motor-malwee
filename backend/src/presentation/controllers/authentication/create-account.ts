@@ -1,7 +1,7 @@
-import { invalidParam, ok, HttpRequest, alreadyInUse, Post, RequiredParams } from "@/presentation";
+import { invalidParam, ok, HttpRequest, alreadyInUse, Put, RequiredParams } from "@/presentation";
 import { Repository, userEntity, EmailValidator, Encrypter, TokenManager } from "@/domain";
 
-@Post('/auth/logon', 'public')
+@Put('/auth/logon', 'public')
 export class CreateAccountController {
     constructor(
         private readonly emailValidator: EmailValidator,

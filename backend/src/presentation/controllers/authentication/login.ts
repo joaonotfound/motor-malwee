@@ -1,9 +1,9 @@
 import { EmailValidator, Encrypter, Repository, TokenManager, userEntity } from "@/domain";
-import { Get, RequiredParams } from "@/presentation/decorators";
+import { Post, RequiredParams } from "@/presentation/decorators";
 import { invalidCredentials, invalidParam, ok } from "@/presentation/helpers";
 import { HttpRequest } from "@/presentation/protocols";
 
-@Get('/auth/logon', 'public')
+@Post('/auth/logon', 'public')
 export class LoginController {
     constructor(
         private readonly emailValidator: EmailValidator,
@@ -15,7 +15,6 @@ export class LoginController {
     @RequiredParams('email', 'password')
     async handle(request: HttpRequest){
         const { email, password } = request.body
-        
         const validation = await this.emailValidator.validate(email)
         if(!validation.is_valid){
             return invalidParam('email')
