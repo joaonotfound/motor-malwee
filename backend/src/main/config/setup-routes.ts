@@ -5,6 +5,7 @@ import { JWTTokenManager, MD5Encrypter, MikroRepository, ValidatorEmail} from '@
 import { CreateAccountController, LoginController, PrivateController } from '@/presentation'
 import { entities } from '../entities'
 import { createRouters } from '../helpers'
+import { CreateGroupController } from '@/presentation/controllers/groups/create-group'
 
 export async function setupRoutes(app: express.Application){
 
@@ -16,8 +17,9 @@ export async function setupRoutes(app: express.Application){
     const createAccountController = new CreateAccountController(emailValidator, md5Encrypter, repository, jwtTokenManager)
     const privateController = new PrivateController()
     const loginController = new LoginController(emailValidator, repository, md5Encrypter, jwtTokenManager)
+    const createGroupController = new CreateGroupController(repository)
 
-    const routers = createRouters(jwtTokenManager, createAccountController, privateController, loginController)        
+    const routers = createRouters(jwtTokenManager, createAccountController, privateController, loginController, createGroupController)        
 
     routers.forEach((router: Router) => {
         app.use(router)    
