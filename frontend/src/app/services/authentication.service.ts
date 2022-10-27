@@ -7,8 +7,13 @@ import axios from 'axios'
 export class AuthenticationService {
 
   private readonly http = axios.create({ baseURL: 'http://localhost:5000/auth/logon' })
+  private token: string = ''
 
   constructor() { }
+
+  public getToken(): string {
+    return this.token
+  }
 
   async login(email: string, password: string) {
     const body = { email, password }
@@ -16,6 +21,7 @@ export class AuthenticationService {
     const response = await this.http.post('', body)
 
     if (response.data.token) {
+      this.token = response.data.token
       return true      
     }
     return
@@ -27,6 +33,7 @@ export class AuthenticationService {
     const response = await this.http.put('', body)
 
     if (response.data.token) {
+      this.token = response.data.token
       return true
     }
     return false
