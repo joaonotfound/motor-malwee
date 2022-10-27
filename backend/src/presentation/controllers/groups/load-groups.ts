@@ -1,8 +1,8 @@
 import { groupEntity, Repository } from "@/domain";
 import { Get } from "@/presentation/decorators";
-import { ok } from "@/presentation/helpers";
+import { ok, safeGroups } from "@/presentation/helpers";
 
-@Get('/groups')
+@Get('/groups', 'public')
 export class LoadGroupsController {
     constructor(
         private readonly repository: Repository
@@ -10,6 +10,6 @@ export class LoadGroupsController {
 
     async handle(){
         const groups = await this.repository.collection(groupEntity).find({})
-        return ok(groups)
+        return ok({ groups: safeGroups(groups) })
     }
 }

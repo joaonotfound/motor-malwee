@@ -21,6 +21,6 @@ describe('LoadGroupController', () => {
         const { sut } = makeSut()       
 
         const response = await sut.handle()
-        expect(response).toEqual(ok([]))        
+        expect(response).toEqual(ok({ groups: [] }))        
     })
 })
