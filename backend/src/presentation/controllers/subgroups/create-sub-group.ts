@@ -4,7 +4,7 @@ import { HttpRequest } from "@/presentation/protocols";
 
 @Post('/subgroups')
 export class CreateSubGroupController {
-    @RequiredParams('description')
+    @RequiredParams('description', 'group')
     async handle(_: HttpRequest){
         
     }
