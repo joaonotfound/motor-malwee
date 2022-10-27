@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
 
     const success = await this.auth.login(username, password)
     if(success){
-      this.router.navigateByUrl('/home')
+      this.router.navigateByUrl('/dashboard')
     }
   }
 }

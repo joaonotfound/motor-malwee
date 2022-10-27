@@ -39,7 +39,7 @@ export class SignupComponent implements OnInit {
     
     const success = await this.auth.signup(username, email, password)
     if(success){
-      this.router.navigateByUrl('/home')
+      this.router.navigateByUrl('/dashboard')
     }
   }
 }
