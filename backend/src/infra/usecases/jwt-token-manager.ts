@@ -5,7 +5,7 @@ export class JWTTokenManager<T extends Object> implements TokenManager<T>{
     private readonly JWT_SECRET = process.env.JWT_SECRET || "the-most-secret-key"
 
     async generate(args: T): Promise<string>{
-        return jwt.sign(args, this.JWT_SECRET, { expiresIn: 300 })
+        return jwt.sign(args, this.JWT_SECRET, { expiresIn: '1d' })
     }
 
     validate(token: string): Promise<Validation<T>> {               
