@@ -2,7 +2,7 @@ import { Entity, Collection, Repository } from "@/domain"
 
 class CollectionStub implements Collection<any> {
     async find(_: Partial<Entity> | Partial<any>): Promise<any> {
-        return ''
+        return []
     }
     async findOne(_: Partial<Entity> | Partial<any>): Promise<any> {
         return ''

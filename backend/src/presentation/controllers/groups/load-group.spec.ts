@@ -1,4 +1,4 @@
-import { createRepositoryStub } from "@/presentation/helpers"
+import { createRepositoryStub, ok } from "@/presentation/helpers"
 import { LoadGroupsController } from "./load-groups"
 
 const makeSut = () => {
@@ -16,5 +16,11 @@ describe('LoadGroupController', () => {
         await sut.handle()
         expect(findSpy).toHaveBeenCalledWith({})
 
+    })
+    it('should return groups', async () => {
+        const { sut } = makeSut()       
+
+        const response = await sut.handle()
+        expect(response).toEqual(ok([]))        
     })
 })
