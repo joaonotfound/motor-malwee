@@ -1,4 +1,4 @@
-import { alreadyInUse, missingParam } from "@/presentation/helpers";
+import { alreadyInUse, missingParam, ok } from "@/presentation/helpers";
 import { HttpRequest } from "@/presentation/protocols";
 import { CreateGroupController } from "./create-group";
 import { createRepositoryStub } from "@/presentation/helpers";
@@ -44,5 +44,16 @@ describe('Create Group', () => {
         }
         await sut.handle(request)
         expect(saveSpy).toHaveBeenCalledWith({ description: 'valid-description' })        
+    })
+    it('should return 200 if the group was created', async () => {
+        const { sut } = makeSut()
+        const request: HttpRequest = {
+            body: {
+                description: "valid-description"
+            },
+            params: {}
+        }
+        const response = await sut.handle(request)
+        expect(response).toEqual(ok({ created: true }))
     })
 })
