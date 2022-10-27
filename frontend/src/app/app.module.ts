@@ -10,11 +10,10 @@ import { MatButtonModule } from '@angular/material/button'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input'
 import { MatIconModule } from '@angular/material/icon';
-import { LogoComponent } from './logo/logo.component';
+import { LogoComponent } from './components/logo/logo.component';
 import { SignupComponent } from './signup/signup.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { HeaderComponent } from './header/header.component';
-import { SidebarComponent } from './sidebar/sidebar.component'
+import { HeaderComponent } from './components/header/header.component';
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { MatListModule } from '@angular/material/list'
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -28,7 +27,6 @@ import { GroupsComponent } from './groups/groups.component'
     SignupComponent,
     DashboardComponent,
     HeaderComponent,
-    SidebarComponent,
     GroupsComponent
   ],
   imports: [
