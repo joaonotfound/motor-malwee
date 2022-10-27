@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Column } from '../components/table/table.component';
 import { CreateGroupModalComponent } from '../modals/create-group-modal/create-group-modal.component';
-import { Groups, GroupsService } from '../services/rests/groups.service';
+import { Group, Groups, GroupsService } from '../services/rests/groups.service';
 
 @Component({
   selector: 'app-groups',
@@ -20,6 +20,12 @@ export class GroupsComponent implements OnInit {
   ) {
     this.groupsService.groups.subscribe(groups => this.groups = groups )
     this.groupsService.loadGroups()
+  }
+  openEditModal(group: Group) {
+    console.log(group)
+  }
+  filter(query: string){
+    console.log(query)
   }
   openCreateModal(){
     const dialogRef = this.dialog.open(CreateGroupModalComponent)
