@@ -17,7 +17,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { MatListModule } from '@angular/material/list'
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { GroupsComponent } from './groups/groups.component'
+import { GroupsComponent } from './groups/groups.component';
+import { TableComponent } from './components/table/table.component'
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { GroupsComponent } from './groups/groups.component'
     SignupComponent,
     DashboardComponent,
     HeaderComponent,
-    GroupsComponent
+    GroupsComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,
