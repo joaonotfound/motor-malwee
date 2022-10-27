@@ -19,6 +19,9 @@ import { MatListModule } from '@angular/material/list'
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { GroupsComponent } from './groups/groups.component';
 import { TableComponent } from './components/table/table.component'
+import { MatTableModule } from '@angular/material/table';
+import { CreateGroupModalComponent } from './modals/create-group-modal/create-group-modal.component'
+import { MatDialogModule } from '@angular/material/dialog'
 
 @NgModule({
   declarations: [
@@ -29,7 +32,8 @@ import { TableComponent } from './components/table/table.component'
     DashboardComponent,
     HeaderComponent,
     GroupsComponent,
-    TableComponent
+    TableComponent,
+    CreateGroupModalComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +47,9 @@ import { TableComponent } from './components/table/table.component'
     MatIconModule,
     MatSidenavModule,
     MatListModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatTableModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
