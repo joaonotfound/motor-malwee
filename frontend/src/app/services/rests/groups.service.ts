@@ -3,7 +3,8 @@ import { Subject } from 'rxjs';
 import { createAxios } from 'src/helpers/create-axios';
 import { AuthenticationService } from '../authentication.service';
 
-export type Groups = Array<{ description: string }>
+export type Group = { description: string }
+export type Groups = Array<Group>
 
 @Injectable({
   providedIn: 'root'
@@ -19,9 +20,17 @@ export class GroupsService {
     return this._groups.asObservable()
   }
 
+  public async createGroup(group: Group): Promise<boolean> {
+    const axios = createAxios(this.auth.getToken())
+    const response = await axios.post('/groups', group)
+    if(response.data.created){
+      return true
+    }
+    return false
+  }
+
   public async loadGroups(){
     const axios = createAxios(this.auth.getToken())  
-
     const response = await axios.get('/groups')
     const groups = response.data.groups
     if(groups){
