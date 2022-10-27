@@ -19,4 +19,15 @@ describe('CreateSubGroupController', () => {
         const response = await sut.handle(request)
         expect(response).toEqual(missingParam('description'))
     })
+    it('should return 400 if no group is provided', async () => {
+        const { sut } = makeSut()
+        const request: HttpRequest = {
+            body: {
+                description: 'valid-description'
+            },
+            params: {}
+        }
+        const response = await sut.handle(request)
+        expect(response).toEqual(missingParam('group'))
+    })
 })
