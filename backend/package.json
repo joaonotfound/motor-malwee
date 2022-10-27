@@ -30,8 +30,8 @@
     "test:integration": "npm test -- --watch -c jest-integration-config.js",
     "test:staged": "jest --passWithNoTests --findRelatedTests",
     "test:ci": "npm test -- --coverage",
-    "start": "rm -rf ./dist && npm run build && tsc-alias && node ./dist/main/index.js",
-    "build": "tsc"
+    "start": "rm -rf ./dist && npm run build && node ./dist/main/index.js",
+    "build": "tsc &&  tsc-alias"
   },
   "mikro-orm": {
     "useTsNode": true,
