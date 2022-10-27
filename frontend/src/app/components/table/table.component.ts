@@ -8,16 +8,25 @@ export type Column = { columnName: string, propertyName: string }
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit {
-  @Input() contentName: string = ''
-  @Output() onCreate = new EventEmitter()
+  filter: string = ''
+  @Input() contentName: string = ''  
   @Input() columns: Column[] = []
   @Input() data: any = []
+
+  @Output() onCreate = new EventEmitter()
+  @Output() onEdit = new EventEmitter()
+  @Output() onFilter = new EventEmitter()
+
   constructor() { }
 
   getDisplayedColumns(){
-    return this.columns.map(column => column.propertyName)
+    return [...this.columns.map(column => column.propertyName), '_options']
   }
+
+  selectedRow(row: any){
+    console.log(row)
+  }
+
   ngOnInit(): void {
-  
   }
 }

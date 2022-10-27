@@ -1,17 +1,30 @@
-
-<div class="table-container">
-    <div class="table-header">
-        <button mat-raised-button color="primary" (click)="onCreate.emit()">
-            Criar grupo
-        </button>
-    </div>
-    <table mat-table [dataSource]="data" class="mat-elevation-z3">
-        <ng-container *ngFor="let column of columns" matColumnDef="{{column.propertyName}}">
-            <th mat-header-cell *matHeaderCellDef>{{column.columnName}}</th>
-            <mat-cell *matCellDef="let element"> {{element.description}}</mat-cell>
-        </ng-container>
-        
-        <tr mat-header-row *matHeaderRowDef="getDisplayedColumns()"></tr>
-        <mat-row *matRowDef="let row; columns: getDisplayedColumns();"></mat-row>    
-    </table>
-</div>
+<mat-card class="table-container">
+    <mat-card-content>
+        <div class="header">
+            <mat-form-field class="example-form-field table-header" style="margin-bottom: -1.25em" appearance="outline">
+                <input matInput type="text" placeholder="Filtrar" [(ngModel)]="filter" (ngModelChange)="onFilter.emit(filter)" />
+            </mat-form-field>
+            <button mat-mini-fab color="primary" (click)="onCreate.emit()">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+        <mat-table [dataSource]="data">
+            <ng-container *ngFor="let column of columns" matColumnDef="{{column.propertyName}}">
+                <mat-header-cell *matHeaderCellDef>{{column.columnName}}</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.description}}</mat-cell>
+            </ng-container>
+            
+            <ng-container matColumnDef="_options">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell mat-cell *matCellDef="let element">
+                    <button mat-icon-button (click)="onEdit.emit(element)">
+                        <mat-icon>edit</mat-icon>
+                    </button>                    
+                </mat-cell>
+            </ng-container>
+            
+            <mat-header-row *matHeaderRowDef="getDisplayedColumns()"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: getDisplayedColumns();"></mat-row>
+        </mat-table>
+    </mat-card-content>
+</mat-card>

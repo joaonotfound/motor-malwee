@@ -22,6 +22,7 @@ import { TableComponent } from './components/table/table.component'
 import { MatTableModule } from '@angular/material/table';
 import { CreateGroupModalComponent } from './modals/create-group-modal/create-group-modal.component'
 import { MatDialogModule } from '@angular/material/dialog'
+import { MatCardModule } from '@angular/material/card'
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { MatDialogModule } from '@angular/material/dialog'
     MatListModule,
     MatToolbarModule,
     MatTableModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
