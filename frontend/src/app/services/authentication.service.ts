@@ -9,7 +9,21 @@ export class AuthenticationService {
   private readonly http = axios.create({ baseURL: 'http://localhost:5000/auth/logon' })
   private token: string = ''
 
-  constructor() { }
+  constructor() {
+    this.loadLocalToken()    
+  }
+
+  loadLocalToken(){
+    const token = localStorage.getItem('authentication-token')
+    if(token != null){
+      this.token = token
+    }
+    
+  }
+
+  saveLocalToken(token: string){
+    localStorage.setItem('authentication-token', token)
+  }
 
   public getToken(): string {
     return this.token
@@ -22,6 +36,7 @@ export class AuthenticationService {
 
     if (response.data.token) {
       this.token = response.data.token
+      this.saveLocalToken(response.data.token)
       return true      
     }
     return
@@ -34,6 +49,7 @@ export class AuthenticationService {
 
     if (response.data.token) {
       this.token = response.data.token
+      this.saveLocalToken(response.data.token)
       return true
     }
     return false
