@@ -1,1 +1,17 @@
-<p>table works!</p>
+
+<div class="table-container">
+    <div class="table-header">
+        <button mat-raised-button color="primary" (click)="onCreate.emit()">
+            Criar grupo
+        </button>
+    </div>
+    <table mat-table [dataSource]="data" class="mat-elevation-z3">
+        <ng-container *ngFor="let column of columns" matColumnDef="{{column.propertyName}}">
+            <th mat-header-cell *matHeaderCellDef>{{column.columnName}}</th>
+            <mat-cell *matCellDef="let element"> {{element.description}}</mat-cell>
+        </ng-container>
+        
+        <tr mat-header-row *matHeaderRowDef="getDisplayedColumns()"></tr>
+        <mat-row *matRowDef="let row; columns: getDisplayedColumns();"></mat-row>    
+    </table>
+</div>
