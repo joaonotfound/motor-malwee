@@ -3,7 +3,7 @@ import { Post, RequiredParams } from "@/presentation/decorators";
 import { alreadyInUse, ok } from "@/presentation/helpers";
 import { HttpRequest } from "@/presentation/protocols";
 
-@Post('/groups', 'public')
+@Post('/groups')
 export class CreateGroupController {
     constructor(
         private readonly repository: Repository

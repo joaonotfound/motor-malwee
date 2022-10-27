@@ -2,7 +2,7 @@ import { groupEntity, Repository } from "@/domain";
 import { Get } from "@/presentation/decorators";
 import { ok, safeGroups } from "@/presentation/helpers";
 
-@Get('/groups', 'public')
+@Get('/groups')
 export class LoadGroupsController {
     constructor(
         private readonly repository: Repository
