@@ -6,6 +6,7 @@ import { CreateAccountController, LoginController, PrivateController } from '@/p
 import { entities } from '../entities'
 import { createRouters } from '../helpers'
 import { CreateGroupController } from '@/presentation/controllers/groups/create-group'
+import { LoadGroupsController } from '@/presentation/controllers/groups'
 
 export async function setupRoutes(app: express.Application){
 
@@ -17,9 +18,11 @@ export async function setupRoutes(app: express.Application){
     const createAccountController = new CreateAccountController(emailValidator, md5Encrypter, repository, jwtTokenManager)
     const privateController = new PrivateController()
     const loginController = new LoginController(emailValidator, repository, md5Encrypter, jwtTokenManager)
-    const createGroupController = new CreateGroupController(repository)
 
-    const routers = createRouters(jwtTokenManager, createAccountController, privateController, loginController, createGroupController)        
+    const createGroupController = new CreateGroupController(repository)
+    const loadGroupsController = new LoadGroupsController(repository)
+
+    const routers = createRouters(jwtTokenManager, createAccountController, privateController, loginController, createGroupController, loadGroupsController)        
 
     routers.forEach((router: Router) => {
         app.use(router)    
