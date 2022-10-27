@@ -32,4 +32,17 @@ describe('Create Group', () => {
         const response = await sut.handle(request)
         expect(response).toEqual(alreadyInUse('description'))
     })
+    it('should create the group',async () => {
+        const { sut, collectionStub } = makeSut()
+        const saveSpy = jest.spyOn(collectionStub, 'save')
+
+        const request: HttpRequest = {
+            body: {
+                description: "valid-description"
+            },
+            params: {}
+        }
+        await sut.handle(request)
+        expect(saveSpy).toHaveBeenCalledWith({ description: 'valid-description' })        
+    })
 })
