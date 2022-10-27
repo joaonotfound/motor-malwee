@@ -20,6 +20,6 @@ export class CreateGroupController {
 
         await this.repository.collection(groupEntity).save({ description })        
 
-        return ok(await this.repository.collection(groupEntity).find({}))
+        return ok({ created: true })
     }
 }
