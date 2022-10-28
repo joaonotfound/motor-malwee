@@ -9,15 +9,15 @@ export class EditGroupController {
         private readonly repository: Repository
     ){}
 
-    @RequiredParams(['description'], { on: 'body'})
+    @RequiredParams(['group', 'new_group'], { on: 'body'})
     async handle(request: HttpRequest){
-        const { description } = request.body
-        const match_group = await this.repository.collection(groupEntity).findOne({ description })
+        const { group, new_group } = request.body
+        const match_group = await this.repository.collection(groupEntity).findOne({ description: group })
         if(!match_group){
-            return invalidParam('description')
+            return invalidParam('group')
         }
 
-        const newGroup = Object.assign({}, match_group, request.body)
+        const newGroup = Object.assign({}, match_group, new_group)
         await this.repository.collection(groupEntity).update(newGroup)
         
         return ok({ edited: true })

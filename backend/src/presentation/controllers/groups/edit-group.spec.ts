@@ -8,14 +8,16 @@ const makeSut = () => {
     return { sut, repositoryStub, collectionStub }    
 }
 describe('EditGroupController', () => {
-    it('should return 400 if no description was provided', async () => {
+    it('should return 400 if no group was provided', async () => {
         const { sut } = makeSut()
         const request: HttpRequest = {
             params: {},
-            body: {}
+            body: {
+                new_group: {}
+            }
         }
         const response = await sut.handle(request)
-        expect(response).toEqual(missingParam('description'))
+        expect(response).toEqual(missingParam('group'))
     })
     it('should return 200 if the group was edited', async () => {
         const { sut, collectionStub } = makeSut()
@@ -23,23 +25,25 @@ describe('EditGroupController', () => {
         const request: HttpRequest = {
             params: {},
             body: {
-                description: 'valid-description'
+                group: "valid-group",
+                new_group: {}
             }
         }
         const response = await sut.handle(request)
         expect(response).toEqual(ok({ edited: true }))
     })
-    it('should return 400 if no group doesnt exist', async () => {
+    it('should return 400 if  group doesnt exist', async () => {
         const { sut, collectionStub } = makeSut()
         jest.spyOn(collectionStub, 'findOne').mockResolvedValueOnce(false)
 
         const request: HttpRequest = {
             params: {},
             body: {
-                description: 'invalid-description'
+                group: 'valid-group',
+                new_group: {}
             }
         }
         const response = await sut.handle(request)
-        expect(response).toEqual(invalidParam('description'))
+        expect(response).toEqual(invalidParam('group'))
     })
 })
