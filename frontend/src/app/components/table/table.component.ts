@@ -12,15 +12,21 @@ export class TableComponent implements OnInit {
   @Input() contentName: string = ''  
   @Input() columns: Column[] = []
   @Input() data: any = []
-
+  
   @Output() onCreate = new EventEmitter()
   @Output() onEdit = new EventEmitter()
   @Output() onFilter = new EventEmitter()
 
-  constructor() { }
+  constructor() {
+    console.log(this.onFilter)
+  }
 
   getDisplayedColumns(){
-    return [...this.columns.map(column => column.propertyName), '_options']
+    const response = [...this.columns.map(column => column.propertyName)]
+    if(this.onEdit.observers.length != 0){
+      response.push('_options')
+    }
+    return response
   }
 
   selectedRow(row: any){

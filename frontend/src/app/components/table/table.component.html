@@ -1,10 +1,12 @@
-<mat-card class="table-container">
+<mat-card>
     <mat-card-content>
         <div class="header">
-            <mat-form-field class="example-form-field table-header" style="margin-bottom: -1.25em" appearance="outline">
-                <input matInput type="text" placeholder="Filtrar" [(ngModel)]="filter" (ngModelChange)="onFilter.emit(filter)" />
+            <mat-form-field *ngIf="onFilter.observers.length!=0" class="example-form-field table-header"
+                style="margin-bottom: -1.25em" appearance="outline">
+                <input matInput type="text" placeholder="Filtrar" [(ngModel)]="filter"
+                    (ngModelChange)="onFilter.emit(filter)" />
             </mat-form-field>
-            <button mat-mini-fab color="primary" (click)="onCreate.emit()">
+            <button *ngIf="onCreate.observers.length!=0" mat-mini-fab color="primary" (click)="onCreate.emit()">
                 <mat-icon>add</mat-icon>
             </button>
         </div>
