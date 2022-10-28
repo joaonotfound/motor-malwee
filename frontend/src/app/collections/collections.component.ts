@@ -3,6 +3,7 @@ import { Collection, Collections, CollectionsService } from '../services/rests/c
 import { Column } from '../components/table/table.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateCollectionModalComponent } from '../modals/create-collection-modal/create-collection-modal.component';
+import { EditCollectionModalComponent } from '../modals/edit-collection-modal/edit-collection-modal.component';
 
 @Component({
   selector: 'app-collections',
@@ -21,19 +22,19 @@ export class CollectionsComponent implements OnInit {
     this.collectionsService.collections.subscribe(collections => this.collections = collections )
     this.collectionsService.load()
   }
-  // openEditModal(collection: Collection) {
-  //   const dialogRef = this.dialog.open(EditGroupModalComponent, { data: group, width: '600px' })
+  openEditModal(collection: Collection) {
+    const dialogRef = this.dialog.open(EditCollectionModalComponent, { data: collection, width: '600px' })
     
-  //   dialogRef.afterClosed().subscribe(async response => {
-  //     if(response){
-  //       const { previous_group, new_group } = response
-  //       this.collectionsService.edit(previous_group, new_group)
-  //     }
-  //   });
-  // }
-  // filter(query: string){
-  //   console.log(query)
-  // }
+    dialogRef.afterClosed().subscribe(async response => {
+      if(response){
+        const { previous_collection, new_collection } = response
+        this.collectionsService.edit(previous_collection, new_collection)
+      }
+    });
+  }
+  filter(query: string){
+    console.log(query)
+  }
 
   openCreateModal(){
     const dialogRef = this.dialog.open(CreateCollectionModalComponent, { width: '400px' })
