@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs'
+import { Injectable } from '@angular/core'; 
+import { Group } from './groups.service';
 import { AuthenticationService } from '../authentication.service';
 import { createAxios } from 'src/helpers/create-axios';
 
@@ -10,32 +10,25 @@ export type SubGroups = SubGroup[]
   providedIn: 'root'
 })
 export class SubGroupsService {
-  private readonly _subgroups = new Subject<SubGroups>()
   
   constructor(
     private readonly auth: AuthenticationService
   ){}
-  
-  get subGroups(){ 
-    return this._subgroups.asObservable()
-  }
 
-  public async create(group: SubGroup): Promise<boolean> {
+  public async create(subgroup: SubGroup): Promise<boolean> {
     const axios = createAxios(this.auth.getToken())
-    const response = await axios.post('/subgroups', group)
+    const response = await axios.post('/subgroups', { subgroup })
     if(response.data.created){
       return true
     }
     return false
   }
 
-  public async load(){
+  public async load(group: Group): Promise<SubGroups> {
     const axios = createAxios(this.auth.getToken())  
-    const response = await axios.get('/subgroups')
-    const groups = response.data.subgroups
-    if(groups){
-      this._subgroups.next(groups)
-    }
-
+    console.log(this.auth.getToken())
+    const response = await axios.get('/subgroups', { params: { group: group.description }})
+    const subgroups = response.data.subgroups
+    return subgroups
   }
 }
