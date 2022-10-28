@@ -2,11 +2,10 @@ import * as express from 'express'
 import { Router } from "express"
 
 import { JWTTokenManager, MD5Encrypter, MikroRepository, ValidatorEmail} from '@/infra'
-import { CreateAccountController, CreateSubGroupController, LoadSubGroupsController, LoginController, PrivateController } from '@/presentation'
+import {  EditGroupController, LoadGroupsController, CreateAccountController, CreateSubGroupController, LoadSubGroupsController, LoginController, PrivateController } from '@/presentation'
 import { entities } from '../entities'
 import { createRouters } from '../helpers'
 import { CreateGroupController } from '@/presentation/controllers/groups/create-group'
-import { LoadGroupsController } from '@/presentation/controllers/groups'
 
 export async function setupRoutes(app: express.Application){
 
@@ -23,11 +22,12 @@ export async function setupRoutes(app: express.Application){
 
     const createGroupController = new CreateGroupController(repository)
     const loadGroupsController = new LoadGroupsController(repository)
+    const editGroupsController = new EditGroupController(repository)
 
     const createSubGroupController = new CreateSubGroupController(repository)
     const loadSubGroupController = new LoadSubGroupsController(repository)
 
-    const routers = createRouters(jwtTokenManager, createAccountController, privateController, loginController, createGroupController, loadGroupsController, loadSubGroupController, createSubGroupController)        
+    const routers = createRouters(jwtTokenManager, createAccountController, privateController, loginController, createGroupController, loadGroupsController, loadSubGroupController, createSubGroupController, editGroupsController)        
 
     routers.forEach((router: Router) => {
         app.use(router)    
