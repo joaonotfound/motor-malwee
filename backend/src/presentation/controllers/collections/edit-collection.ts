@@ -12,7 +12,7 @@ export class EditCollectionController {
     @RequiredParams(['collection', 'new_collection'], { on: 'body'})
     async handle(request: HttpRequest){
         const { collection, new_collection } = request.body
-        const match_group = await this.repository.collection(groupEntity).findOne({ description: collection })
+        const match_group = await this.repository.collection(collectionEntity).findOne({ description: collection })
         if(!match_group){
             return invalidParam('collection')
         }
