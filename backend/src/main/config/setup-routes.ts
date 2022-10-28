@@ -6,6 +6,7 @@ import {  EditGroupController, LoadGroupsController, CreateAccountController, Cr
 import { entities } from '../entities'
 import { createRouters } from '../helpers'
 import { CreateGroupController } from '@/presentation/controllers/groups/create-group'
+import { CreateCollectionController, EditCollectionController, LoadCollectionController } from '@/presentation/controllers/collection'
 
 export async function setupRoutes(app: express.Application){
 
@@ -24,10 +25,14 @@ export async function setupRoutes(app: express.Application){
     const loadGroupsController = new LoadGroupsController(repository)
     const editGroupsController = new EditGroupController(repository)
 
+    const createCollectionController = new CreateCollectionController(repository)
+    const loadCollectionsController = new LoadCollectionController(repository)
+    const editCollectionController = new EditCollectionController(repository)
+
     const createSubGroupController = new CreateSubGroupController(repository)
     const loadSubGroupController = new LoadSubGroupsController(repository)
 
-    const routers = createRouters(jwtTokenManager, createAccountController, privateController, loginController, createGroupController, loadGroupsController, loadSubGroupController, createSubGroupController, editGroupsController)        
+    const routers = createRouters(jwtTokenManager, createAccountController, privateController, loginController, createGroupController, loadGroupsController, loadSubGroupController, createSubGroupController, editGroupsController, createCollectionController, editCollectionController, loadCollectionsController)        
 
     routers.forEach((router: Router) => {
         app.use(router)    
