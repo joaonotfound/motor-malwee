@@ -1,6 +1,5 @@
 import { collectionEntity, groupEntity, subGroupEntity, userEntity } from '@/domain'
-import { Group, SubGroup, User, Zip } from '@/infra'
-import { Collection } from '@mikro-orm/core'
+import { Group, SubGroup, User, Zip, Collection } from '@/infra'
 
 export const entities: Zip = [
     { value: userEntity, ormEntity: User },
