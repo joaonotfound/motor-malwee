@@ -9,7 +9,7 @@ const makeSut = () => {
 }
 
 describe('CreateSubGroupController', () => {
-    it('should return 400 if no description is provided', async () => {
+    it('should return 400 if no subgroup is provided', async () => {
         const { sut } = makeSut()
         const request: HttpRequest = {
             body: {
@@ -18,13 +18,15 @@ describe('CreateSubGroupController', () => {
             params: {}
         }
         const response = await sut.handle(request)
-        expect(response).toEqual(missingParam('description'))
+        expect(response).toEqual(missingParam('subgroup'))
     })
     it('should return 400 if no group is provided', async () => {
         const { sut } = makeSut()
         const request: HttpRequest = {
             body: {
-                description: 'valid-description'
+                subgroup: {
+                    description: 'valid-description'
+                }
             },
             params: {}
         }
@@ -37,7 +39,9 @@ describe('CreateSubGroupController', () => {
         const request: HttpRequest = {
             body: {
                 group: 'invalid-group',
-                description: 'valid-description'
+                subgroup: {
+                    description: 'valid-description'
+                }
             },
             params: {}
         }
@@ -51,7 +55,9 @@ describe('CreateSubGroupController', () => {
         const request: HttpRequest = {
             body: {
                 group: 'valid-group',
-                description: 'valid-description'
+                subgroup: {
+                    description: 'valid-description'
+                }
             },
             params: {}
         }
