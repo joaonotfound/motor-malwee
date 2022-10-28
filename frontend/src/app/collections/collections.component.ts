@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Collection, Collections, CollectionsService } from '../services/rests/collections.service';
 import { Column } from '../components/table/table.component';
 import { MatDialog } from '@angular/material/dialog';
+import { CreateCollectionModalComponent } from '../modals/create-collection-modal/create-collection-modal.component';
 
 @Component({
   selector: 'app-collections',
@@ -14,7 +15,7 @@ export class CollectionsComponent implements OnInit {
   table_columns: Column[] = [{ columnName: 'Descrição', propertyName: "description" }]
 
   constructor( 
-    // private readonly dialog: MatDialog,
+    private readonly dialog: MatDialog,
     private readonly collectionsService: CollectionsService
   ) {
     this.collectionsService.collections.subscribe(collections => this.collections = collections )
@@ -34,18 +35,18 @@ export class CollectionsComponent implements OnInit {
   //   console.log(query)
   // }
 
-  // openCreateModal(){
-  //   const dialogRef = this.dialog.open(CreateGroupModalComponent, { width: '400px' })
+  openCreateModal(){
+    const dialogRef = this.dialog.open(CreateCollectionModalComponent, { width: '400px' })
     
-  //   dialogRef.afterClosed().subscribe(async response => {
-  //     if(response){
-  //       const created = await this.collectionsService.createGroup(response)
-  //       if(created){
-  //         this.collectionsService.loadGroups()
-  //       }
-  //     }
-  //   });
-  // }
+    dialogRef.afterClosed().subscribe(async response => {
+      if(response){
+        const created = await this.collectionsService.create(response)
+        if(created){
+          this.collectionsService.load()
+        }
+      }
+    });
+  }
   ngOnInit(): void {}
 
 }

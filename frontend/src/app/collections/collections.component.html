@@ -1,2 +1,2 @@
 
-<app-table [data]="collections" [columns]="table_columns" [contentName]="'coleções'"></app-table>
+<app-table [data]="collections" (onCreate)="openCreateModal()" [columns]="table_columns" [contentName]="'coleções'"></app-table>
