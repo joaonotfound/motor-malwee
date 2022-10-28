@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Column } from '../components/table/table.component';
 import { CreateGroupModalComponent } from '../modals/create-group-modal/create-group-modal.component';
+import { EditGroupModalComponent } from '../modals/edit-group-modal/edit-group-modal.component';
 import { Group, Groups, GroupsService } from '../services/rests/groups.service';
 
 @Component({
@@ -22,7 +23,17 @@ export class GroupsComponent implements OnInit {
     this.groupsService.loadGroups()
   }
   openEditModal(group: Group) {
-    console.log(group)
+    const dialogRef = this.dialog.open(EditGroupModalComponent, { data: group })
+    
+    dialogRef.afterClosed().subscribe(async response => {
+      if(response){
+        console.log(response)
+        // const created = await this.groupsService.createGroup(response)
+        // if(created){
+          // this.groupsService.loadGroups()
+        // }
+      }
+    });
   }
   filter(query: string){
     console.log(query)
