@@ -23,7 +23,7 @@ export class GroupsComponent implements OnInit {
     this.groupsService.loadGroups()
   }
   openEditModal(group: Group) {
-    const dialogRef = this.dialog.open(EditGroupModalComponent, { data: group })
+    const dialogRef = this.dialog.open(EditGroupModalComponent, { data: group, width: '600px' })
     
     dialogRef.afterClosed().subscribe(async response => {
       if(response){
@@ -39,7 +39,7 @@ export class GroupsComponent implements OnInit {
     console.log(query)
   }
   openCreateModal(){
-    const dialogRef = this.dialog.open(CreateGroupModalComponent)
+    const dialogRef = this.dialog.open(CreateGroupModalComponent, { width: '400px' })
     
     dialogRef.afterClosed().subscribe(async response => {
       if(response){
