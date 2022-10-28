@@ -22,7 +22,8 @@ import { TableComponent } from './components/table/table.component'
 import { MatTableModule } from '@angular/material/table';
 import { CreateGroupModalComponent } from './modals/create-group-modal/create-group-modal.component'
 import { MatDialogModule } from '@angular/material/dialog'
-import { MatCardModule } from '@angular/material/card'
+import { MatCardModule } from '@angular/material/card';
+import { EditGroupModalComponent } from './modals/edit-group-modal/edit-group-modal.component'
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { MatCardModule } from '@angular/material/card'
     HeaderComponent,
     GroupsComponent,
     TableComponent,
-    CreateGroupModalComponent
+    CreateGroupModalComponent,
+    EditGroupModalComponent
   ],
   imports: [
     BrowserModule,
