@@ -5,12 +5,15 @@ mat-row{
 }
 mat-card{
     padding: 1rem;
+    box-shadow: 0 0 0 black;
 }
 .header{
     padding: 0;
     margin: 0;
+    margin-bottom: 0.5rem;
     display: flex;
-    justify-content: space-between;
+    flex-direction: row-reverse;
+    justify-content: end;
     align-items: center;
     gap: 1rem;
 
