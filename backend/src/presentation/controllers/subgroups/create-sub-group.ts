@@ -10,7 +10,7 @@ export class CreateSubGroupController {
     ){}
     @RequiredParams('description', 'group')
     async handle(request: HttpRequest){
-        const { group, description } = request.params
+        const { group, description } = request.body
         const match_group = await this.repository.collection(groupEntity).findOne({ description: group })
         if(!match_group){
             return invalidParam('group')
@@ -20,7 +20,7 @@ export class CreateSubGroupController {
         if(equal_subgroup){
             return invalidParam('description')
         }
-
+        await this.repository.collection(subGroupEntity).save({ description, fk_group: match_group.id! })
         return ok({ created: true })
     }
 }
