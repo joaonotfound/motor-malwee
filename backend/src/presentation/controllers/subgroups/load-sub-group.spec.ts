@@ -19,14 +19,14 @@ describe('LoadSubGroups', () => {
         expect(response).toEqual(missingParam('group'))
     }),
 
-    it('should return 400 if no group doesnt exists.', async () => {
+    it('should return 400 if group doesnt exists.', async () => {
         const { sut, collectionStub } = makeSut()
         jest.spyOn(collectionStub, 'findOne').mockResolvedValueOnce(false)
         const request: HttpRequest = {
-            body: {
+            params: {
                 group: 'invalid-group'
             },
-            params: {}
+            body: {}
         }
         const response = await sut.handle(request)
         expect(response).toEqual(invalidParam('group'))
