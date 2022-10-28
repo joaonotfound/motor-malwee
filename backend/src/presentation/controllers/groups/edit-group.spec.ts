@@ -1,4 +1,4 @@
-import { createRepositoryStub, invalidParam, missingParam } from "@/presentation/helpers"
+import { createRepositoryStub, invalidParam, missingParam, ok } from "@/presentation/helpers"
 import { HttpRequest } from "@/presentation/protocols"
 import { EditGroupController } from "./edit-group"
 
@@ -17,10 +17,22 @@ describe('EditGroupController', () => {
         const response = await sut.handle(request)
         expect(response).toEqual(missingParam('description'))
     })
+    it('should return 200 if the group was edited', async () => {
+        const { sut, collectionStub } = makeSut()
+        jest.spyOn(collectionStub, 'findOne').mockResolvedValueOnce(true)
+        const request: HttpRequest = {
+            params: {},
+            body: {
+                description: 'valid-description'
+            }
+        }
+        const response = await sut.handle(request)
+        expect(response).toEqual(ok({ edited: true }))
+    })
     it('should return 400 if no group doesnt exist', async () => {
         const { sut, collectionStub } = makeSut()
         jest.spyOn(collectionStub, 'findOne').mockResolvedValueOnce(false)
-        
+
         const request: HttpRequest = {
             params: {},
             body: {
