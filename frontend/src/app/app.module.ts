@@ -23,7 +23,8 @@ import { MatTableModule } from '@angular/material/table';
 import { CreateGroupModalComponent } from './modals/create-group-modal/create-group-modal.component'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatCardModule } from '@angular/material/card';
-import { EditGroupModalComponent } from './modals/edit-group-modal/edit-group-modal.component'
+import { EditGroupModalComponent } from './modals/edit-group-modal/edit-group-modal.component';
+import { CreateSubgroupModalComponent } from './modals/create-subgroup-modal/create-subgroup-modal.component'
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { EditGroupModalComponent } from './modals/edit-group-modal/edit-group-mo
     GroupsComponent,
     TableComponent,
     CreateGroupModalComponent,
-    EditGroupModalComponent
+    EditGroupModalComponent,
+    CreateSubgroupModalComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,23 @@
+<div class="modal">
+    <h1 mat-dialog-title> Criar subgrupo </h1>
+
+    <mat-dialog-content>
+      <mat-form-field>
+        <mat-label>Descrição</mat-label>
+        <input
+          autofocus
+          required
+          [(ngModel)]="data.description"
+          matInput
+          placeholder="Nome do grupo"
+        />
+        <mat-error>Insira a descrição do grupo</mat-error>
+      </mat-form-field>
+    </mat-dialog-content>
+
+    <div mat-dialog-actions class="mat-dialog-actions">      
+        <button mat-flat-button (click)="cancel()"> cancelar </button>
+        <button mat-flat-button color="primary" (click)="create()"> criar </button>
+    </div>
+
+</div>
