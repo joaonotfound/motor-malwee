@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { Collection } from 'src/app/services/rests/collections.service';
 
 @Component({
   selector: 'app-create-collection-modal',
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateCollectionModalComponent implements OnInit {
 
-  constructor() { }
+  
+  data: Partial<Collection> = {
+    description: ''    
+  }
+
+  constructor(
+    private readonly dialog: MatDialogRef<CreateCollectionModalComponent>
+  ) { }
 
   ngOnInit(): void {
   }
+  
+  cancel(){
+    this.dialog.close()
+  }
+
+  create(){
+    this.dialog.close(this.data)
+  }
+
 
 }
