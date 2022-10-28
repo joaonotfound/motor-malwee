@@ -1,7 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Group } from 'src/app/services/rests/groups.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { SubGroups, SubGroupsService } from 'src/app/services/rests/sub-groups.service';
+import { Column } from 'src/app/components/table/table.component';
 
 @Component({
   selector: 'app-edit-group-modal',
@@ -10,17 +12,19 @@ import { SubGroups, SubGroupsService } from 'src/app/services/rests/sub-groups.s
 })
 export class EditGroupModalComponent implements OnInit {
 
+  tableColumns: Column[] = [
+    { columnName: 'Descrição', propertyName: "description" }
+  ]
   subgroups: SubGroups = []
-  @Input() data: Partial<Group> = {
-    description: ''    
-  }
 
   constructor(
     private readonly dialog: MatDialogRef<EditGroupModalComponent>,
-    private readonly subgroupsServices: SubGroupsService
+    private readonly subgroupsServices: SubGroupsService,
+    @Inject(MAT_DIALOG_DATA) public readonly data: Group
   ) {
-    this.subgroupsServices.subGroups.subscribe(subgroups => this.subgroups = subgroups)
-    this.subgroupsServices.load()
+    this.subgroupsServices.load(data).then(subgroups => {
+      this.subgroups = subgroups
+    })
   }
 
   ngOnInit(): void {
