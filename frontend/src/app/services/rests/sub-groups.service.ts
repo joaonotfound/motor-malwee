@@ -15,9 +15,9 @@ export class SubGroupsService {
     private readonly auth: AuthenticationService
   ){}
 
-  public async create(subgroup: SubGroup): Promise<boolean> {
+  public async create(group: string, subgroup: SubGroup): Promise<boolean> {
     const axios = createAxios(this.auth.getToken())
-    const response = await axios.post('/subgroups', { subgroup })
+    const response = await axios.post('/subgroups', { group, subgroup })
     if(response.data.created){
       return true
     }
