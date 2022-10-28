@@ -24,7 +24,8 @@ import { CreateGroupModalComponent } from './modals/create-group-modal/create-gr
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatCardModule } from '@angular/material/card';
 import { EditGroupModalComponent } from './modals/edit-group-modal/edit-group-modal.component';
-import { CreateSubgroupModalComponent } from './modals/create-subgroup-modal/create-subgroup-modal.component'
+import { CreateSubgroupModalComponent } from './modals/create-subgroup-modal/create-subgroup-modal.component';
+import { CollectionsComponent } from './collections/collections.component'
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { CreateSubgroupModalComponent } from './modals/create-subgroup-modal/cre
     TableComponent,
     CreateGroupModalComponent,
     EditGroupModalComponent,
-    CreateSubgroupModalComponent
+    CreateSubgroupModalComponent,
+    CollectionsComponent
   ],
   imports: [
     BrowserModule,
