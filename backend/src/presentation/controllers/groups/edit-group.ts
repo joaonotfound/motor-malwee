@@ -16,7 +16,11 @@ export class EditGroupController {
         if(!match_group){
             return invalidParam('description')
         }
-        return ok({ edited: true )
+
+        const newGroup = Object.assign({}, match_group, request.body)
+        await this.repository.collection(groupEntity).update(newGroup)
+        
+        return ok({ edited: true })
     }
 
 }
