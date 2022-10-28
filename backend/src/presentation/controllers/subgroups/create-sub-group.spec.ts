@@ -33,6 +33,18 @@ describe('CreateSubGroupController', () => {
         const response = await sut.handle(request)
         expect(response).toEqual(missingParam('group'))
     })
+    it('should return 400 if no subgroup-description is provided', async () => {
+        const { sut } = makeSut()
+        const request: HttpRequest = {
+            body: {
+                group: 'valid-group',
+                subgroup: {}
+            },
+            params: {}
+        }
+        const response = await sut.handle(request)
+        expect(response).toEqual(missingParam('description on subgroup'))
+    })
     it('should return 400 if group doesnt exists', async () => {
         const { sut, collectionStub } = makeSut()
         const spy = jest.spyOn(collectionStub, 'findOne').mockResolvedValueOnce(false)
