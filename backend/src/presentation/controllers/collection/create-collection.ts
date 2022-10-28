@@ -12,9 +12,9 @@ export class CreateCollectionController {
     async handle(request: HttpRequest) {
         const { description } = request.body
 
-        const group = await this.repository.collection(collectionEntity).findOne({ description })
+        const collection = await this.repository.collection(collectionEntity).findOne({ description })
         
-        if(group){
+        if(collection){
             return alreadyInUse('description')
         }
 
