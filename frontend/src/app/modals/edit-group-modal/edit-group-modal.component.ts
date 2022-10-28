@@ -4,6 +4,8 @@ import { Group } from 'src/app/services/rests/groups.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { SubGroups, SubGroupsService } from 'src/app/services/rests/sub-groups.service';
 import { Column } from 'src/app/components/table/table.component';
+import { CreateSubgroupModalComponent } from '../create-subgroup-modal/create-subgroup-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-edit-group-modal',
@@ -18,7 +20,8 @@ export class EditGroupModalComponent implements OnInit {
   subgroups: SubGroups = []
 
   constructor(
-    private readonly dialog: MatDialogRef<EditGroupModalComponent>,
+    private readonly dialogRef: MatDialogRef<EditGroupModalComponent>,
+    private readonly dialog: MatDialog,
     private readonly subgroupsServices: SubGroupsService,
     @Inject(MAT_DIALOG_DATA) public readonly data: Group
   ) {
@@ -30,12 +33,24 @@ export class EditGroupModalComponent implements OnInit {
   ngOnInit(): void {
   }
   
+  openCreateSubGrupoModal(){
+    const dialogRef = this.dialog.open(CreateSubgroupModalComponent, { width: '400px' })
+    
+    dialogRef.afterClosed().subscribe(async response => {
+      if(response){
+        const created = await this.subgroupsServices.create(this.data.description, response)
+        if(created){
+          this.subgroups = await this.subgroupsServices.load(this.data)
+        }
+      }
+    });
+  }
   cancel(){
-    this.dialog.close()
+    this.dialogRef.close()
   }
 
   create(){
-    this.dialog.close(this.data)
+    this.dialogRef.close(this.data)
   }
 
 }
