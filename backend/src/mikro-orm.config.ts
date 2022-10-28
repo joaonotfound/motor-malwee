@@ -1,12 +1,12 @@
 import {  EntityCaseNamingStrategy, Configuration, Options, IDatabaseDriver, Connection } from '@mikro-orm/core'
 
-import { Group, SubGroup, User, Collection } from 'infra/mikro-orm/entities';
+import { Group, SubGroup, User, Collection, Product } from 'infra/mikro-orm/entities';
 import * as dotenv from 'dotenv';
 
 dotenv.config()
 
 const config: Configuration<IDatabaseDriver<Connection>> | Options<IDatabaseDriver<Connection>> = {
-    entities: [ User, Group, SubGroup, Collection ],
+    entities: [ User, Group, SubGroup, Collection, Product ],
     type: 'mysql',
     user: process.env.DB_USER || 'root',
     password: process.env.DB_PASSWORD || 'root',
