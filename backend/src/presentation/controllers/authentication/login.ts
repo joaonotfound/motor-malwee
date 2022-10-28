@@ -12,7 +12,7 @@ export class LoginController {
         private readonly tokenManager: TokenManager
     ){}
 
-    @RequiredParams('email', 'password')
+    @RequiredParams(['email', 'password'])
     async handle(request: HttpRequest){
         const { email, password } = request.body
         const validation = await this.emailValidator.validate(email)

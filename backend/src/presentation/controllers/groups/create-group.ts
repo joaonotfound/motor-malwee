@@ -8,7 +8,7 @@ export class CreateGroupController {
     constructor(
         private readonly repository: Repository
     ){}
-    @RequiredParams('description')
+    @RequiredParams(['description'])
     async handle(request: HttpRequest) {
         const { description } = request.body
 

@@ -14,7 +14,7 @@ export class CreateAccountController {
         return await this.repository.collection(userEntity).findOne(where) ? true : false
     }
 
-    @RequiredParams('username', 'password', 'email')
+    @RequiredParams(['username', 'password', 'email'])
     async handle(request: HttpRequest) {
         const { email, password, username } = request.body
 

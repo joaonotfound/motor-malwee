@@ -8,9 +8,9 @@ export class LoadSubGroupsController{
     constructor(
         private readonly repository: Repository
     ){}
-    @RequiredParams('group')
+    @RequiredParams(['group'], { on: "params" })
     async handle(request: HttpRequest) {
-        const { group } = request.body
+        const { group } = request.params
         const matchGroup = await this.repository.collection(groupEntity).findOne({ description: group })
         if(!matchGroup){
             return invalidParam('group')        
