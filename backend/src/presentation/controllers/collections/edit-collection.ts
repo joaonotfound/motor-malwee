@@ -1,4 +1,4 @@
-import { collectionEntity, groupEntity, Repository } from "@/domain";
+import { collectionEntity, Repository } from "@/domain";
 import { Put, RequiredParams } from "@/presentation/decorators";
 import { invalidParam, ok } from "@/presentation/helpers";
 import { HttpRequest } from "@/presentation/protocols";
