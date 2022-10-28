@@ -6,7 +6,7 @@ import {  EditGroupController, LoadGroupsController, CreateAccountController, Cr
 import { entities } from '../entities'
 import { createRouters } from '../helpers'
 import { CreateGroupController } from '@/presentation/controllers/groups/create-group'
-import { CreateCollectionController, EditCollectionController, LoadCollectionController } from '@/presentation/controllers/collection'
+import { CreateCollectionController, EditCollectionController, LoadCollectionController } from '@/presentation/controllers/collections'
 
 export async function setupRoutes(app: express.Application){
 
