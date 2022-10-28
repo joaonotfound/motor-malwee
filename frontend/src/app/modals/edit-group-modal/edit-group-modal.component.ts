@@ -18,14 +18,19 @@ export class EditGroupModalComponent implements OnInit {
     { columnName: 'Descrição', propertyName: "description" }
   ]
   subgroups: SubGroups = []
+  data: Group
+  previous_data: Group
 
   constructor(
     private readonly dialogRef: MatDialogRef<EditGroupModalComponent>,
     private readonly dialog: MatDialog,
     private readonly subgroupsServices: SubGroupsService,
-    @Inject(MAT_DIALOG_DATA) public readonly data: Group
+    @Inject(MAT_DIALOG_DATA) public readonly raw_data: Group
   ) {
-    this.subgroupsServices.load(data).then(subgroups => {
+    this.data = {...raw_data }
+    this.previous_data = {...raw_data}
+
+    this.subgroupsServices.load(this.data).then(subgroups => {
       this.subgroups = subgroups
     })
   }
@@ -50,7 +55,7 @@ export class EditGroupModalComponent implements OnInit {
   }
 
   create(){
-    this.dialogRef.close(this.data)
+    this.dialogRef.close({ previous_group: this.previous_data, new_group: this.data })
   }
 
 }

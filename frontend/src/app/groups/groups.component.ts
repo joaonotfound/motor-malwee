@@ -27,17 +27,15 @@ export class GroupsComponent implements OnInit {
     
     dialogRef.afterClosed().subscribe(async response => {
       if(response){
-        console.log(response)
-        // const created = await this.groupsService.createGroup(response)
-        // if(created){
-          // this.groupsService.loadGroups()
-        // }
+        const { previous_group, new_group } = response
+        this.groupsService.edit(previous_group, new_group)
       }
     });
   }
   filter(query: string){
     console.log(query)
   }
+
   openCreateModal(){
     const dialogRef = this.dialog.open(CreateGroupModalComponent, { width: '400px' })
     
