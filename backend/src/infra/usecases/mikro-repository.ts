@@ -16,7 +16,6 @@ class MikroCollection<T extends Entity> implements Collection<T> {
         const ormEntity = new this.ormEntity(entity)
         await this.repository.nativeUpdate({ id: ormEntity.id }, ormEntity)
     }
-
     async save(entity: T){        
         const ormEntity = new this.ormEntity(entity)
         await this.repository.persistAndFlush(ormEntity)
@@ -50,6 +49,11 @@ export class MikroRepository implements Repository{
 
     private findOrmEntity<T extends Entity>(entity: T) {
         return this.entities.find( zip => entity.constructor == zip.value.constructor )?.ormEntity
+    }
+
+    async execute(query: string) {
+        await this.em.getConnection().execute(query)
+        return true
     }
 
     collection<T extends Entity>(entity: T): Collection<T> {
