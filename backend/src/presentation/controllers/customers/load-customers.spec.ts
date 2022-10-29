@@ -2,9 +2,9 @@ import { createRepositoryStub, ok } from "@/presentation/helpers"
 import { LoadCustomersController } from "./load-customers"
 
 const makeSut = () => {
-    const { repositoryStub } = createRepositoryStub()
+    const { repositoryStub, collectionStub } = createRepositoryStub()
     const sut = new LoadCustomersController(repositoryStub)
-    return { sut }    
+    return { sut, collectionStub }    
 }
 
 describe("LoadCustomersController", () => {
@@ -13,5 +13,12 @@ describe("LoadCustomersController", () => {
 
         const response = await sut.handle() 
         expect(response).toEqual(ok({ customers: [] }))
+    })
+    it('should call find method', async () => {
+        const { sut, collectionStub } = makeSut()
+        const findSpy = jest.spyOn(collectionStub, 'find')
+
+        await sut.handle()
+        expect(findSpy).toHaveBeenCalledWith({})
     })
 })
