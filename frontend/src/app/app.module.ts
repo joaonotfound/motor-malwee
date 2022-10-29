@@ -34,6 +34,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { CustomersComponent } from './pages/customers/customers.component';
 import { CreateCustomerModalComponent } from './modals/create-customer-modal/create-customer-modal.component';
 import { TableDeleteModalComponent } from './modals/table-delete-modal.ts/table-delete-modal.ts.component';
+import { CenterComponent } from './center/center.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { TableDeleteModalComponent } from './modals/table-delete-modal.ts/table-
     CreateProductModalComponent,
     CustomersComponent,
     CreateCustomerModalComponent,
-    TableDeleteModalComponent
+    TableDeleteModalComponent,
+    CenterComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,

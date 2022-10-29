@@ -1,16 +1,36 @@
 mat-sidenav-content{
     padding: 2rem;
 }
-.nav-container {
+
+$primary-color: #1d73be;
+
+@mixin activeSidebarItem(){
+    color: white;
+    background-color: $primary-color;    
+}
+.sidenav-item{
+    width: fit-content;
+    text-decoration: none;
+    border-radius: 0.8rem;
+    margin-top: 0.2rem;
+    &:hover, &:focus, &:checked, &:active {
+        @include activeSidebarItem()
+    }
+}
+.nav-container {    
     position: absolute;
     top: 4.0rem;
     bottom: 0;
     left: 0;
     right: 0;
-    background: #eee;
+    background-color: inherit;
 }
 
 .nav-content{
     width: 13rem;
+    padding: 0.5rem;
 }
 
+.active{
+    @include activeSidebarItem()
+}
