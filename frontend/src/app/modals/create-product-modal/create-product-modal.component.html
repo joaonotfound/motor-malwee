@@ -2,7 +2,7 @@
     <h1 mat-dialog-title> Criar produto </h1>
 
     <mat-dialog-content>
-      <mat-form-field>
+      <mat-form-field appearance="outline">
         <mat-label>Descrição</mat-label>
         <input
           autofocus
@@ -13,6 +13,47 @@
         />
         <mat-error>Insira a descrição do produto</mat-error>
       </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Preço</mat-label>
+        <input
+          autofocus
+          required
+          [(ngModel)]="data.price"
+          matInput
+          type="number"
+          placeholder="Preço do produto"
+        />
+        <mat-error>Insira o preço do produto</mat-error>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Grupo</mat-label>
+        <mat-select (selectionChange)="loadSubgroups()" [(ngModel)]="data.group" required>
+          <mat-option *ngFor="let group of groups" [value]="group.description">
+            {{group.description}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Subgrupo</mat-label>
+        <mat-select required [disabled]="!data.group" [(ngModel)]="data.subgroup">
+          <mat-option *ngFor="let subgroup of subgroups" [value]="subgroup.description">
+            {{subgroup.description}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Colação</mat-label>
+        <mat-select required [(ngModel)]="data.collection">
+          <mat-option *ngFor="let collection of collections" [value]="collection.description">
+            {{collection.description}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      
     </mat-dialog-content>
 
     <div mat-dialog-actions class="mat-dialog-actions">      

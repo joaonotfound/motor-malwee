@@ -30,6 +30,7 @@ import { CreateCollectionModalComponent } from './modals/create-collection-modal
 import { EditCollectionModalComponent } from './modals/edit-collection-modal/edit-collection-modal.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { CreateProductModalComponent } from './modals/create-product-modal/create-product-modal.component'
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { CreateProductModalComponent } from './modals/create-product-modal/creat
     MatToolbarModule,
     MatTableModule,
     MatDialogModule,
-    MatCardModule
+    MatCardModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
