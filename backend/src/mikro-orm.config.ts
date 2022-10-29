@@ -9,7 +9,7 @@ const config: Configuration<IDatabaseDriver<Connection>> | Options<IDatabaseDriv
     entities: [ User, Group, SubGroup, Collection, Product ],
     type: 'mysql',
     user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || 'root',
+    password: process.env.DB_PASSWORD || 'password',
     dbName: 'sales-engine',
     debug: false,
     namingStrategy: EntityCaseNamingStrategy,
