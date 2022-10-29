@@ -1,10 +1,11 @@
-import { missingParam } from "@/presentation/helpers"
+import { createRepositoryStub, invalidParam, missingParam } from "@/presentation/helpers"
 import { HttpRequest } from "@/presentation/protocols"
 import { CreateCustomerController } from "./create-customer"
 
 const makeSut = () => {
-    const sut = new CreateCustomerController()
-    return { sut }
+    const { repositoryStub, collectionStub } = createRepositoryStub()
+    const sut = new CreateCustomerController(repositoryStub)
+    return { sut, repositoryStub, collectionStub }
 }
 
 describe('CreateCustomerController', () => {
@@ -43,5 +44,22 @@ describe('CreateCustomerController', () => {
         }
         const response = await sut.handle(request)
         expect(response).toEqual(missingParam('companyName'))
+    })
+    it('should return 400 if already exists an customer with the same CPNJ', async () => {
+        const { sut, collectionStub } = makeSut()
+        jest.spyOn(collectionStub, 'findOne').mockImplementation(
+            async (where: any) => where.CPNJ == 'valid-CPNJ' ? true : false
+        )
+        
+        const request: HttpRequest = {
+            body: { 
+                popularName: 'valid-popularname',
+                CPNJ: 'valid-CPNJ',
+                companyName: 'valid-companyName'
+            },
+            params: {}
+        }
+        const response = await sut.handle(request)
+        expect(response).toEqual(invalidParam('CPNJ'))
     })
 })
