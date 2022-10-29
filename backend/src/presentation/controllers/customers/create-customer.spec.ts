@@ -32,4 +32,16 @@ describe('CreateCustomerController', () => {
         const response = await sut.handle(request)
         expect(response).toEqual(missingParam('CPNJ'))
     })
+    it('should return 400 if no companyName is providen', async () => {
+        const { sut } = makeSut()
+        const request: HttpRequest = {
+            body: { 
+                popularName: 'valid-popularname',
+                CPNJ: 'valid-CPNJ'
+            },
+            params: {}
+        }
+        const response = await sut.handle(request)
+        expect(response).toEqual(missingParam('companyName'))
+    })
 })
