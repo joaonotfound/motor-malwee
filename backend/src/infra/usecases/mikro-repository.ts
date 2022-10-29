@@ -52,8 +52,7 @@ export class MikroRepository implements Repository{
     }
 
     async execute(query: string) {
-        await this.em.getConnection().execute(query)
-        return true
+        return await this.em.getConnection().execute(query)
     }
 
     collection<T extends Entity>(entity: T): Collection<T> {
