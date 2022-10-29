@@ -85,7 +85,7 @@ describe('CreteProductController', () => {
             body: {
                 description: 'valid-description',
                 price: 'valid-price',
-                group: 'valid-group',
+                group: 'invalid-group',
                 subgroup: 'valid-subgroup',
                 collection: 'valid-collection'
             },
@@ -93,6 +93,24 @@ describe('CreteProductController', () => {
         }
         const response = await sut.handle(request)
         expect(response).toEqual(invalidParam('group'))
+    })
+    it('should return 400 if subgroup doesnt exists', async () => {
+        const { sut, collectionStub } = makeSut()
+        jest.spyOn(collectionStub, 'findOne').mockImplementationOnce(
+            async ( params: any ) => params.description == 'invalid-subgroup' ? false : true )
+            
+        const request: HttpRequest = {
+            body: {
+                description: 'valid-description',
+                price: 'valid-price',
+                group: 'valid-group',
+                subgroup: 'invalid-subgroup',
+                collection: 'valid-collection'
+            },
+            params: {}
+        }
+        const response = await sut.handle(request)
+        expect(response).toEqual(invalidParam('subgroup'))
     })
     // it('should return 400 if product already exists.', async () => {
     //     const { sut, collectionStub } = makeSut()
