@@ -24,6 +24,15 @@
                     </button>                    
                 </mat-cell>
             </ng-container>
+
+            <ng-container matColumnDef="_delete_row">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell mat-cell *matCellDef="let element">
+                    <button mat-icon-button (click)="onDelete.emit(element)">
+                        <mat-icon>delete</mat-icon>
+                    </button>                    
+                </mat-cell>
+            </ng-container>
             
             <mat-header-row *matHeaderRowDef="getDisplayedColumns()"></mat-header-row>
             <mat-row *matRowDef="let row; columns: getDisplayedColumns();"></mat-row>

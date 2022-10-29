@@ -15,6 +15,7 @@ export class TableComponent implements OnInit {
   
   @Output() onCreate = new EventEmitter()
   @Output() onEdit = new EventEmitter()
+  @Output() onDelete = new EventEmitter()
   @Output() onFilter = new EventEmitter()
 
   constructor() {
@@ -23,8 +24,12 @@ export class TableComponent implements OnInit {
 
   getDisplayedColumns(){
     const response = [...this.columns.map(column => column.propertyName)]
-    if(this.onEdit.observers.length != 0){
+    
+    response.push('_delete_row')
+
+    if(this.onEdit.observers.length != 0){      
       response.push('_options')
+
     }
     return response
   }
