@@ -27,7 +27,7 @@ export class CreateProductController {
             return invalidParam('collection')
         }
 
-        const match_product =  await this.repository.collection(productsEntity).findOne({ description, fk_collection: collection, fk_subgroup: match_subgroup.id })
+        const match_product =  await this.repository.collection(productsEntity).findOne({ description, fk_collection: match_collection.id, fk_subgroup: match_subgroup.id })
         if(match_product){
             return invalidParam('description')
         }
