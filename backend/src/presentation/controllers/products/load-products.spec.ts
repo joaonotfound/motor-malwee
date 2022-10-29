@@ -1,4 +1,4 @@
-import { createRepositoryStub } from "@/presentation/helpers"
+import { createRepositoryStub, ok } from "@/presentation/helpers"
 import { LoadProductsController } from "./load-products"
 
 const makeSut = () => {
@@ -12,6 +12,6 @@ describe('LoadProductsController', () => {
         const { sut } = makeSut()
 
         const response = await sut.handle()
-        expect(response).toEqual([])
+        expect(response).toEqual(ok([]))
     })
 })
