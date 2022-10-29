@@ -35,7 +35,9 @@ export class CreateProductController {
         if(typeof price !== 'number' ){
             return invalidParam('price')
         }
-        
+
+        await this.repository.collection(productsEntity).save({ description, price, fk_collection: match_collection.id!, fk_subgroup: match_subgroup.id! })
+
         return request
     }
 }
