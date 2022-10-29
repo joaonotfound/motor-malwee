@@ -1,4 +1,4 @@
-import { groupEntity, Repository, subGroupEntity } from "@/domain";
+import { collectionEntity, groupEntity, Repository, subGroupEntity } from "@/domain";
 import { Post, RequiredParams } from "@/presentation/decorators";
 import { invalidParam } from "@/presentation/helpers";
 import { HttpRequest } from "@/presentation/protocols";
@@ -10,7 +10,7 @@ export class CreateProductController {
     ){}
     @RequiredParams(['description', 'price', 'group', 'subgroup', 'collection'])
     async handle(request: HttpRequest){
-        const { group, subgroup } = request.body
+        const { group, subgroup, collection } = request.body
         const match_group = await this.repository.collection(groupEntity).findOne({ description: group })
         if(!match_group){
             return invalidParam('group')
@@ -18,6 +18,10 @@ export class CreateProductController {
         const match_subgroup = await this.repository.collection(subGroupEntity).findOne({ fk_group: match_group.id, description: subgroup })
         if(!match_subgroup){
             return invalidParam('subgroup')
+        }
+        const match_collection = await this.repository.collection(collectionEntity).findOne({ description: collection })
+        if(!match_collection){
+            return invalidParam('collection')
         }
         // const match_product = await this.repository.collection(productsEntity).findOne({ fk_subgroup:})
         return request
