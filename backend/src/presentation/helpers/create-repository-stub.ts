@@ -5,7 +5,7 @@ class CollectionStub implements Collection<any> {
         return []
     }
     async findOne(_: Partial<Entity> | Partial<any>): Promise<any> {
-        return ''
+        return false
     }
     async update(_: any): Promise<void> { }
     async save(_: any): Promise<void> { }

@@ -12,6 +12,6 @@ describe('LoadProductsController', () => {
         const { sut } = makeSut()
 
         const response = await sut.handle()
-        expect(response).toEqual(ok([]))
+        expect(response).toEqual(ok({ products: [] }))
     })
 })

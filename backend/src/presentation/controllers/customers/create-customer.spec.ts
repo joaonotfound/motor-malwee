@@ -1,4 +1,4 @@
-import { createRepositoryStub, invalidParam, missingParam } from "@/presentation/helpers"
+import { createRepositoryStub, invalidParam, missingParam, ok } from "@/presentation/helpers"
 import { HttpRequest } from "@/presentation/protocols"
 import { CreateCustomerController } from "./create-customer"
 
@@ -47,14 +47,14 @@ describe('CreateCustomerController', () => {
     })
     it('should return 400 if already exists an customer with the same CPNJ', async () => {
         const { sut, collectionStub } = makeSut()
-        jest.spyOn(collectionStub, 'findOne').mockImplementation(
-            async (where: any) => where.CPNJ == 'valid-CPNJ' ? true : false
+        jest.spyOn(collectionStub, 'findOne').mockImplementationOnce(
+            async (where: any) => where.CPNJ == 'invalid-CPNJ' ? true : false
         )
-        
+
         const request: HttpRequest = {
             body: { 
                 popularName: 'valid-popularname',
-                CPNJ: 'valid-CPNJ',
+                CPNJ: 'invalid-CPNJ',
                 companyName: 'valid-companyName'
             },
             params: {}
@@ -62,4 +62,23 @@ describe('CreateCustomerController', () => {
         const response = await sut.handle(request)
         expect(response).toEqual(invalidParam('CPNJ'))
     })
+    it('should return 200 if the user was created', async () => {
+        const { sut, collectionStub } = makeSut()
+        jest.spyOn(collectionStub, 'findOne').mockResolvedValueOnce(false)
+
+        const customer = { 
+            popularName: 'valid-popularname',
+            CPNJ: 'valid-CPNJ',
+            companyName: 'valid-companyName'
+        }
+
+        const request: HttpRequest = {
+            body: customer, 
+            params: {}
+        }
+
+        const response = await sut.handle(request)
+        expect(response).toEqual(ok({ created:true, customer }))
+    })
+    
 })
