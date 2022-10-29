@@ -33,6 +33,7 @@ import { CreateProductModalComponent } from './modals/create-product-modal/creat
 import { MatSelectModule } from '@angular/material/select';
 import { CustomersComponent } from './pages/customers/customers.component';
 import { CreateCustomerModalComponent } from './modals/create-customer-modal/create-customer-modal.component';
+import { TableDeleteModalComponent } from './modals/table-delete-modal.ts/table-delete-modal.ts.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { CreateCustomerModalComponent } from './modals/create-customer-modal/cre
     ProductsComponent,
     CreateProductModalComponent,
     CustomersComponent,
-    CreateCustomerModalComponent
+    CreateCustomerModalComponent,
+    TableDeleteModalComponent
   ],
   imports: [
     BrowserModule,

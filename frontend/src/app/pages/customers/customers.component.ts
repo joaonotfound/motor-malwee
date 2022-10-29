@@ -32,6 +32,10 @@ export class CustomersComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  deleteCustomer(customer: Customer) {
+    console.log('deletando...', customer)
+  }
+  
   openCreateModal(){
     const dialogRef = this.dialog.open(CreateCustomerModalComponent, { width: '400px' })
     

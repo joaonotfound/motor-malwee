@@ -1,4 +1,6 @@
 import { Component, Input, OnInit , Output, EventEmitter} from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { TableDeleteModalComponent } from 'src/app/modals/table-delete-modal.ts/table-delete-modal.ts.component';
 
 export type Column = { columnName: string, propertyName: string }
 
@@ -18,20 +20,33 @@ export class TableComponent implements OnInit {
   @Output() onDelete = new EventEmitter()
   @Output() onFilter = new EventEmitter()
 
-  constructor() {
+  constructor(
+    private readonly dialog: MatDialog
+  ) {
     console.log(this.onFilter)
   }
 
   getDisplayedColumns(){
     const response = [...this.columns.map(column => column.propertyName)]
     
-    response.push('_delete_row')
+    if(this.onDelete.observed){
+      response.push('_delete_row')
+    }    
 
-    if(this.onEdit.observers.length != 0){      
+    if(this.onEdit.observed){      
       response.push('_options')
 
     }
     return response
+  }
+
+  openDeleteModal(row: any){
+    const ref = this.dialog.open(TableDeleteModalComponent, { width: '400px' })
+    ref.beforeClosed().subscribe(confirm => {
+      if(confirm){
+        this.onDelete.emit(row)
+      }
+    })
   }
 
   selectedRow(row: any){

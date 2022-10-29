@@ -28,7 +28,7 @@
             <ng-container matColumnDef="_delete_row">
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
                 <mat-cell mat-cell *matCellDef="let element">
-                    <button mat-icon-button (click)="onDelete.emit(element)">
+                    <button mat-icon-button (click)="openDeleteModal(element)">
                         <mat-icon>delete</mat-icon>
                     </button>                    
                 </mat-cell>
