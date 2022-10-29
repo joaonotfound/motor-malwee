@@ -1,7 +1,8 @@
 import { customerEntity, Repository } from "@/domain";
+import { Get } from "@/presentation/decorators";
 import { ok } from "@/presentation/helpers";
 
-
+@Get('/customers')
 export class LoadCustomersController {
     constructor( private readonly repository: Repository ){}
     async handle(){

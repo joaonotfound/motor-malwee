@@ -1,8 +1,9 @@
 import { customerEntity, Repository } from "@/domain";
-import { RequiredParams } from "@/presentation/decorators";
+import { Post, RequiredParams } from "@/presentation/decorators";
 import { invalidParam, ok } from "@/presentation/helpers";
 import { HttpRequest } from "@/presentation/protocols";
 
+@Post('/customers')
 export class CreateCustomerController{
     constructor(
         private readonly repository: Repository
