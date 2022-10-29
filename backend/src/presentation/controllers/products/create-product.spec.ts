@@ -138,17 +138,32 @@ describe('CreteProductController', () => {
         jest.spyOn(collectionStub, 'findOne').mockImplementation(
             async ( params: any ) => params.description == 'invalid-description' ? true : true )
 
-        const request: HttpRequest = {
-            body: { 
-                description: 'invalid-description',
-                price: 'valid-price',                
-                group: 'valid-group',
-                subgroup: 'valid-subgroup',
-                collection: 'valid-collection'
-            }, 
-            params: {}
-        }
+            const request: HttpRequest = {
+                body: { 
+                    description: 'invalid-description',
+                    price: 'valid-price',                
+                    group: 'valid-group',
+                    subgroup: 'valid-subgroup',
+                    collection: 'valid-collection'
+                }, 
+                params: {}
+            }
         const response = await sut.handle(request)
         expect(response).toEqual(invalidParam('description'))
     })
+    it('should return 400 is price is not a number', async () => {
+        const { sut } = makeSut()
+        const request: HttpRequest = {
+            body: {
+                description: 'invalid-description',
+                price: 'invalid-price',
+                group: 'valid-group',
+                subgroup: 'valid-subgroup',
+                collection: 'valid-collection'
+            },
+            params: {}
+        }
+        const response = await sut.handle(request)
+        expect(response).toEqual(invalidParam('price'))
+   })
 })
