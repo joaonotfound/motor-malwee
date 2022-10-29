@@ -80,5 +80,22 @@ describe('CreateCustomerController', () => {
         const response = await sut.handle(request)
         expect(response).toEqual(ok({ created:true, customer }))
     })
-    
+    it('should call save method', async () => {
+        const { sut, collectionStub } = makeSut()
+        const saveSpy = jest.spyOn(collectionStub, 'save')
+
+        const customer = { 
+            popularName: 'valid-popularname',
+            CPNJ: 'valid-CPNJ',
+            companyName: 'valid-companyName'
+        }
+
+        const request: HttpRequest = {
+            body: customer, 
+            params: {}
+        }
+
+        await sut.handle(request)
+        expect(saveSpy).toHaveBeenCalledWith(customer)
+    })
 })
