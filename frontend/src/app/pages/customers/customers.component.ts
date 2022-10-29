@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Column } from 'src/app/components/table/table.component';
+import { CreateCustomerModalComponent } from 'src/app/modals/create-customer-modal/create-customer-modal.component';
 import { Customer } from 'src/app/models/entities';
 import { CustomersService } from 'src/app/services/rests/customers';
 
@@ -19,6 +20,7 @@ export class CustomersComponent implements OnInit {
   ]
 
   constructor( 
+    private readonly dialog: MatDialog,
     private readonly customersService: CustomersService
   ) {
     this.loadCustomers()
@@ -30,4 +32,16 @@ export class CustomersComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  openCreateModal(){
+    const dialogRef = this.dialog.open(CreateCustomerModalComponent, { width: '400px' })
+    
+    dialogRef.afterClosed().subscribe(async response => {
+      if(response){
+        const created = await this.customersService.create(response)
+        if(created){
+          this.loadCustomers()
+        }
+      }
+    });
+  }
 }

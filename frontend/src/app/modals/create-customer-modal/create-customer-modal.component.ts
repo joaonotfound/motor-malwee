@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { Customer } from 'src/app/models/entities';
 
 @Component({
   selector: 'app-create-customer-modal',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateCustomerModalComponent implements OnInit {
 
-  constructor() { }
+ 
+  data: Partial<Customer> = {}
+
+  constructor(
+    private readonly dialog: MatDialogRef<CreateCustomerModalComponent>
+  ) { }
 
   ngOnInit(): void {
   }
+  
+  cancel(){
+    this.dialog.close()
+  }
+
+  create(){
+    this.dialog.close(this.data)
+  }
+
 
 }
