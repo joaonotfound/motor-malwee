@@ -28,7 +28,8 @@ import { CreateSubgroupModalComponent } from './modals/create-subgroup-modal/cre
 import { CollectionsComponent } from './pages/collections/collections.component';
 import { CreateCollectionModalComponent } from './modals/create-collection-modal/create-collection-modal.component';
 import { EditCollectionModalComponent } from './modals/edit-collection-modal/edit-collection-modal.component';
-import { ProductsComponent } from './pages/products/products.component'
+import { ProductsComponent } from './pages/products/products.component';
+import { CreateProductModalComponent } from './modals/create-product-modal/create-product-modal.component'
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { ProductsComponent } from './pages/products/products.component'
     CollectionsComponent,
     CreateCollectionModalComponent,
     EditCollectionModalComponent,
-    ProductsComponent
+    ProductsComponent,
+    CreateProductModalComponent
   ],
   imports: [
     BrowserModule,
