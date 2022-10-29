@@ -32,6 +32,7 @@ import { ProductsComponent } from './pages/products/products.component';
 import { CreateProductModalComponent } from './modals/create-product-modal/create-product-modal.component'
 import { MatSelectModule } from '@angular/material/select';
 import { CustomersComponent } from './pages/customers/customers.component';
+import { CreateCustomerModalComponent } from './modals/create-customer-modal/create-customer-modal.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { CustomersComponent } from './pages/customers/customers.component';
     EditCollectionModalComponent,
     ProductsComponent,
     CreateProductModalComponent,
-    CustomersComponent
+    CustomersComponent,
+    CreateCustomerModalComponent
   ],
   imports: [
     BrowserModule,
