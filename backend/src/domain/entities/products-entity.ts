@@ -4,9 +4,9 @@ export class ProductEntity extends Entity {
     constructor(
         public description: string,
         public price: number,
-        public fk_subgroup: string,
-        public fk_collection: string
+        public fk_subgroup: number,
+        public fk_collection: number
     ) { super() }
 }
 
-export const productsEntity = new ProductEntity('', 0, '', '')
+export const productsEntity = new ProductEntity('', 0, 0, 0)

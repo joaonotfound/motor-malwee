@@ -10,12 +10,12 @@ export class Product extends BaseEntity{
   price: number
 
   @Property()
-  fk_subgroup: string
+  fk_subgroup: number
   
   @Property()
-  fk_collection: string 
+  fk_collection: number
 
-  constructor(params: { description: string, price: number, fk_subgroup: string, fk_collection: string, id: number, status: number }){
+  constructor(params: { description: string, price: number, fk_subgroup: number, fk_collection: number, id: number, status: number }){
     super(params)
     this.fk_collection = params.fk_collection
     this.fk_subgroup = params.fk_subgroup
