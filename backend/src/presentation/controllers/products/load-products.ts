@@ -9,9 +9,9 @@ export class LoadProductsController {
     constructor(
         private readonly repository: Repository
     ){}
-    async handle(): Promise<HttpResponse<Array<Product>>>{
+    async handle(): Promise<HttpResponse<{products: Array<Product>}>>{
         const products = await this.repository.execute(getSelectQuery())
-        return ok(products)
+        return ok({ products })
     }
 }
 
