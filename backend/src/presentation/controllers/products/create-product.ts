@@ -1,6 +1,6 @@
 import { collectionEntity, groupEntity, productsEntity, Repository, subGroupEntity } from "@/domain";
 import { Post, RequiredParams } from "@/presentation/decorators";
-import { invalidParam } from "@/presentation/helpers";
+import { invalidParam, ok } from "@/presentation/helpers";
 import { HttpRequest } from "@/presentation/protocols";
 
 @Post('/products')
@@ -38,6 +38,6 @@ export class CreateProductController {
 
         await this.repository.collection(productsEntity).save({ description, price, fk_collection: match_collection.id!, fk_subgroup: match_subgroup.id! })
 
-        return request
+        return ok({ created: true, product: { description, price, group, subgroup, collection }})
     }
 }
