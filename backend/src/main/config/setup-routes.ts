@@ -2,7 +2,7 @@ import * as express from 'express'
 import { Router } from "express"
 
 import { JWTTokenManager, MD5Encrypter, MikroRepository, ValidatorEmail} from '@/infra'
-import {  EditGroupController, LoadGroupsController, CreateAccountController, CreateSubGroupController, LoadSubGroupsController, LoginController, PrivateController } from '@/presentation'
+import {  EditGroupController, LoadGroupsController, CreateAccountController, CreateSubGroupController, LoadSubGroupsController, LoginController, PrivateController, CreateProductController, LoadProductsController } from '@/presentation'
 import { entities } from '../entities'
 import { createRouters } from '../helpers'
 import { CreateGroupController } from '@/presentation/controllers/groups/create-group'
@@ -29,10 +29,13 @@ export async function setupRoutes(app: express.Application){
     const loadCollectionsController = new LoadCollectionController(repository)
     const editCollectionController = new EditCollectionController(repository)
 
+    const createProductController = new CreateProductController(repository)
+    const loadProductsController = new LoadProductsController(repository)
+
     const createSubGroupController = new CreateSubGroupController(repository)
     const loadSubGroupController = new LoadSubGroupsController(repository)
 
-    const routers = createRouters(jwtTokenManager, createAccountController, privateController, loginController, createGroupController, loadGroupsController, loadSubGroupController, createSubGroupController, editGroupsController, createCollectionController, editCollectionController, loadCollectionsController)        
+    const routers = createRouters(jwtTokenManager, createAccountController, privateController, loginController, createGroupController, loadGroupsController, loadSubGroupController, createSubGroupController, editGroupsController, createCollectionController, editCollectionController, loadCollectionsController, createProductController, loadProductsController)        
 
     routers.forEach((router: Router) => {
         app.use(router)    
