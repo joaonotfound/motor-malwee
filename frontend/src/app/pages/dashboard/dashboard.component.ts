@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit {
   menu: MenuItem[] = [
     { icon: 'folder', path: '/dashboard/groups', caption: "Grupos" },
     { icon: 'subject', path: '/dashboard/collections', caption: "Coleções" },
-    { icon: 'perm_identity', path: '/dashboard/clients', caption: "Clientes" },
+    { icon: 'perm_identity', path: '/dashboard/customers', caption: "Clientes" },
     { icon: 'shopping_cart', path: '/dashboard/products', caption: "Produtos" }
   ]
 

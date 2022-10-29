@@ -31,6 +31,7 @@ import { EditCollectionModalComponent } from './modals/edit-collection-modal/edi
 import { ProductsComponent } from './pages/products/products.component';
 import { CreateProductModalComponent } from './modals/create-product-modal/create-product-modal.component'
 import { MatSelectModule } from '@angular/material/select';
+import { CustomersComponent } from './pages/customers/customers.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { MatSelectModule } from '@angular/material/select';
     CreateCollectionModalComponent,
     EditCollectionModalComponent,
     ProductsComponent,
-    CreateProductModalComponent
+    CreateProductModalComponent,
+    CustomersComponent
   ],
   imports: [
     BrowserModule,
