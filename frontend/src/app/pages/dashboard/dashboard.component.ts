@@ -10,10 +10,10 @@ type MenuItem = { icon: string, path: string, caption: string }
 export class DashboardComponent implements OnInit {
   sidebarOpened: boolean = false
   menu: MenuItem[] = [
-    { icon: '', path: '/dashboard/groups', caption: "Grupos" },
-    { icon: '', path: '/dashboard/collections', caption: "Coleções" },
-    { icon: '', path: '/dashboard/clients', caption: "Clientes" },
-    { icon: '', path: '/dashboard/products', caption: "Produtos" }
+    { icon: 'folder', path: '/dashboard/groups', caption: "Grupos" },
+    { icon: 'subject', path: '/dashboard/collections', caption: "Coleções" },
+    { icon: 'perm_identity', path: '/dashboard/clients', caption: "Clientes" },
+    { icon: 'shopping_cart', path: '/dashboard/products', caption: "Produtos" }
   ]
 
   constructor(
