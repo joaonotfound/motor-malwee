@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Collection, Collections, CollectionsService } from '../services/rests/collections.service';
-import { Column } from '../components/table/table.component';
+import { Collection, Collections, CollectionsService } from '../../services/rests/collections.service';
+import { Column } from '../../components/table/table.component';
 import { MatDialog } from '@angular/material/dialog';
-import { CreateCollectionModalComponent } from '../modals/create-collection-modal/create-collection-modal.component';
-import { EditCollectionModalComponent } from '../modals/edit-collection-modal/edit-collection-modal.component';
+import { CreateCollectionModalComponent } from '../../modals/create-collection-modal/create-collection-modal.component';
+import { EditCollectionModalComponent } from '../../modals/edit-collection-modal/edit-collection-modal.component';
 
 @Component({
   selector: 'app-collections',

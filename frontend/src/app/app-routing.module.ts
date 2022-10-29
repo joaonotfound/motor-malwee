@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CollectionsComponent } from './collections/collections.component';
+import { CollectionsComponent } from './pages/collections/collections.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { GroupsComponent } from './pages/groups/groups.component';
 import { LoginComponent } from './pages/login/login.component';
