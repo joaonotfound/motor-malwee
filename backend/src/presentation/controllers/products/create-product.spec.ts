@@ -151,19 +151,4 @@ describe('CreteProductController', () => {
         const response = await sut.handle(request)
         expect(response).toEqual(invalidParam('description'))
     })
-    it('should return 400 is price is not a number', async () => {
-        const { sut } = makeSut()
-        const request: HttpRequest = {
-            body: {
-                description: 'invalid-description',
-                price: 'invalid-price',
-                group: 'valid-group',
-                subgroup: 'valid-subgroup',
-                collection: 'valid-collection'
-            },
-            params: {}
-        }
-        const response = await sut.handle(request)
-        expect(response).toEqual(invalidParam('price'))
-   })
 })
