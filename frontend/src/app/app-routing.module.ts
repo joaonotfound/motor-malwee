@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CollectionsComponent } from './collections/collections.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { GroupsComponent } from './groups/groups.component';
-import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { GroupsComponent } from './pages/groups/groups.component';
+import { LoginComponent } from './pages/login/login.component';
+import { SignupComponent } from './pages/signup/signup.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },

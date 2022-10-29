@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Column } from '../components/table/table.component';
-import { CreateGroupModalComponent } from '../modals/create-group-modal/create-group-modal.component';
-import { EditGroupModalComponent } from '../modals/edit-group-modal/edit-group-modal.component';
-import { Group, Groups, GroupsService } from '../services/rests/groups.service';
+import { Column } from '../../components/table/table.component';
+import { CreateGroupModalComponent } from '../../modals/create-group-modal/create-group-modal.component';
+import { EditGroupModalComponent } from '../../modals/edit-group-modal/edit-group-modal.component';
+import { Group, Groups, GroupsService } from '../../services/rests/groups.service';
 
 @Component({
   selector: 'app-groups',
