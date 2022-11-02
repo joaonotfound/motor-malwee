@@ -15,7 +15,7 @@ export class GroupsComponent implements OnInit {
   groups: Groups = []
   table_columns: Column[] = [{ columnName: 'Descrição', propertyName: "description" }]
 
-  constructor( 
+  constructor(
     private readonly dialog: MatDialog,
     private readonly groupsService: GroupsService
   ) {
@@ -24,7 +24,7 @@ export class GroupsComponent implements OnInit {
   }
   openEditModal(group: Group) {
     const dialogRef = this.dialog.open(EditGroupModalComponent, { data: group, width: '600px' })
-    
+
     dialogRef.afterClosed().subscribe(async response => {
       if(response){
         const { previous_group, new_group } = response
@@ -35,10 +35,12 @@ export class GroupsComponent implements OnInit {
   filter(query: string){
     console.log(query)
   }
-
+  onDelete(group: Group){
+    this.groupsService.delete(group.description)
+  }
   openCreateModal(){
     const dialogRef = this.dialog.open(CreateGroupModalComponent, { width: '400px' })
-    
+
     dialogRef.afterClosed().subscribe(async response => {
       if(response){
         const created = await this.groupsService.createGroup(response)

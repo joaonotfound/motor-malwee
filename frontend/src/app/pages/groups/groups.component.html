@@ -1,2 +1,2 @@
 
-<app-table [data]="groups" (onFilter)="filter($event)" (onEdit)="openEditModal($event)" [columns]="table_columns" (onCreate)="openCreateModal()" [contentName]="'grupo'"></app-table>
+<app-table [data]="groups" (onDelete)="onDelete($event)" (onFilter)="filter($event)" (onEdit)="openEditModal($event)" [columns]="table_columns" (onCreate)="openCreateModal()" [contentName]="'grupo'"></app-table>

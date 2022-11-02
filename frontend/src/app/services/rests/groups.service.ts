@@ -11,12 +11,12 @@ export type Groups = Array<Group>
 })
 export class GroupsService {
   private readonly _groups = new Subject<Groups>()
-  
+
   constructor(
     private readonly auth: AuthenticationService
   ){}
-  
-  get groups(){ 
+
+  get groups(){
     return this._groups.asObservable()
   }
 
@@ -34,8 +34,13 @@ export class GroupsService {
     console.log(response)
     this.loadGroups()
   }
+  async delete(description: string){
+    const axios = createAxios(this.auth.getToken())
+    await axios.delete('/groups', { data: { group: description }})
+    this.loadGroups()
+  }
   public async loadGroups(){
-    const axios = createAxios(this.auth.getToken())  
+    const axios = createAxios(this.auth.getToken())
     const response = await axios.get('/groups')
     const groups = response.data.groups
     if(groups){
