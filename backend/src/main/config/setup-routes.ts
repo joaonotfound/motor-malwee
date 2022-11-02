@@ -1,3 +1,4 @@
+import { DeleteGroupController } from './../../presentation/controllers/groups/delete-group';
 import { DeleteCustomerController } from './../../presentation/controllers/customers/delete-customer';
 import { DeleteCollectionController } from './../../presentation/controllers/collections/delete-collection';
 import * as express from 'express'
@@ -27,6 +28,7 @@ export async function setupRoutes(app: express.Application){
     const createGroupController = new CreateGroupController(repository)
     const loadGroupsController = new LoadGroupsController(repository)
     const editGroupsController = new EditGroupController(repository)
+    const deleteGroupController = new DeleteGroupController(repository)
 
     const createCollectionController = new CreateCollectionController(repository)
     const loadCollectionsController = new LoadCollectionController(repository)
@@ -43,7 +45,7 @@ export async function setupRoutes(app: express.Application){
     const loadCustomerController = new LoadCustomersController(repository)
     const deleteCustomerController = new DeleteCustomerController(repository)
 
-    const routers = createRouters(jwtTokenManager, createAccountController, privateController, loginController, createGroupController, loadGroupsController, loadSubGroupController, createSubGroupController, editGroupsController, createCollectionController, editCollectionController, loadCollectionsController, createProductController, loadProductsController, createCustomerController, loadCustomerController, deleteCustomerController, deleteCollectionController)        
+    const routers = createRouters(jwtTokenManager, deleteGroupController, createAccountController, privateController, loginController, createGroupController, loadGroupsController, loadSubGroupController, createSubGroupController, editGroupsController, createCollectionController, editCollectionController, loadCollectionsController, createProductController, loadProductsController, createCustomerController, loadCustomerController, deleteCustomerController, deleteCollectionController)        
 
     routers.forEach((router: Router) => {
         app.use(router)    
