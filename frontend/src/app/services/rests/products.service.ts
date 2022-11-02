@@ -7,7 +7,7 @@ import { Product } from 'src/app/models/entities/product';
   providedIn: 'root'
 })
 export class ProductsService {
-  
+
   constructor(
     private readonly auth: AuthenticationService
   ){}
@@ -21,8 +21,13 @@ export class ProductsService {
     return false
   }
 
+  async delete(description: string){
+    const axios = createAxios(this.auth.getToken())
+    await axios.delete('/products', { data: { product: description }})
+  }
+
   public async load(): Promise<Product[]>{
-    const axios = createAxios(this.auth.getToken())  
+    const axios = createAxios(this.auth.getToken())
     const response = await axios.get('/products')
     return await response.data.products
 

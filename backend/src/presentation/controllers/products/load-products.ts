@@ -20,5 +20,6 @@ function getSelectQuery(): string {
         "from product as p "+
         "left join collection as c on p.fk_collection = c.id "+
         "left join subgroup as sb on p.fk_subgroup = sb.id "+
-        "left join `group` as g on sb.fk_group = g.id "
+        "left join `group` as g on sb.fk_group = g.id "+
+        "where p.status = 1"
 }

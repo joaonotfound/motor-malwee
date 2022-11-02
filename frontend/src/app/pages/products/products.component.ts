@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Column } from 'src/app/components/table/table.component';
 import { CreateProductModalComponent } from 'src/app/modals/create-product-modal/create-product-modal.component';
 import { Product } from 'src/app/models/entities/product';
-import { ProductsService } from 'src/app/services/rests/products';
+import { ProductsService } from 'src/app/services/rests/products.service';
 
 @Component({
   selector: 'app-products',
@@ -21,7 +21,7 @@ export class ProductsComponent implements OnInit {
     { columnName: 'Coleção', propertyName: "collection" }
   ]
 
-  constructor( 
+  constructor(
     private readonly productsService: ProductsService,
     private readonly dialog: MatDialog
   ) {
@@ -31,10 +31,13 @@ export class ProductsComponent implements OnInit {
   private async loadProducts(){
     this.products = await this.productsService.load()
   }
-
+  async onDelete(product: Product){
+    await this.productsService.delete(product.description)
+    this.products = await this.productsService.load();
+  }
   openCreateModal(){
     const dialogRef = this.dialog.open(CreateProductModalComponent, { width: '400px' })
-    
+
     dialogRef.afterClosed().subscribe(async response => {
       if(response){
         const created = await this.productsService.create(response)

@@ -1,2 +1,2 @@
 
-<app-table [data]="products" (onCreate)="openCreateModal()" [columns]="table_columns" [contentName]="'produto'"></app-table>
+<app-table [data]="products" (onDelete)="onDelete($event)" (onCreate)="openCreateModal()" [columns]="table_columns" [contentName]="'produto'"></app-table>
