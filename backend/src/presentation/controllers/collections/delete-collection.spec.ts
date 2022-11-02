@@ -1,3 +1,4 @@
+import { ok } from '@/presentation/helpers';
 import { createRepositoryStub } from '@/presentation/helpers';
 import { invalidParam } from '@/presentation/helpers';
 import { missingParam } from '@/presentation/helpers';
@@ -20,6 +21,7 @@ describe('DeleteCollectionController', () => {
         const response = await sut.handle(request)
         expect(response).toEqual(missingParam('collection'))
     })
+
     it('should return invalid param if collection not found ', async () => {
         const { sut, collectionStub } = makeSut()
         jest.spyOn(collectionStub, 'delete').mockResolvedValueOnce(false)
@@ -33,5 +35,17 @@ describe('DeleteCollectionController', () => {
         
         const response = await sut.handle(request)
         expect(response).toEqual(invalidParam('collection'))
+    })
+
+    it('should return 200 if the user was deleted.', async () => {
+        const { sut } = makeSut()
+        const request: HttpRequest = {
+            body: {
+                collection: "valid-collection"
+            }, 
+            params: {}
+        }
+        const response = await sut.handle(request)
+        expect(response).toEqual(ok({ deleted: true }))
     })
 })
