@@ -27,7 +27,17 @@ class MikroCollection<T extends Entity> implements Collection<T> {
     
     async find(where: Partial<Entity> | Partial<T>): Promise<T[]>{
         return await this.repository.find(where)
-}}
+    }
+
+    async delete(id: number): Promise<T> {
+        const entity = await this.findOne({ id });
+        const response = await this.repository.nativeUpdate(entity, { status: 0})
+        if(response){
+            return entity
+        }
+        return Promise.reject()
+    }
+}
 
 interface JoinEntities<T extends Entity, Q extends BaseEntity>{
     value: T,
