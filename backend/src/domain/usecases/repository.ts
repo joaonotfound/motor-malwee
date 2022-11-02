@@ -5,7 +5,7 @@ export interface Collection<T>{
     findOne( where: Partial<T> | Partial<Entity> ): Promise<T>
     update( entity: T ): Promise<void>
     save( entity: T ): Promise<void>,
-    delete( id: number ): Promise<T>
+    delete( where: Partial<T> ): Promise<T | undefined>
 }
 
 export interface Repository {

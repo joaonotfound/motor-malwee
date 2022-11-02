@@ -29,13 +29,14 @@ class MikroCollection<T extends Entity> implements Collection<T> {
         return await this.repository.find(where)
     }
 
-    async delete(id: number): Promise<T> {
-        const entity = await this.findOne({ id });
-        const response = await this.repository.nativeUpdate(entity, { status: 0})
-        if(response){
-            return entity
+    async delete(where: Partial<Entity>): Promise<T | undefined> {
+        const entity = await this.findOne(where)
+        if(!entity){
+            return
         }
-        return Promise.reject()
+        entity.status = 0
+        await this.update(entity)
+        return entity
     }
 }
 
