@@ -15,7 +15,7 @@ export class CollectionsComponent implements OnInit {
   collections: Collections = []
   table_columns: Column[] = [{ columnName: 'Descrição', propertyName: "description" }]
 
-  constructor( 
+  constructor(
     private readonly dialog: MatDialog,
     private readonly collectionsService: CollectionsService
   ) {
@@ -24,7 +24,7 @@ export class CollectionsComponent implements OnInit {
   }
   openEditModal(collection: Collection) {
     const dialogRef = this.dialog.open(EditCollectionModalComponent, { data: collection, width: '600px' })
-    
+
     dialogRef.afterClosed().subscribe(async response => {
       if(response){
         const { previous_collection, new_collection } = response
@@ -35,10 +35,13 @@ export class CollectionsComponent implements OnInit {
   filter(query: string){
     console.log(query)
   }
+  onDelete(collection: Collection){
+    this.collectionsService.delete(collection.description)
+  }
 
   openCreateModal(){
     const dialogRef = this.dialog.open(CreateCollectionModalComponent, { width: '400px' })
-    
+
     dialogRef.afterClosed().subscribe(async response => {
       if(response){
         const created = await this.collectionsService.create(response)

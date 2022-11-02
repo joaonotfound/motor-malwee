@@ -11,12 +11,12 @@ export type Collections = Array<Collection>
 })
 export class CollectionsService {
   private readonly _collections = new Subject<Collections>()
-  
+
   constructor(
     private readonly auth: AuthenticationService
   ){}
-  
-  get collections(){ 
+
+  get collections(){
     return this._collections.asObservable()
   }
 
@@ -35,8 +35,15 @@ export class CollectionsService {
     this.load()
   }
 
+  public async delete(description: string){
+    const axios = createAxios(this.auth.getToken())
+    const response = await axios.delete('/collections', { data: { collection: description } })
+    this.load()
+    return response.data.deleted
+  }
+
   public async load(){
-    const axios = createAxios(this.auth.getToken())  
+    const axios = createAxios(this.auth.getToken())
     const response = await axios.get('/collections')
     const collections = response.data.collections
     if(collections){

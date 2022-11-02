@@ -1,2 +1,2 @@
 
-<app-table [data]="collections" (onEdit)="openEditModal($event)" (onCreate)="openCreateModal()" [columns]="table_columns" [contentName]="'coleções'"></app-table>
+<app-table [data]="collections" (onDelete)="onDelete($event)" (onEdit)="openEditModal($event)" (onCreate)="openCreateModal()" [columns]="table_columns" [contentName]="'coleções'"></app-table>
