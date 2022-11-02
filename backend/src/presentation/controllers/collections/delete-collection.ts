@@ -15,7 +15,7 @@ export class DeleteCollectionController {
         const { collection } = request.body
         const deletedEntity = await this.repository
             .collection(collectionEntity)
-            .delete({ description: collection })
+            .deactivate({ description: collection })
         
         if(!deletedEntity){
             return invalidParam('collection')

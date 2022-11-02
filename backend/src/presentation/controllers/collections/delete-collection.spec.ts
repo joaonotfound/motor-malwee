@@ -24,7 +24,7 @@ describe('DeleteCollectionController', () => {
 
     it('should return invalid param if collection not found ', async () => {
         const { sut, collectionStub } = makeSut()
-        jest.spyOn(collectionStub, 'delete').mockResolvedValueOnce(false)
+        jest.spyOn(collectionStub, 'deactivate').mockResolvedValueOnce(false)
 
         const request: HttpRequest = {
             body: {

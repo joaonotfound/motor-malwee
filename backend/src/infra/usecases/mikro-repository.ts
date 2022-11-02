@@ -11,7 +11,10 @@ class MikroCollection<T extends Entity> implements Collection<T> {
         private readonly repository: EntityRepository<any>,
         private readonly ormEntity: any
     ){}
-
+    
+    private safeWhere(where: any){
+        return Object.assign({}, where, { status: 1 })
+    }
     async update(entity: T){
         const ormEntity = new this.ormEntity(entity)
         await this.repository.nativeUpdate({ id: ormEntity.id }, ormEntity)
@@ -22,20 +25,20 @@ class MikroCollection<T extends Entity> implements Collection<T> {
     }
 
     async findOne(where: Partial<Entity> | Partial<T>): Promise<T>{
-        return await this.repository.findOne(where)
+        return await this.repository.findOne(this.safeWhere(where))
     }
     
     async find(where: Partial<Entity> | Partial<T>): Promise<T[]>{
-        return await this.repository.find(where)
+        return await this.repository.find(this.safeWhere(where))
     }
 
-    async delete(where: Partial<Entity>): Promise<T | undefined> {
+    async deactivate(where: Partial<Entity>): Promise<T | undefined> {
         const entity = await this.findOne(where)
         if(!entity){
             return
         }
         entity.status = 0
-        await this.update(entity)
+        await this.repository.nativeUpdate({ id: entity.id }, entity)
         return entity
     }
 }
