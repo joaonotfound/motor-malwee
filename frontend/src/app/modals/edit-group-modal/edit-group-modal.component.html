@@ -1,24 +1,19 @@
 <div class="modal">
-    <h1 mat-dialog-title>Editar grupo</h1>
-
+  <h1 mat-dialog-title>Editar grupo</h1>
+  <form [formGroup]="formGroup">
     <mat-dialog-content>
       <mat-form-field>
         <mat-label>Descrição</mat-label>
-        <input
-          autofocus
-          required
-          [(ngModel)]="data.description"
-          matInput
-          placeholder="Nome do grupo"
-        />
+        <input autofocus required formControlName='description' matInput placeholder="Nome do grupo" />
         <mat-error>Insira a descrição do grupo</mat-error>
       </mat-form-field>
-      <app-table [contentName]="'subgrupo'" (onCreate)="openCreateSubGrupoModal()" [data]="subgroups" [columns]="tableColumns"></app-table>
+      <app-table [contentName]="'subgrupo'" (onCreate)="openCreateSubGrupoModal()" [data]="subgroups"
+        [columns]="tableColumns"></app-table>
     </mat-dialog-content>
-    
-    <div mat-dialog-actions class="mat-dialog-actions">      
-        <button mat-flat-button (click)="cancel()"> Cancelar </button>
-        <button mat-flat-button color="primary" (click)="create()"> Salvar </button>
-    </div>
+  </form>
+  <div mat-dialog-actions class="mat-dialog-actions">
+    <button mat-flat-button (click)="cancel()"> Cancelar </button>
+    <button mat-flat-button [disabled]="formGroup.invalid" color="primary" (click)="create()"> Salvar </button>
+  </div>
 
 </div>

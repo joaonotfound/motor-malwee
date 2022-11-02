@@ -1,51 +1,33 @@
 <div class="modal">
-    <h1 mat-dialog-title> Criar cliente </h1>
+  <h1 mat-dialog-title> Criar cliente </h1>
+  <form [formGroup]="formGroup">
+    <mat-dialog-content>
+      <mat-form-field appearance="outline">
+        <mat-label>Nome Fantasia</mat-label>
+        <input autofocus required formControlName='popularName' matInput placeholder="Nome da coleção" />
+        <mat-error>Insira o nome fantasia do cliente</mat-error>
+      </mat-form-field>
+    </mat-dialog-content>
 
     <mat-dialog-content>
-        <mat-form-field appearance="outline">
-          <mat-label>Nome Fantasia</mat-label>
-          <input
-            autofocus
-            required
-            [(ngModel)]="data.popularName"
-            matInput
-            placeholder="Nome da coleção"
-          />
-          <mat-error>Insira o nome fantasia do cliente</mat-error>
-        </mat-form-field>
-      </mat-dialog-content>
+      <mat-form-field appearance="outline">
+        <mat-label>Razão Social</mat-label>
+        <input autofocus required formControlName="companyName" matInput placeholder="Razão Social" />
+        <mat-error>Insira a razão social do cliente</mat-error>
+      </mat-form-field>
+    </mat-dialog-content>
 
-      <mat-dialog-content>
-        <mat-form-field appearance="outline">
-          <mat-label>Razão Social</mat-label>
-          <input
-            autofocus
-            required
-            [(ngModel)]="data.companyName"
-            matInput
-            placeholder="Razão Social"
-          />
-          <mat-error>Insira a razão social do cliente</mat-error>
-        </mat-form-field>
-      </mat-dialog-content>
-
-      <mat-dialog-content>
-        <mat-form-field appearance="outline">
-          <mat-label>CPNJ</mat-label>
-          <input
-            autofocus
-            required
-            [(ngModel)]="data.CPNJ"
-            matInput
-            placeholder="CPNJ"
-          />
-          <mat-error>Insira o CPNJ do cliente</mat-error>
-        </mat-form-field>
-      </mat-dialog-content>      
-
-    <div mat-dialog-actions class="mat-dialog-actions">      
-        <button mat-flat-button (click)="cancel()"> cancelar </button>
-        <button mat-flat-button color="primary" (click)="create()"> criar </button>
-    </div>
+    <mat-dialog-content>
+      <mat-form-field appearance="outline">
+        <mat-label>CPNJ</mat-label>
+        <input autofocus required formControlName="CPNJ" matInput placeholder="CPNJ" />
+        <mat-error>Insira o CPNJ do cliente</mat-error>
+      </mat-form-field>
+    </mat-dialog-content>
+  </form>
+  <div mat-dialog-actions class="mat-dialog-actions">
+    <button mat-flat-button (click)="cancel()"> cancelar </button>
+    <button mat-flat-button color="primary" [disabled]="formGroup.invalid" (click)="create()"> criar </button>
+  </div>
 
 </div>

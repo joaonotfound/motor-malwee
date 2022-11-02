@@ -1,64 +1,53 @@
 <div class="modal">
-    <h1 mat-dialog-title> Criar produto </h1>
-
+  <h1 mat-dialog-title> Criar produto </h1>
+  <form [formGroup]="formGroup">
     <mat-dialog-content>
       <mat-form-field appearance="outline">
         <mat-label>Descrição</mat-label>
-        <input
-          autofocus
-          required
-          [(ngModel)]="data.description"
-          matInput
-          placeholder="Nome do produto"
-        />
+        <input autofocus required formControlName="description" matInput placeholder="Nome do produto" />
         <mat-error>Insira a descrição do produto</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Preço</mat-label>
-        <input
-          autofocus
-          required
-          [(ngModel)]="data.price"
-          matInput
-          type="number"
-          placeholder="Preço do produto"
-        />
+        <input autofocus required formControlName="price" matInput type="number" placeholder="Preço do produto" />
         <mat-error>Insira o preço do produto</mat-error>
       </mat-form-field>
-      
+
       <mat-form-field appearance="outline">
         <mat-label>Grupo</mat-label>
-        <mat-select (selectionChange)="loadSubgroups()" [(ngModel)]="data.group" required>
+        <mat-select (selectionChange)="loadSubgroups()" formControlName="group" required>
           <mat-option *ngFor="let group of groups" [value]="group.description">
             {{group.description}}
           </mat-option>
         </mat-select>
+        <mat-error>selecione um grupo</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Subgrupo</mat-label>
-        <mat-select required [disabled]="!data.group" [(ngModel)]="data.subgroup">
+        <mat-select required [disabled]="!group?.value" formControlName="subgroup">
           <mat-option *ngFor="let subgroup of subgroups" [value]="subgroup.description">
             {{subgroup.description}}
           </mat-option>
         </mat-select>
+        <mat-error>selecione um subgrupo</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Colação</mat-label>
-        <mat-select required [(ngModel)]="data.collection">
+        <mat-label>Coleção</mat-label>
+        <mat-select required formControlName="collection">
           <mat-option *ngFor="let collection of collections" [value]="collection.description">
             {{collection.description}}
           </mat-option>
         </mat-select>
       </mat-form-field>
-      
-    </mat-dialog-content>
 
-    <div mat-dialog-actions class="mat-dialog-actions">      
-        <button mat-flat-button (click)="cancel()"> Cancelar </button>
-        <button mat-flat-button color="primary" (click)="create()"> Criar </button>
-    </div>
+    </mat-dialog-content>
+  </form>
+  <div mat-dialog-actions class="mat-dialog-actions">
+    <button mat-flat-button (click)="cancel()"> Cancelar </button>
+    <button mat-flat-button color="primary" [disabled]="formGroup.invalid" (click)="create()"> Criar </button>
+  </div>
 
 </div>

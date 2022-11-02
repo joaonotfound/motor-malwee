@@ -1,3 +1,4 @@
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, Inject } from '@angular/core';
 import { Collection } from 'src/app/services/rests/collections.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -9,15 +10,23 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 })
 export class EditCollectionModalComponent implements OnInit {
 
-  data: Collection
   previous_data: Collection
 
+  formGroup = this.createFormGroup()
+
+  get description(){
+    return this.formGroup.get('description')
+  }
+  createFormGroup(){
+    return this.FormGroup.group({
+      description: [this.raw_data.description, [Validators.required]]
+    })
+  }
   constructor(
     private readonly dialogRef: MatDialogRef<EditCollectionModalComponent>,
-    private readonly dialog: MatDialog,
+    private readonly FormGroup: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public readonly raw_data: Collection
   ) {
-    this.data = {...raw_data }
     this.previous_data = {...raw_data}
   }
 
@@ -29,7 +38,10 @@ export class EditCollectionModalComponent implements OnInit {
   }
 
   create(){
-    this.dialogRef.close({ previous_collection: this.previous_data, new_collection: this.data })
+    const new_collection: Collection = {
+      description: this.description?.value!
+    }
+    this.dialogRef.close({ previous_collection: this.previous_data, new_collection })
   }
 
 }

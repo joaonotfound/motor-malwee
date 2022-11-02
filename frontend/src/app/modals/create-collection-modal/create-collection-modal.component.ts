@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Collection } from 'src/app/services/rests/collections.service';
 
 @Component({
   selector: 'app-create-collection-modal',
@@ -10,24 +10,31 @@ import { Collection } from 'src/app/services/rests/collections.service';
 export class CreateCollectionModalComponent implements OnInit {
 
   
-  data: Partial<Collection> = {
-    description: ''    
-  }
+  formGroup = this.createFormGroup()
 
   constructor(
-    private readonly dialog: MatDialogRef<CreateCollectionModalComponent>
+    private readonly dialog: MatDialogRef<CreateCollectionModalComponent>,
+    private readonly formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
   }
-  
+   
+  get description(){
+    return this.formGroup.get('description')
+  }
+
+  createFormGroup(){
+    return this.formBuilder.group({
+      description: ['', [Validators.required]]
+    })
+  }
+
   cancel(){
     this.dialog.close()
   }
 
   create(){
-    this.dialog.close(this.data)
+    this.dialog.close({ description: this.description?.value })
   }
-
-
 }
