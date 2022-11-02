@@ -19,7 +19,7 @@ export class DeleteCustomerController{
         if(!deletedCustomer){
             return invalidParam('customer')
         }
-        
-        return ok(request)
+
+        return ok({ deleted: true })
     }
 }
