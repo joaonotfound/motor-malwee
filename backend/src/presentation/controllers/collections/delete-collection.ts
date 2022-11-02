@@ -21,7 +21,7 @@ export class DeleteCollectionController {
             return invalidParam('collection')
         }
 
-        return ok(deletedEntity)
+        return ok({ deleted: true })
 
     }
 }
