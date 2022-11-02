@@ -9,6 +9,9 @@ class CollectionStub implements Collection<any> {
     }
     async update(_: any): Promise<void> { }
     async save(_: any): Promise<void> { }
+    async delete(_: any): Promise<any>{
+        return true
+     }
 }
     
 class RepositoryStub implements Repository {
