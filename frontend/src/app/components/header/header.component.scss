@@ -1,9 +1,20 @@
+@import '../../../variables.scss';
 
-mat-toolbar{
+mat-toolbar {
     display: flex;
     align-items: center;
-    gap: 2rem;
-    & > logo {
-        display: inline-flex;
-    }
+    justify-content: space-between; 
+    background-color: $darker-background;
+    color: white;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+    & > div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+    }    
+}
+
+logo {
+    display: inline-flex;
 }

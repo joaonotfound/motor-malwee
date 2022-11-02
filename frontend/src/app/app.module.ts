@@ -36,6 +36,8 @@ import { CreateCustomerModalComponent } from './modals/create-customer-modal/cre
 import { TableDeleteModalComponent } from './modals/table-delete-modal.ts/table-delete-modal.ts.component';
 import { CenterComponent } from './center/center.component';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { ButtonComponent } from './components/button/button.component';
+import { CounterComponent } from './components/counter/counter.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,9 @@ import { StatisticsComponent } from './statistics/statistics.component';
     CreateCustomerModalComponent,
     TableDeleteModalComponent,
     CenterComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    ButtonComponent,
+    CounterComponent
   ],
   imports: [
     BrowserModule,

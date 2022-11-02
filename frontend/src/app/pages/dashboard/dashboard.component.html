@@ -5,7 +5,8 @@
     <mat-sidenav mode="side" class="nav-content" [(opened)]="sidebarOpened">
           <mat-action-list>
             <button mat-list-item class="sidenav-item" [routerLinkActiveOptions]="{ exact: true }" [routerLinkActive]="'active'" *ngFor="let item of menu" [routerLink]="item.path">
-                <mat-icon matListIcon>{{item.icon}}</mat-icon> {{item.caption}} 
+                <mat-icon matListIcon>{{item.icon}}</mat-icon>                 
+                {{item.caption}}
             </button>
           </mat-action-list>
     </mat-sidenav>

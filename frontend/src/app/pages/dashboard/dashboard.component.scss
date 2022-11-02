@@ -1,18 +1,21 @@
+@import '../../../variables.scss';
+
 mat-sidenav-content{
     padding: 2rem;
 }
 
-$primary-color: #1d73be;
-
 @mixin activeSidebarItem(){
-    color: white;
     background-color: $primary-color;    
+    transition: 0.3s ease-in;
 }
+
 .sidenav-item{
     width: fit-content;
     text-decoration: none;
-    border-radius: 0.8rem;
-    margin-top: 0.2rem;
+    border-radius: 0.2rem;
+    margin-top: 0.3rem;
+    color: $light-font-color;
+    // color: rgba(255, 255, 255, 0.8);
     &:hover, &:focus, &:checked, &:active {
         @include activeSidebarItem()
     }
@@ -25,10 +28,13 @@ $primary-color: #1d73be;
     right: 0;
     background-color: inherit;
 }
-
+.mat-list-text{
+    display: hidden;
+}
 .nav-content{
     width: 13rem;
-    padding: 0.5rem;
+    padding: 0.6rem;
+    background-color: $dark-backgroud;
 }
 
 .active{

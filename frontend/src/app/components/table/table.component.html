@@ -1,9 +1,9 @@
 <mat-card class="mat-elevation-z0 outline">
     <mat-card-content>
         <div class="header">
-            <button *ngIf="onCreate.observers.length!=0" mat-raised-button color="primary" (click)="onCreate.emit()">
+            <m-button *ngIf="onCreate.observers.length!=0" (click)="onCreate.emit()">
                 <mat-icon>add</mat-icon>
-            </button>
+            </m-button>
             <mat-form-field *ngIf="onFilter.observers.length!=0" class="example-form-field table-header"
                 style="margin-bottom: -1.25em" appearance="outline">
                 <input matInput type="text" placeholder="Filtrar" [(ngModel)]="filter"
