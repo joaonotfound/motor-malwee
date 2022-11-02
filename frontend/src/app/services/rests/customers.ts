@@ -8,7 +8,7 @@ import { Customer } from 'src/app/models/entities';
   providedIn: 'root'
 })
 export class CustomersService {
-  
+
   constructor(
     private readonly auth: AuthenticationService
   ){}
@@ -21,9 +21,12 @@ export class CustomersService {
     }
     return false
   }
-
+  public async delete(CPNJ: string): Promise<void> {
+    const axios = createAxios(this.auth.getToken())
+    await axios.delete('/customers', { data: { customer: CPNJ }})
+  }
   public async load(): Promise<Customer[]>{
-    const axios = createAxios(this.auth.getToken())  
+    const axios = createAxios(this.auth.getToken())
     const response = await axios.get('/customers')
     return await response.data.customers
 

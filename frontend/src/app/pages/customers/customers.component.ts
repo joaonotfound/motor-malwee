@@ -19,7 +19,7 @@ export class CustomersComponent implements OnInit {
     { columnName: 'Razão Social', propertyName: "companyName" }
   ]
 
-  constructor( 
+  constructor(
     private readonly dialog: MatDialog,
     private readonly customersService: CustomersService
   ) {
@@ -32,13 +32,13 @@ export class CustomersComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  deleteCustomer(customer: Customer) {
-    console.log('deletando...', customer)
+  async onDelete(customer: Customer){
+    await this.customersService.delete(customer.CPNJ)
+    this.customers = await this.customersService.load()
   }
-  
   openCreateModal(){
     const dialogRef = this.dialog.open(CreateCustomerModalComponent, { width: '400px' })
-    
+
     dialogRef.afterClosed().subscribe(async response => {
       if(response){
         const created = await this.customersService.create(response)
