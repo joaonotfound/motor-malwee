@@ -1,3 +1,4 @@
+import { DeleteCollectionController } from './../../presentation/controllers/collections/delete-collection';
 import * as express from 'express'
 import { Router } from "express"
 
@@ -29,6 +30,7 @@ export async function setupRoutes(app: express.Application){
     const createCollectionController = new CreateCollectionController(repository)
     const loadCollectionsController = new LoadCollectionController(repository)
     const editCollectionController = new EditCollectionController(repository)
+    const deleteCollectionController = new DeleteCollectionController(repository)
 
     const createProductController = new CreateProductController(repository)
     const loadProductsController = new LoadProductsController(repository)
@@ -39,7 +41,7 @@ export async function setupRoutes(app: express.Application){
     const createCustomerController = new CreateCustomerController(repository)
     const loadCustomerController = new LoadCustomersController(repository)
 
-    const routers = createRouters(jwtTokenManager, createAccountController, privateController, loginController, createGroupController, loadGroupsController, loadSubGroupController, createSubGroupController, editGroupsController, createCollectionController, editCollectionController, loadCollectionsController, createProductController, loadProductsController, createCustomerController, loadCustomerController)        
+    const routers = createRouters(jwtTokenManager, createAccountController, privateController, loginController, createGroupController, loadGroupsController, loadSubGroupController, createSubGroupController, editGroupsController, createCollectionController, editCollectionController, loadCollectionsController, createProductController, loadProductsController, createCustomerController, loadCustomerController, deleteCollectionController)        
 
     routers.forEach((router: Router) => {
         app.use(router)    
