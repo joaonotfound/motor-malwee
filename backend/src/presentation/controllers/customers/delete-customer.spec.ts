@@ -1,10 +1,13 @@
+import { createRepositoryStub } from '@/presentation/helpers';
+import { invalidParam } from '@/presentation/helpers';
 import { missingParam } from '@/presentation/helpers';
 import { HttpRequest } from './../../protocols';
 import { DeleteCustomerController } from './delete-customer';
 
 const makeSut = () => {
-    const sut = new DeleteCustomerController()
-    return { sut }
+    const { repositoryStub, collectionStub } = createRepositoryStub()
+    const sut = new DeleteCustomerController(repositoryStub)
+    return { sut, repositoryStub, collectionStub }
 }
 
 describe('DeleteCustomerController', () => {
@@ -17,4 +20,18 @@ describe('DeleteCustomerController', () => {
         const response = await sut.handle(request)
         expect(response).toEqual(missingParam('customer'))
     })
+    it('should return invalid param if customer not found', async () => {
+        const { sut, collectionStub } = makeSut()
+        jest.spyOn(collectionStub, 'deactivate').mockResolvedValueOnce(false)
+        
+        const request: HttpRequest = {
+            body: {
+                customer: 'invalid-customer'
+            },
+            params: {}
+        }
+        const response = await sut.handle(request)
+        expect(response).toEqual(invalidParam('customer'))
+    })
+    
 })
