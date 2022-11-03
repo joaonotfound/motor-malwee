@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { createAxios } from 'src/helpers/create-axios';
 import { AuthenticationService } from '../authentication.service';
-import { Product } from 'src/app/models/entities/product';
 import { Customer } from 'src/app/models/entities';
 
 @Injectable({
@@ -21,6 +20,13 @@ export class CustomersService {
     }
     return false
   }
+
+  async loadOne(cpnj: string){
+    const axios = createAxios(this.auth.getToken())
+    const response = await axios.get('/customer', { params: { cpnj }} )
+    return await response.data
+  }
+
   public async delete(CPNJ: string): Promise<void> {
     const axios = createAxios(this.auth.getToken())
     await axios.delete('/customers', { data: { customer: CPNJ }})

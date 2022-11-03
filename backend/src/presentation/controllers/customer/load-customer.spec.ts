@@ -15,6 +15,6 @@ describe('LoadCustomerController', () => {
             params: {}
         }
         const response = await sut.handle(request)
-        expect(response).toEqual(missingParam('CPNJ'))
+        expect(response).toEqual(missingParam('cpnj'))
     })
 })

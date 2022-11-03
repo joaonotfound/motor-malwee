@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Column } from 'src/app/components/table/table.component';
 import { CreateCustomerModalComponent } from 'src/app/modals/create-customer-modal/create-customer-modal.component';
 import { Customer } from 'src/app/models/entities';
-import { CustomersService } from 'src/app/services/rests/customers';
+import { CustomersService } from 'src/app/services/rests/customers.service';
 
 @Component({
   selector: 'app-customers',
@@ -35,7 +35,7 @@ export class CustomersComponent implements OnInit {
   ngOnInit(): void {}
 
   openCustomerPage(customer: Customer){
-    this.router.navigate(['/dashboard/customer/'], { queryParams: { cpnj: "sa" }} )
+    this.router.navigate(['/dashboard/customer/'], { queryParams: { cpnj: customer.CPNJ }})
   }
 
   async onDelete(customer: Customer){
