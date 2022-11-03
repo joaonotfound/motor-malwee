@@ -38,6 +38,7 @@ import { CenterComponent } from './center/center.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { ButtonComponent } from './components/button/button.component';
 import { CounterComponent } from './components/counter/counter.component';
+import { CustomerComponent } from './pages/customer/customer.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { CounterComponent } from './components/counter/counter.component';
     CenterComponent,
     StatisticsComponent,
     ButtonComponent,
-    CounterComponent
+    CounterComponent,
+    CustomerComponent
   ],
   imports: [
     BrowserModule,

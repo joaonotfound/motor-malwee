@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Column } from 'src/app/components/table/table.component';
 import { CreateCustomerModalComponent } from 'src/app/modals/create-customer-modal/create-customer-modal.component';
 import { Customer } from 'src/app/models/entities';
@@ -21,7 +22,8 @@ export class CustomersComponent implements OnInit {
 
   constructor(
     private readonly dialog: MatDialog,
-    private readonly customersService: CustomersService
+    private readonly customersService: CustomersService,
+    private readonly router: Router
   ) {
     this.loadCustomers()
   }
@@ -31,6 +33,10 @@ export class CustomersComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  openCustomerPage(customer: Customer){
+    this.router.navigate(['/dashboard/customer/'], { queryParams: { cpnj: "sa" }} )
+  }
 
   async onDelete(customer: Customer){
     await this.customersService.delete(customer.CPNJ)
