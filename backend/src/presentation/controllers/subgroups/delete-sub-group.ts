@@ -8,8 +8,8 @@ export class DeleteSubgroupController {
     constructor( private readonly repository: Repository ){}
     @RequiredParams(['description', 'group'])
     async handle(request: HttpRequest){
-        const { description } = request.body
-        const match_group = await this.repository.collection(groupEntity).findOne({ description })
+        const { description, group } = request.body
+        const match_group = await this.repository.collection(groupEntity).findOne({ description: group })
         if(!match_group){
             return invalidParam('group')
         }        

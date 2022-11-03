@@ -3,7 +3,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Group } from 'src/app/services/rests/groups.service';
 import { MatDialogRef } from '@angular/material/dialog';
-import { SubGroups, SubGroupsService } from 'src/app/services/rests/sub-groups.service';
+import { SubGroup, SubGroups, SubGroupsService } from 'src/app/services/rests/sub-groups.service';
 import { Column } from 'src/app/components/table/table.component';
 import { CreateSubgroupModalComponent } from '../create-subgroup-modal/create-subgroup-modal.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -46,6 +46,11 @@ export class EditGroupModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+  
+  async deleteSubgroup(subgroup: SubGroup){
+    await this.subgroupsServices.delete(subgroup.description, this.previous_data.description)
+    this.subgroups = await this.subgroupsServices.load(this.previous_data)
   }
 
   openCreateSubGrupoModal() {

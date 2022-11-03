@@ -23,7 +23,10 @@ export class SubGroupsService {
     }
     return false
   }
-
+  async delete(description: string, groupDescription: string){
+    const axios = createAxios(this.auth.getToken())  
+    await axios.delete('/subgroups', { data: { description, group: groupDescription }})
+  }
   public async load(group: Group): Promise<SubGroups> {
     const axios = createAxios(this.auth.getToken())  
     console.log(this.auth.getToken())
