@@ -10,7 +10,7 @@ export type SubGroups = SubGroup[]
   providedIn: 'root'
 })
 export class SubGroupsService {
-  
+
   constructor(
     private readonly auth: AuthenticationService
   ){}
@@ -27,11 +27,10 @@ export class SubGroupsService {
     const axios = createAxios(this.auth.getToken())  
     await axios.delete('/subgroups', { data: { description, group: groupDescription }})
   }
-  public async load(group: Group): Promise<SubGroups> {
+  public async load(group: Group) {
     const axios = createAxios(this.auth.getToken())  
     console.log(this.auth.getToken())
     const response = await axios.get('/subgroups', { params: { group: group.description }})
-    const subgroups = response.data.subgroups
-    return subgroups
+    return response.data.subgroups
   }
 }

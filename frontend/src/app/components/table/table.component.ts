@@ -42,10 +42,11 @@ export class TableComponent implements OnInit {
 
   openDeleteModal(row: any){
     const ref = this.dialog.open(TableDeleteModalComponent, { width: '400px' })
-    ref.beforeClosed().subscribe(confirm => {
+    const subscription = ref.beforeClosed().subscribe(confirm => {
       if(confirm){
-        this.onDelete.emit(row)
+        this.onDelete.emit(row)        
       }
+      subscription.unsubscribe()
     })
   }
 

@@ -16,7 +16,7 @@ export class CollectionsService {
     private readonly auth: AuthenticationService
   ){}
 
-  get collections(){
+  collections(){
     return this._collections.asObservable()
   }
 

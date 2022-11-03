@@ -26,6 +26,11 @@ export class EditGroupModalComponent implements OnInit {
   get description() {
     return this.formGroup.get('description')
   }
+
+  private async loadSubgroups(){
+    this.subgroups = await this.subgroupsServices.load(this.previous_data);
+  }
+
   createFormGroup() {
     return this.formBuilder.group({
       description: [this.raw_data.description, [Validators.required]]
@@ -39,18 +44,15 @@ export class EditGroupModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public readonly raw_data: Group
   ) {
     this.previous_data = { ...raw_data }
-
-    this.subgroupsServices.load({ description: this.description?.value! }).then(subgroups => {
-      this.subgroups = subgroups
-    })
   }
 
   ngOnInit(): void {
+    this.loadSubgroups()
   }
   
   async deleteSubgroup(subgroup: SubGroup){
     await this.subgroupsServices.delete(subgroup.description, this.previous_data.description)
-    this.subgroups = await this.subgroupsServices.load(this.previous_data)
+    this.loadSubgroups()
   }
 
   openCreateSubGrupoModal() {
@@ -60,7 +62,9 @@ export class EditGroupModalComponent implements OnInit {
       if (response) {
         const created = await this.subgroupsServices.create(this.description?.value!, response)
         if (created) {
-          this.subgroups = await this.subgroupsServices.load({ description: this.description?.value! })
+          this.subgroupsServices.load({ description: this.description?.value! }).then(
+            subgroups => this.subgroups = subgroups
+          )
         }
       }
     });

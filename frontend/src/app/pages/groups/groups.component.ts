@@ -32,9 +32,6 @@ export class GroupsComponent implements OnInit {
       }
     });
   }
-  filter(query: string){
-    console.log(query)
-  }
   onDelete(group: Group){
     this.groupsService.delete(group.description)
   }

@@ -1,10 +1,9 @@
 import { FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/app/models/entities/product';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Group, GroupsService } from 'src/app/services/rests/groups.service';
+import { GroupsService } from 'src/app/services/rests/groups.service';
 import { Collection, CollectionsService } from 'src/app/services/rests/collections.service';
-import { SubGroup, SubGroupsService } from 'src/app/services/rests/sub-groups.service';
+import { SubGroup, SubGroups, SubGroupsService } from 'src/app/services/rests/sub-groups.service';
 
 @Component({
   selector: 'app-create-product-modal',
@@ -13,9 +12,11 @@ import { SubGroup, SubGroupsService } from 'src/app/services/rests/sub-groups.se
 })
 export class CreateProductModalComponent implements OnInit {
 
-  groups: Group[] = []
-  subgroups: SubGroup[] = []
-  collections: Collection[] = [{ description: 'qwer'}, { description: 'qwer'}]
+  groups$ = this.groups()
+  subgroups: SubGroups = []
+  collections$ = this.collections()
+
+  // collections: Collection[] = [{ description: 'qwer'}, { description: 'qwer'}]
   formGroup = this.createFormGroup()
 
   get description(){
@@ -33,6 +34,13 @@ export class CreateProductModalComponent implements OnInit {
   get collection(){
     return this.formGroup.get('collection')
   }
+  groups(){
+    return this.groupsService.groups
+  }
+  collections(){
+    return this.collectionService.collections();
+  }
+
   createFormGroup(){
     return this.formBuilder.group({
       description: ['', [ Validators.required ]],
@@ -53,14 +61,13 @@ export class CreateProductModalComponent implements OnInit {
     private readonly subgroupsService: SubGroupsService,
     private readonly collectionService: CollectionsService,
     private readonly formBuilder: FormBuilder
-  ) {
-    this.groupsService.groups.subscribe(groups => this.groups = groups)
-    this.groupsService.loadGroups()
-    this.collectionService.collections.subscribe(collections => this.collections = collections)
-    this.collectionService.load()
-  }
+  ) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
+    // .subscribe(groups => this.groups$ = groups)
+    this.groupsService.loadGroups()
+    this.collectionService.load()
+    this.loadSubgroups()
   }
 
   cancel(){
