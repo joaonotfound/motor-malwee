@@ -1,4 +1,4 @@
-import { createRepositoryStub, invalidParam, missingParam } from "@/presentation/helpers"
+import { createRepositoryStub, invalidParam, missingParam, ok } from "@/presentation/helpers"
 import { HttpRequest } from "@/presentation/protocols"
 import { DeleteSubgroupController } from "./delete-sub-group"
 
@@ -57,6 +57,20 @@ describe('DeleteSubgroupController', () => {
         }
         const response = await sut.handle(request)
         expect(response).toEqual(invalidParam('description'))
+    })
+    it('should return 200 is subgroup was deleted.', async () => {
+        const { sut, collectionStub } = makeSut()
+        jest.spyOn(collectionStub, 'findOne').mockResolvedValueOnce(true)
+        jest.spyOn(collectionStub, 'deactivate').mockResolvedValueOnce(true)
+        const request: HttpRequest = {
+            body: {
+                description: 'valid-description',
+                group: 'valid-group'
+            },
+            params: {}
+        }
+        const response = await sut.handle(request)
+        expect(response).toEqual(ok({ deleted: true }))
     })
 })
 
