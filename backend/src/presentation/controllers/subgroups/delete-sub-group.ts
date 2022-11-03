@@ -1,4 +1,4 @@
-import { groupEntity, Repository } from "@/domain";
+import { groupEntity, Repository, subGroupEntity } from "@/domain";
 import { Del, RequiredParams } from "@/presentation/decorators";
 import { invalidParam, ok } from "@/presentation/helpers";
 import { HttpRequest } from "@/presentation/protocols";
@@ -12,7 +12,11 @@ export class DeleteSubgroupController {
         const match_group = await this.repository.collection(groupEntity).findOne({ description })
         if(!match_group){
             return invalidParam('group')
+        }        
+        const deletedSubgroup = await this.repository.collection(subGroupEntity).deactivate({ description, fk_group: match_group.id })
+        if(deletedSubgroup){
+            return ok({ deleted: true })
         }
-        return ok(request)
+        return invalidParam('description')
     }
 }
