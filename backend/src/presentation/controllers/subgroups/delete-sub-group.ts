@@ -3,7 +3,7 @@ import { HttpRequest } from "@/presentation/protocols";
 
 @Del('/subgroups')
 export class DeleteSubgroupController {
-    @RequiredParams(['description'])
+    @RequiredParams(['description', 'group'])
     async handle(request: HttpRequest){
         console.log(request)
     }
