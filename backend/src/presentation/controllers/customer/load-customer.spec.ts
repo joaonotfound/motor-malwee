@@ -1,9 +1,10 @@
-import { missingParam } from "@/presentation/helpers"
+import { createRepositoryStub, missingParam } from "@/presentation/helpers"
 import { LoadCustomerController } from "./load-customer"
 
 const makeSut = () => {
-    const sut = new LoadCustomerController()
-    return { sut }
+    const { repositoryStub, collectionStub } = createRepositoryStub()
+    const sut = new LoadCustomerController(repositoryStub)
+    return { sut, repositoryStub, collectionStub }
 }
 
 describe('LoadCustomerController', () => {
@@ -14,6 +15,6 @@ describe('LoadCustomerController', () => {
             params: {}
         }
         const response = await sut.handle(request)
-        expect(response).toEqual(missingParam('cpnj'))
+        expect(response).toEqual(missingParam('CPNJ'))
     })
 })
