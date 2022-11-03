@@ -11,11 +11,24 @@ describe('DeleteSubgroupController', () => {
     it('should return 400 if no description was providen', async () => {
         const { sut } = makeSut()
         const request: HttpRequest = {
-            body: {},
+            body: {
+                group: "valid-group"
+            },
             params: {}
         }
         const response = await sut.handle(request)
         expect(response).toEqual(missingParam('description'))
+    })
+    it('should return 400 if no group was providen', async () => {
+        const { sut } = makeSut()
+        const request: HttpRequest = {
+            body: {
+                description: 'valid-description'
+            },
+            params: {}
+        }
+        const response = await sut.handle(request)
+        expect(response).toEqual(missingParam('group'))
     })
 })
 
