@@ -44,6 +44,20 @@ describe('DeleteSubgroupController', () => {
         const response = await sut.handle(request)
         expect(response).toEqual(invalidParam('group'))
     })
+    it('should return 400 if subgroup doesnt exists', async () => {
+        const { sut, collectionStub } = makeSut()
+        jest.spyOn(collectionStub, 'findOne').mockResolvedValueOnce(true)
+        jest.spyOn(collectionStub, 'deactivate').mockResolvedValueOnce(false)
+        const request: HttpRequest = {
+            body: {
+                description: 'valid-description',
+                group: 'valid-group'
+            },
+            params: {}
+        }
+        const response = await sut.handle(request)
+        expect(response).toEqual(invalidParam('description'))
+    })
 })
 
     
