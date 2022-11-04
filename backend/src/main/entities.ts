@@ -1,4 +1,4 @@
-import { collectionEntity, customerEntity, groupEntity, productsEntity, subGroupEntity, userEntity } from '@/domain'
+import { Address, addressEntity, collectionEntity, customerEntity, groupEntity, productsEntity, subGroupEntity, userEntity } from '@/domain'
 import { Group, SubGroup, User, Zip, Collection, Product, Customer } from '@/infra'
 
 export const entities: Zip = [
@@ -7,5 +7,6 @@ export const entities: Zip = [
     { value: subGroupEntity, ormEntity: SubGroup },
     { value: collectionEntity, ormEntity: Collection },
     { value: productsEntity, ormEntity: Product },
-    { value: customerEntity, ormEntity: Customer }
+    { value: customerEntity, ormEntity: Customer },
+    { value: addressEntity, ormEntity: Address }
 ]
