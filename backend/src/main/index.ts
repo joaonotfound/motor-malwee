@@ -1,7 +1,7 @@
 import { setupRoutes } from "./config";
 import { makeApp } from "./factory/app";
 import * as express from 'express'
-import * as cors from 'cors'
+import cors from 'cors'
 
 async function main(){
   const app = makeApp()

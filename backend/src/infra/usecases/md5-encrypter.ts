@@ -1,5 +1,5 @@
 import { Encrypter } from "@/domain";
-import * as md5 from 'md5'
+const md5 = require('md5')
 
 export class MD5Encrypter implements Encrypter {
     async encrypt(text: string): Promise<string> {
