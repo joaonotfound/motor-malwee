@@ -5,6 +5,7 @@ import { CustomersService } from 'src/app/services/rests/customers.service';
 import { Column } from 'src/app/components/table/table.component';
 import { AddressModalComponent } from 'src/app/modals/address-modal/address-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Address } from 'src/app/models';
 
 @Component({
   selector: 'app-customer',
@@ -42,6 +43,10 @@ export class CustomerComponent implements OnInit {
   async loadInfo(){
     console.log(this.params)
     const customer = await this.customerService.loadOne(this.params.id);
+  }
+  onDeleteAddress(address: Address){
+    this.addressesService.delete(address.id!)
+    this.addressesService.load(this.params.id)
   }
   onCreateAddress(){
     const dialogRef = this.dialog.open(AddressModalComponent, { width: '600px' })

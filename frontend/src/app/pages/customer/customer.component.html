@@ -1,1 +1,1 @@
-<app-table [data]="addresses$ | async" (onCreate)="onCreateAddress()" [columns]="table_columns" [contentName]="'endereços'"></app-table>
+<app-table [data]="addresses$ | async" (onCreate)="onCreateAddress()" (onDelete)="onDeleteAddress($event)" [columns]="table_columns" [contentName]="'endereços'"></app-table>
