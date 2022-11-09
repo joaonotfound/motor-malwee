@@ -1,4 +1,4 @@
-import { createRepositoryStub, invalidParam, makeHashIDStub, missingParam } from "@/presentation/helpers"
+import { createRepositoryStub, invalidParam, makeHashIDStub, missingParam, ok } from "@/presentation/helpers"
 import { HttpRequest } from "@/presentation/protocols"
 import { LoadAddressController } from "./load-address"
 
@@ -31,7 +31,7 @@ describe('LoadAddressController', () => {
         await sut.handle(request)
         expect(decodeSpy).toHaveBeenCalledWith('valid-user')
     })
-    it('should return invalidParam if invlaid user', async () => {
+    it('should return invalidParam if invalid user', async () => {
         const { sut, collectionStub } = makeSut()
         jest.spyOn(collectionStub, 'findOne').mockResolvedValueOnce(false)
         const request: HttpRequest = {
@@ -42,5 +42,17 @@ describe('LoadAddressController', () => {
         }
         const response = await sut.handle(request)
         expect(response).toEqual(invalidParam('user'))
+    })
+    it('should return list of address', async () => {
+        const { sut, collectionStub } = makeSut()
+        jest.spyOn(collectionStub, 'findOne').mockResolvedValueOnce(true)
+        const request: HttpRequest = {
+            params: {
+                user: 'valid-user'
+            },
+            body: {}
+        }
+        const response = await sut.handle(request)
+        expect(response).toEqual(ok({ addresses: []}))
     })
 })
