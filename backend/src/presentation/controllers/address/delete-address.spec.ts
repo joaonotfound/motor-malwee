@@ -1,10 +1,12 @@
-import { missingParam } from "@/presentation/helpers"
+import { createRepositoryStub, makeHashIDStub, missingParam } from "@/presentation/helpers"
 import { HttpRequest } from "@/presentation/protocols"
 import { DeleteAddressController } from "./delete-address"
 
 const makeSut = () => {
-    const sut = new DeleteAddressController()
-    return { sut }
+    const hasherStub = makeHashIDStub()
+    const { repositoryStub, collectionStub } = createRepositoryStub()
+    const sut = new DeleteAddressController(hasherStub, repositoryStub)
+    return { sut, repositoryStub, collectionStub, hasherStub }
 }
 describe('DeleteAddressController', () => {
     it('should return 400 if no id is provided', async () => {
@@ -15,5 +17,17 @@ describe('DeleteAddressController', () => {
         }
         const response = await sut.handle(request)
         expect(response).toEqual(missingParam('id'))
+    })
+    it('should call decode method', async () => {
+        const { sut, hasherStub } = makeSut()
+        const decodeSpy = jest.spyOn(hasherStub, 'decode')
+        const request: HttpRequest = { 
+            body: {
+                id: 'valid-id'
+            },
+            params: {}
+        }
+        await sut.handle(request)
+        expect(decodeSpy).toHaveBeenCalledWith('valid-id')
     })
 })
