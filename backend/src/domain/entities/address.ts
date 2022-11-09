@@ -6,11 +6,11 @@ export class Address extends Entity {
         public state: string,
         public country: string,
         public street: string,
-        public number: string,
+        public district: string,
         public reference: string,
         public complement: string,
         public zip: string
     ) { super() }
 }
 
-export const addressEntity = new Address('', '', '', '', '', '', '', '')
+export const addressEntity = new Address('', '' ,'', '', '', '', '', '')

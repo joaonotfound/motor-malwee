@@ -1,5 +1,5 @@
 
-import { Entity, Property, types } from '@mikro-orm/core'
+import { Entity, Property } from '@mikro-orm/core'
 import { BaseEntity } from "./base-model";
 
 @Entity()
@@ -17,7 +17,7 @@ export class Product extends BaseEntity {
     street: string
 
     @Property()
-    number: number
+    district: string
 
     @Property()
     reference: string
@@ -28,7 +28,7 @@ export class Product extends BaseEntity {
     @Property()
     zip: string
 
-    constructor(params: { city: string, state: string, country: string, street: string, number: number, reference: string, complement: string, zip: string, id: number, status: number }) {
+    constructor(params: { city: string, state: string, country: string, street: string, district: string, reference: string, complement: string, zip: string, id: number, status: number }) {
         super(params)
         this.city = params.city
         this.complement = params.complement
@@ -36,7 +36,7 @@ export class Product extends BaseEntity {
         this.state = params.state
         this.zip = params.zip
         this.reference = params.reference
-        this.number = params.number
+        this.district = params.district
         this.street = params.street
     }
 }
