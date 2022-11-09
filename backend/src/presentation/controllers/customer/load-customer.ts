@@ -6,10 +6,11 @@ import { HttpRequest } from "@/presentation/protocols";
 @Get('/customer')
 export class LoadCustomerController {
     constructor( private readonly repository: Repository, private readonly idHasher: HashID ){}
-    @RequiredParams(['cpnj'], { on: "params" })
+    @RequiredParams(['id'], { on: "params" })
     async handle(request: HttpRequest){
-        const { cpnj } = request.params;
-        const match_customer = await this.repository.collection(customerEntity).findOne({ CPNJ: cpnj })
+        const { id } = request.params;
+        const private_id = this.idHasher.decode(id)
+        const match_customer = await this.repository.collection(customerEntity).findOne({ id: private_id })
         return ok(safeCustomers([match_customer], this.idHasher )[0])
     }
 }

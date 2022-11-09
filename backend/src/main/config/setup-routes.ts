@@ -6,7 +6,7 @@ import * as express from 'express'
 import { Router } from "express"
 
 import { HashIDs, JWTTokenManager, MD5Encrypter, MikroRepository, ValidatorEmail} from '@/infra'
-import {  EditGroupController, LoadGroupsController, CreateAccountController, CreateSubGroupController, LoadSubGroupsController, LoginController, PrivateController, CreateProductController, LoadProductsController, CreateCustomerController, LoadCustomerController } from '@/presentation'
+import {  EditGroupController, LoadGroupsController, CreateAccountController, CreateSubGroupController, LoadSubGroupsController, LoginController, PrivateController, CreateProductController, LoadProductsController, CreateCustomerController, LoadCustomerController, LoadAddressController } from '@/presentation'
 import { entities } from '../entities'
 import { createRouters } from '../helpers'
 import { CreateGroupController } from '@/presentation/controllers/groups/create-group'
@@ -51,7 +51,9 @@ export async function setupRoutes(app: express.Application){
     const loadCustomerController = new LoadCustomerController(repository, idHashser);
 
     const createAddressController = new CreateAddressController(idHashser, repository)
-    const routers = createRouters(jwtTokenManager, createAddressController, deleteProductController, deleteGroupController, createAccountController, privateController, loginController, createGroupController, loadGroupsController, loadSubGroupController, createSubGroupController, editGroupsController, createCollectionController, editCollectionController, loadCollectionsController, createProductController, loadProductsController, createCustomerController, loadCustomerController, deleteCustomerController, deleteCollectionController, deleteSubgroupController, loadCustomersController)        
+    const loadAddressController = new LoadAddressController(idHashser, repository)
+
+    const routers = createRouters(jwtTokenManager, loadAddressController, createAddressController, deleteProductController, deleteGroupController, createAccountController, privateController, loginController, createGroupController, loadGroupsController, loadSubGroupController, createSubGroupController, editGroupsController, createCollectionController, editCollectionController, loadCollectionsController, createProductController, loadProductsController, createCustomerController, loadCustomerController, deleteCustomerController, deleteCollectionController, deleteSubgroupController, loadCustomersController)        
 
     routers.forEach((router: Router) => {
         app.use(router)    

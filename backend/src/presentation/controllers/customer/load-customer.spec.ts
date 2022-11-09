@@ -9,13 +9,13 @@ const makeSut = () => {
 }
 
 describe('LoadCustomerController', () => {
-    it('should return 400 if no cpnj was providen', async () => {
+    it('should return 400 if no id was providen', async () => {
         const { sut } = makeSut()
         const request = { 
             body: {},
             params: {}
         }
         const response = await sut.handle(request)
-        expect(response).toEqual(missingParam('cpnj'))
+        expect(response).toEqual(missingParam('id'))
     })
 })
