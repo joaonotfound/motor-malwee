@@ -1,4 +1,4 @@
-import { addressEntity, HashID, Repository, userEntity } from "@/domain";
+import { addressEntity, customerEntity, HashID, Repository } from "@/domain";
 import { Get, RequiredParams } from "@/presentation/decorators";
 import { invalidParam, ok, safeAddress } from "@/presentation/helpers";
 import { HttpRequest } from "@/presentation/protocols";
@@ -10,9 +10,9 @@ export class LoadAddressController {
     async handle(request: HttpRequest){
         const { customer } = request.params
         const private_id = this.idHasher.decode(customer)
-
-        const matchUser = await this.repository.collection(userEntity).findOne({ id: private_id })
-        if(!matchUser){
+        console.log(customer, private_id)
+        const matchCustomer = await this.repository.collection(customerEntity).findOne({ id: private_id })
+        if(!matchCustomer){
             return invalidParam('customer')
         }
         const addressess = await this.repository.collection(addressEntity).find({ customer: private_id })
