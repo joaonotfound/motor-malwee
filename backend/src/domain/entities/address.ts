@@ -8,9 +8,9 @@ export class Address extends Entity {
         public country: string,
         public street: string,
         public district: string,
-        public reference: string,
-        public complement: string,
-        public zip: string
+        public reference?: string,
+        public complement?: string,
+        public zip?: string
     ) { super() }
 }
 

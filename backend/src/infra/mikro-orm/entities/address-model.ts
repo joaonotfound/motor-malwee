@@ -22,13 +22,13 @@ export class Address extends BaseEntity {
     @Property()
     district: string
 
-    @Property()
+    @Property({ nullable: true })
     reference: string
 
-    @Property()
+    @Property({ nullable: true })
     complement: string
 
-    @Property()
+    @Property({ nullable: true })
     zip: string
 
     constructor(params: { user: number, city: string, state: string, country: string, street: string, district: string, reference: string, complement: string, zip: string, id: number, status: number }) {
