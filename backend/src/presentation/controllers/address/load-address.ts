@@ -1,6 +1,6 @@
-import { HashID, Repository, userEntity } from "@/domain";
+import { addressEntity, HashID, Repository, userEntity } from "@/domain";
 import { Get, RequiredParams } from "@/presentation/decorators";
-import { invalidParam, ok } from "@/presentation/helpers";
+import { invalidParam, ok, safeAddress } from "@/presentation/helpers";
 import { HttpRequest } from "@/presentation/protocols";
 
 @Get('/address')
@@ -15,6 +15,7 @@ export class LoadAddressController {
         if(!matchUser){
             return invalidParam('user')
         }
-        return ok({ address: [] })
+        const addressess = await this.repository.collection(addressEntity).find({ user: private_id })
+        return ok({ addresses: safeAddress(addressess) })
     }
 }
