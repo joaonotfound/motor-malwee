@@ -2,6 +2,7 @@ import { Entity } from "./entity-model";
 
 export class Address extends Entity {
     constructor(
+        public user: number,
         public city: string,
         public state: string,
         public country: string,
@@ -13,4 +14,4 @@ export class Address extends Entity {
     ) { super() }
 }
 
-export const addressEntity = new Address('', '' ,'', '', '', '', '', '')
+export const addressEntity = new Address(0, '', '' ,'', '', '', '', '', '')

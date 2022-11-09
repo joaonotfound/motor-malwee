@@ -5,6 +5,9 @@ import { BaseEntity } from "./base-model";
 @Entity()
 export class Product extends BaseEntity {
     @Property()
+    user: number 
+
+    @Property()
     city: string
 
     @Property()
@@ -28,8 +31,9 @@ export class Product extends BaseEntity {
     @Property()
     zip: string
 
-    constructor(params: { city: string, state: string, country: string, street: string, district: string, reference: string, complement: string, zip: string, id: number, status: number }) {
+    constructor(params: { user: number, city: string, state: string, country: string, street: string, district: string, reference: string, complement: string, zip: string, id: number, status: number }) {
         super(params)
+        this.user = params.user
         this.city = params.city
         this.complement = params.complement
         this.country = params.country
