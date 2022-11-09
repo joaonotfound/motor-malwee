@@ -39,6 +39,8 @@ import { StatisticsComponent } from './statistics/statistics.component';
 import { ButtonComponent } from './components/button/button.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { CustomerComponent } from './pages/customer/customer.component';
+import { AddressModalComponent } from './modals/address-modal/address-modal.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -65,7 +67,8 @@ import { CustomerComponent } from './pages/customer/customer.component';
     StatisticsComponent,
     ButtonComponent,
     CounterComponent,
-    CustomerComponent
+    CustomerComponent,
+    AddressModalComponent
   ],
   imports: [
     BrowserModule,
@@ -83,7 +86,8 @@ import { CustomerComponent } from './pages/customer/customer.component';
     MatTableModule,
     MatDialogModule,
     MatCardModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { AddressesService } from 'src/app/services/rests/addressess.service';
 import { CustomersService } from 'src/app/services/rests/customers.service';
 import { Column } from 'src/app/components/table/table.component';
+import { AddressModalComponent } from 'src/app/modals/address-modal/address-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-customer',
@@ -25,7 +27,8 @@ export class CustomerComponent implements OnInit {
   constructor(
     private readonly route: ActivatedRoute,
     private readonly customerService: CustomersService,
-    private readonly addressesService: AddressesService
+    private readonly addressesService: AddressesService,
+    private readonly dialog: MatDialog
   ) {
     this.route.queryParams.subscribe(params => {
       this.params = params
@@ -39,6 +42,15 @@ export class CustomerComponent implements OnInit {
   async loadInfo(){
     console.log(this.params)
     const customer = await this.customerService.loadOne(this.params.id);
+  }
+  onCreateAddress(){
+    const dialogRef = this.dialog.open(AddressModalComponent, { width: '600px' })
+
+    dialogRef.afterClosed().subscribe(async response => {
+      if(response){
+       console.log(response)
+      }
+    });
   }
   ngOnInit(): void {
     console.log(this.params)

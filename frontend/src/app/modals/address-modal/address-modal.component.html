@@ -1,0 +1,56 @@
+<div class="modal">
+  <h1 mat-dialog-title> Adicionar endereço </h1>
+
+  <form [formGroup]="formGroup">
+    <mat-dialog-content>
+      <mat-form-field appearance="outline">
+        <mat-label>CEP</mat-label>
+        <input autofocus formControlName="zip" matInput placeholder="CEP" />
+        <mat-error>CEP inválido</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Rua</mat-label>
+        <input autofocus formControlName="street" matInput placeholder="Rua" />
+        <mat-error>Insira a rua </mat-error>
+      </mat-form-field>
+      <div class="form-wrapper">
+        <mat-form-field appearance="outline">
+          <mat-label>Bairro</mat-label>
+          <input autofocus formControlName="district" matInput placeholder="Bairro" />
+          <mat-error>Insira o bairro</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Cidade</mat-label>
+          <input autofocus formControlName="city" matInput placeholder="Cidade" />
+          <mat-error>Insira a cidade</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-wrapper">
+        <mat-form-field appearance="outline">
+          <mat-label>Estado</mat-label>
+          <input autofocus formControlName="state" matInput placeholder="Estado" />
+          <mat-error>Insira o estado</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>País</mat-label>
+          <input autofocus formControlName="country" matInput placeholder="País" />
+          <mat-error>Insira o país</mat-error>
+        </mat-form-field>
+      </div>
+      <mat-form-field appearance="outline">
+        <mat-label>Complemento</mat-label>
+        <input autofocus formControlName="complement" matInput placeholder="Complemento" />
+        <!-- <mat-error>Insira a descrição da coleção</mat-error> -->
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Referência</mat-label>
+        <input autofocus formControlName="reference" matInput placeholder="Referência" />
+      </mat-form-field>
+    </mat-dialog-content>
+  </form>
+  <div mat-dialog-actions class="mat-dialog-actions">
+    <button mat-flat-button (click)="cancel()"> cancelar </button>
+    <button mat-flat-button [disabled]="formGroup.invalid" color="primary" (click)="create()"> adicionar </button>
+  </div>
+
+</div>
