@@ -67,4 +67,19 @@ describe('CreateAddressController', () => {
         const response = await sut.handle(request)
         expect(response).toEqual(missingParam('district'))
     })
+    it('should return 400 if no user was providen', async () => {
+        const { sut } = makeSut()
+        const request: HttpRequest = { 
+            body: {
+                street: "valid-street",
+                city: "valid-city",
+                state: 'valid-state',
+                country: "valid-country",
+                district: "valid-district"
+            },
+            params: {}
+        }
+        const response = await sut.handle(request)
+        expect(response).toEqual(missingParam('user'))
+    })
 })
