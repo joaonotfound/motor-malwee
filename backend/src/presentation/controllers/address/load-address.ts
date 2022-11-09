@@ -10,7 +10,7 @@ export class LoadAddressController {
     async handle(request: HttpRequest){
         const { customer } = request.params
         const private_id = this.idHasher.decode(customer)
-        console.log(customer, private_id)
+
         const matchCustomer = await this.repository.collection(customerEntity).findOne({ id: private_id })
         if(!matchCustomer){
             return invalidParam('customer')
