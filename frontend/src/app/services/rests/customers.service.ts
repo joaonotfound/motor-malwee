@@ -21,9 +21,9 @@ export class CustomersService {
     return false
   }
 
-  async loadOne(cpnj: string){
+  async loadOne(id: string){
     const axios = createAxios(this.auth.getToken())
-    const response = await axios.get('/customer', { params: { cpnj }} )
+    const response = await axios.get('/customer', { params: { id }} )
     return await response.data
   }
 

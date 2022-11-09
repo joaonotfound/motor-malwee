@@ -35,7 +35,7 @@ export class CustomersComponent implements OnInit {
   ngOnInit(): void {}
 
   openCustomerPage(customer: Customer){
-    this.router.navigate(['/dashboard/customer/'], { queryParams: { cpnj: customer.CPNJ }})
+    this.router.navigate(['/dashboard/customer/'], { queryParams: { id: customer.id }})
   }
 
   async onDelete(customer: Customer){
