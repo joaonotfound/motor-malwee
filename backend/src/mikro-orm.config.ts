@@ -1,8 +1,7 @@
 import {  EntityCaseNamingStrategy, Configuration, Options, IDatabaseDriver, Connection } from '@mikro-orm/core'
 
-import { Group, SubGroup, User, Collection, Product, Customer } from 'infra/mikro-orm/entities';
+import { Group, SubGroup, User, Collection, Product, Customer, Address } from 'infra/mikro-orm/entities';
 import * as dotenv from 'dotenv';
-import { Address } from './domain';
 
 dotenv.config()
 
@@ -10,7 +9,7 @@ const config: Configuration<IDatabaseDriver<Connection>> | Options<IDatabaseDriv
     entities: [ User, Group, SubGroup, Collection, Product, Customer, Address ],
     type: 'mysql',
     user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || 'password',
+    password: process.env.DB_PASSWORD || 'root',
     dbName: 'sales-engine',
     debug: false,
     namingStrategy: EntityCaseNamingStrategy,
