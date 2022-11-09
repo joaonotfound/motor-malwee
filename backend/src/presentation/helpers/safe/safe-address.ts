@@ -1,7 +1,8 @@
-import { Address } from "@/domain"
+import { Address, HashID } from "@/domain"
 
-export const safeAddress = (values: Array<any>): Partial<Address>[] => {
+export const safeAddress = (values: Array<any>, idHasher: HashID): Partial<Address>[] => {
      return values.map(a => ({ 
+        id: idHasher.encode(a.id),
         city: a.city,
         state: a.state,
         country: a.country,

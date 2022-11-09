@@ -16,6 +16,6 @@ export class LoadAddressController {
             return invalidParam('customer')
         }
         const addressess = await this.repository.collection(addressEntity).find({ customer: private_id })
-        return ok({ addresses: safeAddress(addressess) })
+        return ok({ addresses: safeAddress(addressess, this.idHasher) })
     }
 }
