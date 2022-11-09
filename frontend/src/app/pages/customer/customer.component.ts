@@ -48,7 +48,9 @@ export class CustomerComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(async response => {
       if(response){
-       console.log(response)
+        const address = { ...response, customer: this.params.id }
+        this.addressesService.create(address)
+        this.addressesService.load(this.params.id)
       }
     });
   }
