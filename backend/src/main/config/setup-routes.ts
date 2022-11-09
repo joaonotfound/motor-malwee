@@ -5,7 +5,7 @@ import { DeleteCollectionController } from './../../presentation/controllers/col
 import * as express from 'express'
 import { Router } from "express"
 
-import { JWTTokenManager, MD5Encrypter, MikroRepository, ValidatorEmail} from '@/infra'
+import { HashIDs, JWTTokenManager, MD5Encrypter, MikroRepository, ValidatorEmail} from '@/infra'
 import {  EditGroupController, LoadGroupsController, CreateAccountController, CreateSubGroupController, LoadSubGroupsController, LoginController, PrivateController, CreateProductController, LoadProductsController, CreateCustomerController, LoadCustomerController } from '@/presentation'
 import { entities } from '../entities'
 import { createRouters } from '../helpers'
@@ -13,6 +13,7 @@ import { CreateGroupController } from '@/presentation/controllers/groups/create-
 import { CreateCollectionController, EditCollectionController, LoadCollectionController } from '@/presentation/controllers/collections'
 import { LoadCustomersController } from '@/presentation/controllers/customers/load-customers'
 import { DeleteSubgroupController } from '@/presentation/controllers/subgroups/delete-sub-group';
+import { CreateAddressController } from '@/presentation/controllers/address/create-address';
 
 export async function setupRoutes(app: express.Application){
 
@@ -20,7 +21,8 @@ export async function setupRoutes(app: express.Application){
     const jwtTokenManager = new JWTTokenManager()
     const md5Encrypter = new MD5Encrypter()
     const emailValidator = new ValidatorEmail()
-    
+    const idHashser = new HashIDs()
+
     console.log('debug-token: ', jwtTokenManager.generate({}))
     
     const createAccountController = new CreateAccountController(emailValidator, md5Encrypter, repository, jwtTokenManager)
@@ -50,7 +52,8 @@ export async function setupRoutes(app: express.Application){
     const deleteCustomerController = new DeleteCustomerController(repository)
     const loadCustomerController = new LoadCustomerController(repository);
 
-    const routers = createRouters(jwtTokenManager, deleteProductController, deleteGroupController, createAccountController, privateController, loginController, createGroupController, loadGroupsController, loadSubGroupController, createSubGroupController, editGroupsController, createCollectionController, editCollectionController, loadCollectionsController, createProductController, loadProductsController, createCustomerController, loadCustomerController, deleteCustomerController, deleteCollectionController, deleteSubgroupController, loadCustomersController)        
+    const createAddressController = new CreateAddressController(idHashser, repository)
+    const routers = createRouters(jwtTokenManager, createAddressController, deleteProductController, deleteGroupController, createAccountController, privateController, loginController, createGroupController, loadGroupsController, loadSubGroupController, createSubGroupController, editGroupsController, createCollectionController, editCollectionController, loadCollectionsController, createProductController, loadProductsController, createCustomerController, loadCustomerController, deleteCustomerController, deleteCollectionController, deleteSubgroupController, loadCustomersController)        
 
     routers.forEach((router: Router) => {
         app.use(router)    

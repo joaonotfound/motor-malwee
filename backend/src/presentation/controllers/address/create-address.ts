@@ -1,9 +1,9 @@
 import { Address, addressEntity, HashID, Repository, userEntity } from "@/domain";
-import { RequiredParams } from "@/presentation/decorators";
+import { Post, RequiredParams } from "@/presentation/decorators";
 import { invalidParam, ok } from "@/presentation/helpers";
 import { HttpRequest } from "@/presentation/protocols";
 
-
+@Post('/address')
 export class CreateAddressController{
     constructor( private readonly idHasher: HashID, private readonly repository: Repository  ){}
     @RequiredParams(['street', 'city', 'state', 'country', 'district', 'user'])
