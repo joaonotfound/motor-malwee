@@ -1,5 +1,5 @@
 import { HashID } from "@/domain"
-import { missingParam } from "@/presentation/helpers"
+import { createRepositoryStub, invalidParam, missingParam } from "@/presentation/helpers"
 import { HttpRequest } from "@/presentation/protocols"
 import { CreateAddressController } from "./create-address"
 
@@ -16,8 +16,9 @@ const makeHashIDStub = () => {
 }
 const makeSut = () => {
     const hashIdStub = makeHashIDStub()
-    const sut = new CreateAddressController(hashIdStub)
-    return { sut, hashIdStub }
+    const { repositoryStub, collectionStub } = createRepositoryStub()
+    const sut = new CreateAddressController(hashIdStub, repositoryStub)
+    return { sut, hashIdStub, repositoryStub, collectionStub }
 }
 
 describe('CreateAddressController', () => {
@@ -110,5 +111,22 @@ describe('CreateAddressController', () => {
         }
         await sut.handle(request)
         expect(decodeSpy).toHaveBeenCalledWith('valid-user')
+    })
+    it('should return 400 if invalid-user', async () => {
+        const { sut, collectionStub } = makeSut()
+        jest.spyOn(collectionStub, 'findOne').mockResolvedValueOnce(false)
+        
+        const request: HttpRequest = {
+            body: {
+                street: "valid-street",
+                city: "valid-city",
+                state: 'valid-state',
+                country: "valid-country",
+                district: "valid-district",
+                user: "invalid-user"
+            }, params: {}            
+        }
+        const response = await sut.handle(request)
+        expect(response).toEqual(invalidParam('user'))
     })
 })
