@@ -23,8 +23,6 @@ export async function setupRoutes(app: express.Application){
     const emailValidator = new ValidatorEmail()
     const idHashser = new HashIDs()
 
-    console.log('debug-token: ', jwtTokenManager.generate({}))
-    
     const createAccountController = new CreateAccountController(emailValidator, md5Encrypter, repository, jwtTokenManager)
     const privateController = new PrivateController()
     const loginController = new LoginController(emailValidator, repository, md5Encrypter, jwtTokenManager)
@@ -58,6 +56,9 @@ export async function setupRoutes(app: express.Application){
     routers.forEach((router: Router) => {
         app.use(router)    
     });
+    
+    console.log('debug-token: ', await jwtTokenManager.generate({}))
+    console.log('user 1 public id:', idHashser.encode(1))
 }
 
 
