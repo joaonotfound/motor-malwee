@@ -46,9 +46,9 @@ export async function setupRoutes(app: express.Application){
     const deleteSubgroupController = new DeleteSubgroupController(repository)
 
     const createCustomerController = new CreateCustomerController(repository)
-    const loadCustomersController = new LoadCustomersController(repository)
+    const loadCustomersController = new LoadCustomersController(repository, idHashser)
     const deleteCustomerController = new DeleteCustomerController(repository)
-    const loadCustomerController = new LoadCustomerController(repository);
+    const loadCustomerController = new LoadCustomerController(repository, idHashser);
 
     const createAddressController = new CreateAddressController(idHashser, repository)
     const routers = createRouters(jwtTokenManager, createAddressController, deleteProductController, deleteGroupController, createAccountController, privateController, loginController, createGroupController, loadGroupsController, loadSubGroupController, createSubGroupController, editGroupsController, createCollectionController, editCollectionController, loadCollectionsController, createProductController, loadProductsController, createCustomerController, loadCustomerController, deleteCustomerController, deleteCollectionController, deleteSubgroupController, loadCustomersController)        
