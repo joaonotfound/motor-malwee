@@ -1,10 +1,23 @@
+import { HashID } from "@/domain"
 import { missingParam } from "@/presentation/helpers"
 import { HttpRequest } from "@/presentation/protocols"
 import { CreateAddressController } from "./create-address"
 
+const makeHashIDStub = () => {
+    class HashIdStub implements HashID {
+        encode(_: number): string {
+            return ''
+        }
+        decode(_: string): number {
+            return 0
+        }
+    }
+    return new HashIdStub()
+}
 const makeSut = () => {
-    const sut = new CreateAddressController()
-    return { sut }
+    const hashIdStub = makeHashIDStub()
+    const sut = new CreateAddressController(hashIdStub)
+    return { sut, hashIdStub }
 }
 
 describe('CreateAddressController', () => {
@@ -81,5 +94,21 @@ describe('CreateAddressController', () => {
         }
         const response = await sut.handle(request)
         expect(response).toEqual(missingParam('user'))
+    })
+    it('should call decode method with right method', async () => {
+        const { sut, hashIdStub } = makeSut();
+        const decodeSpy = jest.spyOn(hashIdStub, 'decode')
+        const request: HttpRequest = {
+            body: {
+                street: "valid-street",
+                city: "valid-city",
+                state: 'valid-state',
+                country: "valid-country",
+                district: "valid-district",
+                user: "valid-user"
+            }, params: {}            
+        }
+        await sut.handle(request)
+        expect(decodeSpy).toHaveBeenCalledWith('valid-user')
     })
 })
