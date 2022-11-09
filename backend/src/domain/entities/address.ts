@@ -2,7 +2,7 @@ import { Entity } from "./entity-model";
 
 export class Address extends Entity {
     constructor(
-        public user: number,
+        public customer: number,
         public city: string,
         public state: string,
         public country: string,

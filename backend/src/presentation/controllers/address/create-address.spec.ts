@@ -69,7 +69,7 @@ describe('CreateAddressController', () => {
         const response = await sut.handle(request)
         expect(response).toEqual(missingParam('district'))
     })
-    it('should return 400 if no user was providen', async () => {
+    it('should return 400 if no customer was providen', async () => {
         const { sut } = makeSut()
         const request: HttpRequest = { 
             body: {
@@ -82,7 +82,7 @@ describe('CreateAddressController', () => {
             params: {}
         }
         const response = await sut.handle(request)
-        expect(response).toEqual(missingParam('user'))
+        expect(response).toEqual(missingParam('customer'))
     })
     it('should call decode method with right method', async () => {
         const { sut, hashIdStub } = makeSut();
@@ -94,13 +94,13 @@ describe('CreateAddressController', () => {
                 state: 'valid-state',
                 country: "valid-country",
                 district: "valid-district",
-                user: "valid-user"
+                customer: "valid-customer"
             }, params: {}            
         }
         await sut.handle(request)
-        expect(decodeSpy).toHaveBeenCalledWith('valid-user')
+        expect(decodeSpy).toHaveBeenCalledWith('valid-customer')
     })
-    it('should return 400 if invalid-user', async () => {
+    it('should return 400 if invalid-customer', async () => {
         const { sut, collectionStub } = makeSut()
         jest.spyOn(collectionStub, 'findOne').mockResolvedValueOnce(false)
 
@@ -111,11 +111,11 @@ describe('CreateAddressController', () => {
                 state: 'valid-state',
                 country: "valid-country",
                 district: "valid-district",
-                user: "invalid-user"
+                customer: "invalid-customer"
             }, params: {}            
         }
         const response = await sut.handle(request)
-        expect(response).toEqual(invalidParam('user'))
+        expect(response).toEqual(invalidParam('customer'))
     })
     it('should return 200 if address was created', async () => {
         const { sut, collectionStub } = makeSut()
@@ -128,7 +128,7 @@ describe('CreateAddressController', () => {
                 state: 'valid-state',
                 country: "valid-country",
                 district: "valid-district",
-                user: "valid-user"
+                customer: "valid-customer"
             }, params: {}            
         }
         const response = await sut.handle(request)

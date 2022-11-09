@@ -1,9 +1,10 @@
-import { createRepositoryStub, ok } from "@/presentation/helpers"
+import { createRepositoryStub, makeHashIDStub, ok } from "@/presentation/helpers"
 import { LoadCustomersController } from "./load-customers"
 
 const makeSut = () => {
     const { repositoryStub, collectionStub } = createRepositoryStub()
-    const sut = new LoadCustomersController(repositoryStub)
+    const idHasherStub = makeHashIDStub()
+    const sut = new LoadCustomersController(repositoryStub, idHasherStub)
     return { sut, collectionStub }    
 }
 

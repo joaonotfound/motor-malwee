@@ -10,45 +10,45 @@ const makeSut = () => {
 }
 
 describe('LoadAddressController', () => {
-    it('should return 400 if no user is providen', async () => {
+    it('should return 400 if no customer is providen', async () => {
         const { sut } = makeSut()
         const request: HttpRequest = {
             params: {},
             body: {}
         }
         const response = await sut.handle(request)
-        expect(response).toEqual(missingParam('user'))
+        expect(response).toEqual(missingParam('customer'))
     })
     it('should call decode method', async () => {
         const { sut, hashIdStub } = makeSut()
         const decodeSpy = jest.spyOn(hashIdStub, 'decode')
         const request: HttpRequest = {
             params: {
-                user: 'valid-user'
+                customer: 'valid-customer'
             },
             body: {}
         }
         await sut.handle(request)
-        expect(decodeSpy).toHaveBeenCalledWith('valid-user')
+        expect(decodeSpy).toHaveBeenCalledWith('valid-customer')
     })
-    it('should return invalidParam if invalid user', async () => {
+    it('should return invalidParam if invalid customer', async () => {
         const { sut, collectionStub } = makeSut()
         jest.spyOn(collectionStub, 'findOne').mockResolvedValueOnce(false)
         const request: HttpRequest = {
             params: {
-                user: 'invalid-user'
+                customer: 'invalid-customer'
             },
             body: {}
         }
         const response = await sut.handle(request)
-        expect(response).toEqual(invalidParam('user'))
+        expect(response).toEqual(invalidParam('customer'))
     })
     it('should return list of address', async () => {
         const { sut, collectionStub } = makeSut()
         jest.spyOn(collectionStub, 'findOne').mockResolvedValueOnce(true)
         const request: HttpRequest = {
             params: {
-                user: 'valid-user'
+                customer: 'valid-customer'
             },
             body: {}
         }

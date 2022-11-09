@@ -1,9 +1,10 @@
-import { createRepositoryStub, missingParam } from "@/presentation/helpers"
+import { createRepositoryStub, makeHashIDStub, missingParam } from "@/presentation/helpers"
 import { LoadCustomerController } from "./load-customer"
 
 const makeSut = () => {
     const { repositoryStub, collectionStub } = createRepositoryStub()
-    const sut = new LoadCustomerController(repositoryStub)
+    const idHasher = makeHashIDStub()
+    const sut = new LoadCustomerController(repositoryStub, idHasher)
     return { sut, repositoryStub, collectionStub }
 }
 
