@@ -1,10 +1,11 @@
-import { missingParam } from "@/presentation/helpers"
+import { makeHashIDStub, missingParam } from "@/presentation/helpers"
 import { HttpRequest } from "@/presentation/protocols"
 import { LoadAddressController } from "./load-address"
 
 const makeSut = () => {
-    const sut = new LoadAddressController()
-    return { sut }
+    const hashIdStub = makeHashIDStub()
+    const sut = new LoadAddressController(hashIdStub)
+    return { sut, hashIdStub }
 }
 
 describe('LoadAddressController', () => {
@@ -16,5 +17,17 @@ describe('LoadAddressController', () => {
         }
         const response = await sut.handle(request)
         expect(response).toEqual(missingParam('user'))
-    } )
+    })
+    it('should call decode method', async () => {
+        const { sut, hashIdStub } = makeSut()
+        const decodeSpy = jest.spyOn(hashIdStub, 'decode')
+        const request: HttpRequest = {
+            params: {
+                user: 'valid-user'
+            },
+            body: {}
+        }
+        await sut.handle(request)
+        expect(decodeSpy).toHaveBeenCalledWith('valid-user')
+    })
 })

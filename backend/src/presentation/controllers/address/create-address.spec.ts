@@ -1,19 +1,7 @@
-import { HashID } from "@/domain"
-import { createRepositoryStub, invalidParam, missingParam, ok } from "@/presentation/helpers"
+import { createRepositoryStub, invalidParam, missingParam, ok, makeHashIDStub } from "@/presentation/helpers"
 import { HttpRequest } from "@/presentation/protocols"
 import { CreateAddressController } from "./create-address"
 
-const makeHashIDStub = () => {
-    class HashIdStub implements HashID {
-        encode(_: number): string {
-            return ''
-        }
-        decode(_: string): number {
-            return 0
-        }
-    }
-    return new HashIdStub()
-}
 const makeSut = () => {
     const hashIdStub = makeHashIDStub()
     const { repositoryStub, collectionStub } = createRepositoryStub()
@@ -129,9 +117,10 @@ describe('CreateAddressController', () => {
         const response = await sut.handle(request)
         expect(response).toEqual(invalidParam('user'))
     })
-    it('should return 200 if user was created', async () => {
-        const { sut } = makeSut()
-
+    it('should return 200 if address was created', async () => {
+        const { sut, collectionStub } = makeSut()
+        jest.spyOn(collectionStub, 'findOne').mockResolvedValueOnce(true)
+        
         const request: HttpRequest = {
             body: {
                 street: "valid-street",
