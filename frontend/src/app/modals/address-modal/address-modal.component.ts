@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Address } from 'src/app/models';
 import { ZipcodeService } from 'src/app/services/rests/zipcode.service';
 
 @Component({
@@ -16,7 +17,8 @@ export class AddressModalComponent implements OnInit {
   constructor(
     private readonly dialog: MatDialogRef<AddressModalComponent>,
     private readonly formBuilder: FormBuilder,
-    private readonly zipService: ZipcodeService
+    private readonly zipService: ZipcodeService,
+    @Inject(MAT_DIALOG_DATA) private raw_data: Address
   ) { }
 
   ngOnInit(): void {
@@ -41,14 +43,14 @@ export class AddressModalComponent implements OnInit {
 
   createFormGroup(){
     return this.formBuilder.group({
-      zip: [''],
-      street: ['', [Validators.required]],
-      district: ['', [Validators.required]],
-      city: ['', [Validators.required]],
-      state: ['', [Validators.required]],
-      country: ['', [Validators.required]],
-      reference: [''],
-      complement: ['']
+      zip: [this.raw_data.zip],
+      street: [this.raw_data.street, [Validators.required]],
+      district: [this.raw_data.district, [Validators.required]],
+      city: [this.raw_data.city, [Validators.required]],
+      state: [this.raw_data.state, [Validators.required]],
+      country: [this.raw_data.country, [Validators.required]],
+      reference: [this.raw_data.reference],
+      complement: [this.raw_data.complement]
     })
   }
 
