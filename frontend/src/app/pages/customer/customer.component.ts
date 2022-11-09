@@ -14,7 +14,7 @@ import { Address } from 'src/app/models';
 })
 export class CustomerComponent implements OnInit {
   params: any;
-  addresses$ = this.getAddressess()
+  addresses = []
   table_columns: Column[] = [
     { columnName: 'CPNJ', propertyName: "zip" },
     { columnName: 'Rua', propertyName: "street" },
@@ -37,16 +37,17 @@ export class CustomerComponent implements OnInit {
     })
   }
 
-  getAddressess(){
-    return this.addressesService.addresses()
+  async updateAddresses(){
+    this.addresses = await this.addressesService.load(this.params.id)
+    console.log(this.addresses)
   }
   async loadInfo(){
     console.log(this.params)
     const customer = await this.customerService.loadOne(this.params.id);
   }
-  onDeleteAddress(address: Address){
-    this.addressesService.delete(address.id!)
-    this.addressesService.load(this.params.id)
+  async onDeleteAddress(address: Address){
+    await this.addressesService.delete(address.id!)
+    this.updateAddresses()
   }
   onCreateAddress(){
     const dialogRef = this.dialog.open(AddressModalComponent, { width: '600px' })
@@ -55,13 +56,12 @@ export class CustomerComponent implements OnInit {
       if(response){
         const address = { ...response, customer: this.params.id }
         this.addressesService.create(address)
-        this.addressesService.load(this.params.id)
+        this.updateAddresses()
       }
     });
   }
   ngOnInit(): void {
-    console.log(this.params)
-    this.addressesService.load(this.params.id)
+    this.updateAddresses()
   }
 
 }
