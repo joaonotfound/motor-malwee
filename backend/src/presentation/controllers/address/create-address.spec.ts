@@ -1,5 +1,5 @@
 import { HashID } from "@/domain"
-import { createRepositoryStub, invalidParam, missingParam } from "@/presentation/helpers"
+import { createRepositoryStub, invalidParam, missingParam, ok } from "@/presentation/helpers"
 import { HttpRequest } from "@/presentation/protocols"
 import { CreateAddressController } from "./create-address"
 
@@ -115,7 +115,7 @@ describe('CreateAddressController', () => {
     it('should return 400 if invalid-user', async () => {
         const { sut, collectionStub } = makeSut()
         jest.spyOn(collectionStub, 'findOne').mockResolvedValueOnce(false)
-        
+
         const request: HttpRequest = {
             body: {
                 street: "valid-street",
@@ -128,5 +128,21 @@ describe('CreateAddressController', () => {
         }
         const response = await sut.handle(request)
         expect(response).toEqual(invalidParam('user'))
+    })
+    it('should return 200 if user was created', async () => {
+        const { sut } = makeSut()
+
+        const request: HttpRequest = {
+            body: {
+                street: "valid-street",
+                city: "valid-city",
+                state: 'valid-state',
+                country: "valid-country",
+                district: "valid-district",
+                user: "valid-user"
+            }, params: {}            
+        }
+        const response = await sut.handle(request)
+        expect(response).toEqual(ok({ created: true }))
     })
 })
