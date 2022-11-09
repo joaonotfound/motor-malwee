@@ -22,10 +22,10 @@ describe('DeleteAddressController', () => {
         const { sut, hasherStub } = makeSut()
         const decodeSpy = jest.spyOn(hasherStub, 'decode')
         const request: HttpRequest = { 
-            body: {
+            params: {
                 id: 'valid-id'
             },
-            params: {}
+            body: {}
         }
         await sut.handle(request)
         expect(decodeSpy).toHaveBeenCalledWith('valid-id')
@@ -33,10 +33,10 @@ describe('DeleteAddressController', () => {
     it('should return 200 if no errors', async () => {
         const { sut } = makeSut()
         const request: HttpRequest = { 
-            body: {
+            params: {
                 id: 'valid-id'
             },
-            params: {}
+            body: {}
         }
         const response = await sut.handle(request)
         expect(response).toEqual(ok({ deleted: true }))
