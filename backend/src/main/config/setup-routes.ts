@@ -14,6 +14,7 @@ import { CreateCollectionController, EditCollectionController, LoadCollectionCon
 import { LoadCustomersController } from '@/presentation/controllers/customers/load-customers'
 import { DeleteSubgroupController } from '@/presentation/controllers/subgroups/delete-sub-group';
 import { CreateAddressController } from '@/presentation/controllers/address/create-address';
+import { DeleteAddressController } from '@/presentation/controllers/address/delete-address';
 
 export async function setupRoutes(app: express.Application){
 
@@ -52,8 +53,9 @@ export async function setupRoutes(app: express.Application){
 
     const createAddressController = new CreateAddressController(idHashser, repository)
     const loadAddressController = new LoadAddressController(idHashser, repository)
+    const deleteAddressController = new DeleteAddressController(idHashser, repository)
 
-    const routers = createRouters(jwtTokenManager, loadAddressController, createAddressController, deleteProductController, deleteGroupController, createAccountController, privateController, loginController, createGroupController, loadGroupsController, loadSubGroupController, createSubGroupController, editGroupsController, createCollectionController, editCollectionController, loadCollectionsController, createProductController, loadProductsController, createCustomerController, loadCustomerController, deleteCustomerController, deleteCollectionController, deleteSubgroupController, loadCustomersController)        
+    const routers = createRouters(jwtTokenManager, loadAddressController, createAddressController, deleteProductController, deleteGroupController, createAccountController, privateController, loginController, createGroupController, loadGroupsController, loadSubGroupController, createSubGroupController, editGroupsController, createCollectionController, editCollectionController, loadCollectionsController, createProductController, loadProductsController, createCustomerController, loadCustomerController, deleteCustomerController, deleteCollectionController, deleteSubgroupController, loadCustomersController, deleteAddressController)        
 
     routers.forEach((router: Router) => {
         app.use(router)    
