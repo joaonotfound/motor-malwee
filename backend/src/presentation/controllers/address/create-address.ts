@@ -16,7 +16,7 @@ export class CreateAddressController{
         if(!matchUser){
             return invalidParam('user')
         }
-        await this.repository.collection(addressEntity).save(address)
+        await this.repository.collection(addressEntity).save({ ...address, user: private_id })
         return ok({ created: true })
         
     }
