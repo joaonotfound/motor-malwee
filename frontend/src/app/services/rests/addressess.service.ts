@@ -26,7 +26,10 @@ export class AddressesService {
     }
     return false
   }
-
+  public async delete(id: string){
+    const axios = createAxios(this.auth.getToken())
+    await axios.delete('/address', { params: { id } })
+  }
   public async load(id: string){
     const axios = createAxios(this.auth.getToken())
     const response = await axios.get('/address', { params: { customer: id } })
