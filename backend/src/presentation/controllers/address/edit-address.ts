@@ -1,31 +1,27 @@
-import { addressEntity, customerEntity, HashID, Repository, userEntity } from "@/domain";
+import { addressEntity, HashID, Repository } from "@/domain";
 import { Put, RequiredParams } from "@/presentation/decorators";
-import { invalidParam } from "@/presentation/helpers";
+import { invalidParam, ok } from "@/presentation/helpers";
 import { HttpRequest } from "@/presentation/protocols";
 
 @Put('/address')
 export class EditAddressController{
     constructor( private readonly idHasher: HashID, private readonly repository: Repository ){}
-    @RequiredParams(['customer', 'id'])
+    @RequiredParams(['id'])
     async handle(request: HttpRequest){
-        const { customer, id } = request.body
+        const { id } = request.body
         const address = request.body
 
-        const customerPrivateId = this.idHasher.decode(customer)
         const addressPrivateId = this.idHasher.decode(id)
 
-        const matchCustomer = await this.repository.collection(customerEntity).findOne({ id: customerPrivateId })
-        if(!matchCustomer){
-            return invalidParam('customer')
-        }        
         const matchAddress = await this.repository.collection(addressEntity).findOne({ id: addressPrivateId })
         if(!matchAddress){
-            return invalidParam('address')
+            return invalidParam('id')
         }
+        const updatedData = Object.assign({}, address, { id: addressPrivateId, customer: matchAddress.customer } )
+        console.log(updatedData)
+        await this.repository.collection(addressEntity).update(updatedData)
 
-        await this.repository.collection(userEntity).update(Object.assign({}, address, { customer: customerPrivateId, address: addressPrivateId } ))
-
-        return request
+        return ok({ edited: true })
 
     }
 }
