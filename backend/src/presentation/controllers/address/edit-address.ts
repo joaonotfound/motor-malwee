@@ -6,14 +6,15 @@ import { HttpRequest } from "@/presentation/protocols";
 @Put('/address')
 export class EditAddressController{
     constructor( private readonly idHasher: HashID, private readonly repository: Repository ){}
-    @RequiredParams(['customer'])
+    @RequiredParams(['customer', 'id'])
     async handle(request: HttpRequest){
         const { customer } = request.body
         const privateId = this.idHasher.decode(customer)
-        const matchUser = await this.repository.collection(userEntity).findOne({ id: privateId })
-        if(!matchUser){
+        const matchCustomer = await this.repository.collection(userEntity).findOne({ id: privateId })
+        if(!matchCustomer){
             return invalidParam('customer')
         }
+        // await this.repository.collection(userEntity).update(Object.assign({}, ))
         return request
 
     }
