@@ -46,7 +46,15 @@ export class CustomerComponent implements OnInit {
     const customer = await this.customerService.loadOne(this.params.id);
   }
   onEditAddress(data: Address){
-    this.dialog.open(AddressModalComponent, { width: '600px', data })
+    const dialogRef = this.dialog.open(AddressModalComponent, { width: '600px', data })
+
+    dialogRef.afterClosed().subscribe(async response => {
+      if(response){
+        const address = { ...response, customer: this.params.id }
+        await this.addressesService.edit(address)
+        this.updateAddresses()
+      }
+    });
   }
   async onDeleteAddress(address: Address){
     await this.addressesService.delete(address.id!)
