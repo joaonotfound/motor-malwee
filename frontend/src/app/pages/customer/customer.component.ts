@@ -16,14 +16,9 @@ export class CustomerComponent implements OnInit {
   params: any;
   addresses = []
   table_columns: Column[] = [
-    { columnName: 'CPNJ', propertyName: "zip" },
+    { columnName: 'Cep', propertyName: "zip" },
     { columnName: 'Rua', propertyName: "street" },
-    { columnName: 'Bairro', propertyName: "district" },
-    { columnName: 'Cidade', propertyName: "city" },
-    { columnName: 'Estado', propertyName: "state" },
-    { columnName: 'País', propertyName: "country" }
-    
-    
+    { columnName: 'Cidade', propertyName: "city" },    
   ]
   constructor(
     private readonly route: ActivatedRoute,
