@@ -1,10 +1,11 @@
-import { missingParam } from "@/presentation/helpers"
+import { makeHashIDStub, missingParam } from "@/presentation/helpers"
 import { HttpRequest } from "@/presentation/protocols"
 import { CreateOrderController } from "./create-order"
 
 const makeSut = () => {
-    const sut = new CreateOrderController()
-    return { sut }
+    const hasherId = makeHashIDStub()
+    const sut = new CreateOrderController(hasherId)
+    return { sut, hasherId }
 }
 
 describe('CreateOrderController', () => {
@@ -27,5 +28,18 @@ describe('CreateOrderController', () => {
         }
         const response = await sut.handle(request)
         expect(response).toEqual(missingParam('address'))
+    })
+    it('should call decoder', async () => {
+        const { sut, hasherId } = makeSut()
+        const decodeSpy = jest.spyOn(hasherId, 'decode')
+        const request: HttpRequest = {
+            body: { 
+                customer: 'valid-customer',
+                address: 'valid-address'
+            },
+            params: {}
+        }
+        await sut.handle(request)
+        expect(decodeSpy).toHaveBeenCalledWith('valid-customer')
     })
 })
