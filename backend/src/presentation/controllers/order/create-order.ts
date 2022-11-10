@@ -4,7 +4,7 @@ import { HttpRequest } from "@/presentation/protocols";
 
 @Post('/order')
 export class CreateOrderController {
-    @RequiredParams(['customer'])
+    @RequiredParams(['customer', 'address'])
     async handle(request: HttpRequest){
         return request
     }
