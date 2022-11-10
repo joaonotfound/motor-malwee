@@ -24,7 +24,8 @@ describe('EditAddressController', () => {
         const decodeSpy = jest.spyOn(idHasher, 'decode')
         const request: HttpRequest = {
             body: {
-                customer: 'valid-customer'
+                customer: 'valid-customer',
+                id: 'valid-id'
             },
             params: {}
         }
@@ -32,14 +33,29 @@ describe('EditAddressController', () => {
         expect(decodeSpy).toHaveBeenCalledWith('valid-customer')
     })
     it('should return 400 if invalid customer', async () => {
-        const { sut } = makeSut()
+        const { sut, collectionStub } = makeSut()
+        jest.spyOn(collectionStub, 'findOne').mockResolvedValue(false)
+
         const request: HttpRequest = {
             body: {
-                customer: 'invalid-customer'
+                customer: 'invalid-customer',
+                id: 'valid-id'
             },
             params: {}
         }
         const response = await sut.handle(request)
         expect(response).toEqual(invalidParam('customer'))
+    })
+    it('should return 400 if no id is providen', async () => {
+        const { sut, collectionStub } = makeSut()
+        jest.spyOn(collectionStub, 'findOne').mockResolvedValueOnce(true)
+        const request: HttpRequest = {
+            body: {
+                customer: 'valid-customer'
+            },
+            params: {}
+        }
+        const response = await sut.handle(request)
+        expect(response).toEqual(missingParam('id'))
     })
 })
