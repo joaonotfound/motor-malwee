@@ -19,9 +19,10 @@ class MikroCollection<T extends Entity> implements Collection<T> {
         const ormEntity = new this.ormEntity(entity)
         await this.repository.nativeUpdate({ id: ormEntity.id }, ormEntity)
     }
-    async save(entity: T){        
+    async save(entity: T): Promise<T> {        
         const ormEntity = new this.ormEntity(entity)
         await this.repository.persistAndFlush(ormEntity)
+        return ormEntity
     }
 
     async findOne(where: Partial<Entity> | Partial<T>): Promise<T>{
