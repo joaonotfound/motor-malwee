@@ -17,4 +17,15 @@ describe('CreateOrderController', () => {
         const response = await sut.handle(request)
         expect(response).toEqual(missingParam('customer'))
     })
+    it('should return 400 if no adddress is providen', async () => {
+        const { sut } = makeSut()
+        const request: HttpRequest = {
+            body: { 
+                customer: 'valid-customer'
+            },
+            params: {}
+        }
+        const response = await sut.handle(request)
+        expect(response).toEqual(missingParam('address'))
+    })
 })
