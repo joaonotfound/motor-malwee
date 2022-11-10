@@ -1,5 +1,5 @@
-import { addressEntity, collectionEntity, customerEntity, groupEntity, productsEntity, subGroupEntity, userEntity } from '@/domain'
-import { Group, SubGroup, User, Zip, Collection, Product, Customer, Address } from '@/infra'
+import { addressEntity, collectionEntity, customerEntity, groupEntity, orderEntity, orderItemEntity, productsEntity, subGroupEntity, userEntity } from '@/domain'
+import { Group, SubGroup, User, Zip, Collection, Product, Customer, Address, Order, OrderItem } from '@/infra'
 
 export const entities: Zip = [
     { value: userEntity, ormEntity: User },
@@ -8,5 +8,7 @@ export const entities: Zip = [
     { value: collectionEntity, ormEntity: Collection },
     { value: productsEntity, ormEntity: Product },
     { value: customerEntity, ormEntity: Customer },
-    { value: addressEntity, ormEntity: Address }
+    { value: addressEntity, ormEntity: Address },
+    { value: orderEntity, ormEntity: Order },
+    { value: orderItemEntity, ormEntity: OrderItem }
 ]
