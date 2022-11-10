@@ -11,21 +11,40 @@ import { ZipcodeService } from 'src/app/services/rests/zipcode.service';
 })
 export class AddressModalComponent implements OnInit {
   
-  formGroup = this.createFormGroup()
-  typingTimeout: any = null
+  formGroup: any;
+  data: Address = {
+    customer: 0,
+    street: '',
+    city: '',
+    district: '',
+    state: '',
+    country: '',
+    zip: '',
+    reference: '',
+    complement: ''
+
+  };
 
   constructor(
     private readonly dialog: MatDialogRef<AddressModalComponent>,
     private readonly formBuilder: FormBuilder,
     private readonly zipService: ZipcodeService,
-    @Inject(MAT_DIALOG_DATA) private raw_data: Address
-  ) { }
+    @Inject(MAT_DIALOG_DATA) raw_data: Address
+  ) {
+    if(raw_data){
+      this.data = Object.assign({}, this.data, raw_data)
+    }
+    this.formGroup = this.createFormGroup()
+  }
 
   ngOnInit(): void {
+
   }
+
   get zip(){
     return this.formGroup.get('zip')?.value
   }
+
   async searchZip(){
    if(this.zip?.length == 8){   
       const address = await this.zipService.load(this.zip!)
@@ -42,15 +61,16 @@ export class AddressModalComponent implements OnInit {
   }
 
   createFormGroup(){
+    console.log(this.data)
     return this.formBuilder.group({
-      zip: [this.raw_data.zip],
-      street: [this.raw_data.street, [Validators.required]],
-      district: [this.raw_data.district, [Validators.required]],
-      city: [this.raw_data.city, [Validators.required]],
-      state: [this.raw_data.state, [Validators.required]],
-      country: [this.raw_data.country, [Validators.required]],
-      reference: [this.raw_data.reference],
-      complement: [this.raw_data.complement]
+      zip: [this.data.zip, [ Validators.minLength(8), Validators.maxLength(8)]],
+      street: [this.data.street, [Validators.required]],
+      district: [this.data.district, [Validators.required]],
+      city: [this.data.city, [Validators.required]],
+      state: [this.data.state, [Validators.required]],
+      country: [this.data.country, [Validators.required]],
+      reference: [this.data.reference],
+      complement: [this.data.complement]
     })
   }
 

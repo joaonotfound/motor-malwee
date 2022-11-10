@@ -1,4 +1,7 @@
 <mat-card class="mat-elevation-z0 outline">
+    <mat-card-title>
+      <h1>{{title}}</h1>
+    </mat-card-title>
     <mat-card-content>
         <div class="header">
             <m-button *ngIf="onCreate.observers.length!=0" (click)="onCreate.emit()">

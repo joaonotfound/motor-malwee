@@ -45,6 +45,9 @@ export class CustomerComponent implements OnInit {
     console.log(this.params)
     const customer = await this.customerService.loadOne(this.params.id);
   }
+  onEditAddress(data: Address){
+    this.dialog.open(AddressModalComponent, { width: '600px', data })
+  }
   async onDeleteAddress(address: Address){
     await this.addressesService.delete(address.id!)
     this.updateAddresses()

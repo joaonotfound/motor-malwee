@@ -14,6 +14,7 @@ export class TableComponent implements OnInit {
   @Input() contentName: string = ''  
   @Input() columns: Column[] = []
   @Input() data: any = []
+  @Input() title: string = ''
   
   @Output() onCreate = new EventEmitter()
   @Output() onEdit = new EventEmitter()
