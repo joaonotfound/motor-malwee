@@ -46,7 +46,7 @@ export class AddressModalComponent implements OnInit {
   }
 
   async searchZip(){
-   if(this.zip?.length == 8){   
+   if(this.zip?.length > 8){   
       const address = await this.zipService.load(this.zip!)
       this.formGroup.get('street')?.setValue(address?.street!)    
       this.formGroup.get('district')?.setValue(address?.district!)    
@@ -63,7 +63,7 @@ export class AddressModalComponent implements OnInit {
   createFormGroup(){
     console.log(this.data)
     return this.formBuilder.group({
-      zip: [this.data.zip, [ Validators.minLength(8), Validators.maxLength(8)]],
+      zip: [this.data.zip, [ Validators.minLength(8), Validators.maxLength(9)]],
       street: [this.data.street, [Validators.required]],
       district: [this.data.district, [Validators.required]],
       city: [this.data.city, [Validators.required]],
