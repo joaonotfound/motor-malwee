@@ -18,4 +18,10 @@ export class OrdersService {
         }
         return false
     }
+    
+    public async load(customerID: string): Promise<Order[]>{
+        const axios = createAxios(this.auth.getToken())
+        const response = await axios.get('/customer/orders', { params: { customer: customerID }})
+        return response.data.orders
+    }
 }
