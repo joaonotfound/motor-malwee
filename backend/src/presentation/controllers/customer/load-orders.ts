@@ -5,7 +5,7 @@ import { HttpRequest } from "@/presentation/protocols";
 
 
 @Get('/customer/orders')
-export class LoadOrdersController {
+export class LoadCustomersOrdersController {
     constructor( private encoder: HashID, private repository: Repository ){}
     @RequiredParams(['customer'], { on: "params" })
     async handle(request: HttpRequest){

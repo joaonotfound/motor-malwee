@@ -1,12 +1,12 @@
 
 import { createRepositoryStub, invalidParam, makeHashIDStub, missingParam } from "@/presentation/helpers"
 import { HttpRequest } from "@/presentation/protocols"
-import { LoadOrdersController } from "./load-orders"
+import { LoadCustomersOrdersController } from "./load-orders"
 
 const makeSut = () => {
     const idHasher = makeHashIDStub()
     const { repositoryStub, collectionStub } = createRepositoryStub()
-    const sut = new LoadOrdersController(idHasher, repositoryStub)
+    const sut = new LoadCustomersOrdersController(idHasher, repositoryStub)
     return { sut, idHasher, repositoryStub, collectionStub }
 }
 

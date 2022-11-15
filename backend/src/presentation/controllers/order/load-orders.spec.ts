@@ -1,11 +1,11 @@
 import { createRepositoryStub, makeHashIDStub } from "@/presentation/helpers"
 import { HttpRequest } from "@/presentation/protocols"
-import { LoadOrdersController } from "../customer"
+import { LoadCustomersOrdersController } from "../customer"
 
 const makeSut = () => {
     const { repositoryStub, collectionStub } = createRepositoryStub()
     const encoder = makeHashIDStub()
-    const sut = new LoadOrdersController(repositoryStub, encoder)
+    const sut = new LoadCustomersOrdersController(repositoryStub, encoder)
     return { sut, repositoryStub, collectionStub }
 }
 describe('LoadOrdersController', () => {

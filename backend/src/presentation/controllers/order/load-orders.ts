@@ -1,4 +1,5 @@
 import { HashID, Repository } from "@/domain"
+import { Get } from "@/presentation/decorators"
 import { ok } from "@/presentation/helpers"
 import { safeOrders } from "./safe-orders"
 
@@ -11,6 +12,7 @@ export type Response = {
     country: string
 }
 
+@Get('/orders')
 export class LoadOrdersController {
     constructor(private readonly repository: Repository, private readonly encoder: HashID ){}
 
