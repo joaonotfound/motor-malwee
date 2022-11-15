@@ -41,7 +41,7 @@ export async function setupRoutes(app: express.Application){
     const deleteCollectionController = new DeleteCollectionController(repository)
 
     const createProductController = new CreateProductController(repository)
-    const loadProductsController = new LoadProductsController(repository)
+    const loadProductsController = new LoadProductsController(repository, idHashser)
     const deleteProductController = new DeleteProductController(repository)
     
     const createSubGroupController = new CreateSubGroupController(repository)
