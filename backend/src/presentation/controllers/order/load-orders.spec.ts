@@ -1,4 +1,4 @@
-import { createRepositoryStub, makeHashIDStub } from "@/presentation/helpers"
+import { createRepositoryStub, makeHashIDStub, ok } from "@/presentation/helpers"
 import { LoadOrdersController } from "./load-orders"
 
 const makeSut = () => {
@@ -11,6 +11,6 @@ describe('LoadOrdersController', () => {
     it('should return an array', async () => {
         const { sut } = makeSut()
         const response = await sut.handle()
-        expect(response).toEqual([])
+        expect(response).toEqual(ok({ orders: [] }))
     })
 })
