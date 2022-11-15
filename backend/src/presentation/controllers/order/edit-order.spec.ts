@@ -1,9 +1,11 @@
-import { missingParam } from "@/presentation/helpers"
+import { createRepositoryStub, invalidParam, makeHashIDStub, missingParam } from "@/presentation/helpers"
 import { EditOrderController } from "./edit-order"
 
 const makeSut = () => {
-    const sut = new EditOrderController()
-    return { sut }
+    const { repositoryStub, collectionStub } = createRepositoryStub()
+    const encoder = makeHashIDStub()
+    const sut = new EditOrderController(repositoryStub, encoder)
+    return { sut, repositoryStub, collectionStub, encoder }
 }
 
 describe('EditOrderController', () => {
@@ -15,5 +17,18 @@ describe('EditOrderController', () => {
         }
         const response = await sut.handle(request)
         expect(response).toEqual(missingParam('id'))
+    })
+    it('should return 400 if invalid id is providen', async () => {
+        const { sut, collectionStub } = makeSut()
+        jest.spyOn(collectionStub, 'findOne').mockResolvedValueOnce(false)
+        
+        const request = {
+            body: {
+                id: 'invalid-id'
+            }, 
+            params: {}
+        }
+        const response = await sut.handle(request)
+        expect(response).toEqual(invalidParam('id'))
     })
 })
