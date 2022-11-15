@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Order } from 'src/app/models';
+import { Order, OrderItem } from 'src/app/models';
 import { createAxios } from 'src/helpers/create-axios';
 import { AuthenticationService } from '../authentication.service';
 
@@ -18,7 +18,16 @@ export class OrdersService {
         }
         return false
     }
-    
+
+    public async edit(order: string, ordersItems: OrderItem[]): Promise<boolean> {
+        const axios = createAxios(this.auth.getToken())
+        const response = await axios.put('/orders', { id: order, ordersItems })
+        if (response.data.created) {
+            return true
+        }
+        return false
+    }
+
     public async load(): Promise<Order[]>{
         const axios = createAxios(this.auth.getToken())
         const response = await axios.get('/orders')
