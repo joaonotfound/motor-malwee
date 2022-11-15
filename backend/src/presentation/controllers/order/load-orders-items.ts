@@ -1,8 +1,9 @@
 import { HashID, orderEntity, Repository } from "@/domain";
-import { RequiredParams } from "@/presentation/decorators";
+import { Get, RequiredParams } from "@/presentation/decorators";
 import { invalidParam, ok, safeOrdersItems } from "@/presentation/helpers";
 import { HttpRequest } from "@/presentation/protocols";
 
+@Get('/orders/items')
 export class LoadOrdersItemsController {
     constructor(
         private readonly encoder: HashID,
