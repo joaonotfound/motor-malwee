@@ -17,9 +17,9 @@ export class LoadProductsController {
 
 function getSelectQuery(): string {
     return "select p.description, p.price, c.description as collection, sb.description as subgroup, g.description as `group` "+
-        "from product as p "+
-        "left join collection as c on p.fk_collection = c.id "+
-        "left join subgroup as sb on p.fk_subgroup = sb.id "+
-        "left join `group` as g on sb.fk_group = g.id "+
+        "from `Product` as p "+
+        "left join `Collection` as c on p.fk_collection = c.id "+
+        "left join `SubGroup` as sb on p.fk_subgroup = sb.id "+
+        "left join `Group` as g on sb.fk_group = g.id "+
         "where p.status = 1"
 }
