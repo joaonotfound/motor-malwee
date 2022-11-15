@@ -1,0 +1,39 @@
+<div class="modal">
+    <h1 mat-dialog-title> Adicionar Ordem de Pedido </h1>
+  
+    <form [formGroup]="formGroup">
+      <mat-dialog-content>
+        <mat-form-field appearance="outline">
+            <mat-label>Cliente</mat-label>
+            <mat-select required [disabled]="!customers" formControlName="customer" (selectionChange)="loadAddresses()">
+              <mat-option *ngFor="let customer of customers" [value]="customer.id">
+                {{customer.companyName}}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Endereço</mat-label>
+            <mat-select required [disabled]="!customers || !addresses" formControlName="address">
+              <mat-option *ngFor="let address of addresses" [value]="address.id">
+                {{address.street}}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <!-- <mat-form-field appearance="outline">
+          <mat-label>Cliente</mat-label>
+          <input autofocus formControlName="zip" matInput placeholder="Cliente"/>
+          <mat-error>CEP inválido</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Rua</mat-label>
+          <input autofocus formControlName="street" matInput placeholder="Rua" />
+          <mat-error>Insira a rua </mat-error>
+        </mat-form-field> -->
+      </mat-dialog-content>
+    </form>
+    <div mat-dialog-actions class="mat-dialog-actions">
+      <button mat-flat-button (click)="cancel()"> cancelar </button>
+      <button mat-flat-button [disabled]="formGroup.invalid" color="primary" (click)="close()"> adicionar </button>
+    </div>
+  
+  </div>

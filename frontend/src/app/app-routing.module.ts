@@ -6,6 +6,7 @@ import { CustomersComponent } from './pages/customers/customers.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { GroupsComponent } from './pages/groups/groups.component';
 import { LoginComponent } from './pages/login/login.component';
+import { OrdersComponent } from './pages/orders/orders.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { StatisticsComponent } from './statistics/statistics.component';
@@ -20,7 +21,8 @@ const routes: Routes = [
             { path: "products", component: ProductsComponent },
             { path: 'customer', component: CustomerComponent },
             { path: 'customers', component: CustomersComponent },
-            { path: "statistics", component: StatisticsComponent }
+            { path: "statistics", component: StatisticsComponent },
+            { path: "orders", component: OrdersComponent }
           ]
   }
 ];

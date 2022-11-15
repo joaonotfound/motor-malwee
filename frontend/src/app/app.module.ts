@@ -41,6 +41,8 @@ import { CounterComponent } from './components/counter/counter.component';
 import { CustomerComponent } from './pages/customer/customer.component';
 import { AddressModalComponent } from './modals/address-modal/address-modal.component';
 import { MatDividerModule } from '@angular/material/divider';
+import { OrderModalComponent } from './modals/order-modal/order-modal.component';
+import { OrdersComponent } from './pages/orders/orders.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +70,9 @@ import { MatDividerModule } from '@angular/material/divider';
     ButtonComponent,
     CounterComponent,
     CustomerComponent,
-    AddressModalComponent
+    AddressModalComponent,
+    OrderModalComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule,

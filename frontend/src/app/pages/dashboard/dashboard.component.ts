@@ -14,7 +14,8 @@ export class DashboardComponent implements OnInit {
     { icon: 'folder', path: '/dashboard/groups', caption: "Grupos" },
     { icon: 'subject', path: '/dashboard/collections', caption: "Coleções" },
     { icon: 'perm_identity', path: '/dashboard/customers', caption: "Clientes" },
-    { icon: 'shopping_cart', path: '/dashboard/products', caption: "Produtos" }    
+    { icon: 'shopping_cart', path: '/dashboard/products', caption: "Produtos" },
+    { icon: 'order', path: "/dashboard/orders", caption: "Vendas"}
   ]
 
   constructor(
