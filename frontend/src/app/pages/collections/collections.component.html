@@ -1,2 +1,2 @@
 
-<app-table [data]="collections$ | async" (onDelete)="onDelete($event)" (onEdit)="openEditModal($event)" (onCreate)="openCreateModal()" [columns]="table_columns" [contentName]="'coleções'"></app-table>
+<app-table [data]="collections$ | async" [title]="'Coleções'" (onDelete)="onDelete($event)" (onEdit)="openEditModal($event)" (onCreate)="openCreateModal()" [columns]="table_columns" [contentName]="'coleções'"></app-table>
