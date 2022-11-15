@@ -1,5 +1,5 @@
 <div class="modal">
-    <h1 mat-dialog-title> Adicionar Ordem de Pedido </h1>
+    <h1 mat-dialog-title> Adicionar Item </h1>
   
     <form [formGroup]="formGroup">
       <mat-dialog-content>
@@ -10,13 +10,12 @@
                 {{product.description}}
               </mat-option>
             </mat-select>
+            <mat-error>Selecione um produto</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
-          <mat-form-field appearance="outline">
             <mat-label>Quantidade</mat-label>
-            <input autofocus formControlName="quantity" matInput placeholder="Quantidade" />
+            <input type="number" autofocus formControlName="quantity" matInput placeholder="Quantidade" />
             <mat-error>Insira um número maior que 0</mat-error>
-          </mat-form-field> -->
         </mat-form-field>
       </mat-dialog-content>
     </form>

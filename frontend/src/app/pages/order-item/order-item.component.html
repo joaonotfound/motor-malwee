@@ -1,2 +1,2 @@
 
-<app-table [data]="items" [title]="'Itens'" [columns]="table_columns" [contentName]="'cliente'"></app-table>
+<app-table [data]="items" [title]="'Itens'" (onCreate)="onCreate()" [columns]="table_columns" [contentName]="'cliente'"></app-table>

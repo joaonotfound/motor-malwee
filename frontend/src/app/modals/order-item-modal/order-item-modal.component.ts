@@ -30,22 +30,23 @@ export class OrderItemModalComponent implements OnInit {
       this.data = Object.assign({}, this.data, raw_data)
     }
     this.formGroup = this.createFormGroup()
-    this.loadProducts()
+    
   }
 
   async loadProducts() {
     this.products = await this.productsService.load()
+    console.log(this.products)
   }
 
   ngOnInit(): void {
-
+    this.loadProducts()
   }
 
   createFormGroup() {
     console.log(this.data)
     return this.formBuilder.group({
       product: [this.data.product, [Validators.required]],
-      quantity: [this.data.quantity, [Validators.required, Validators.minLength(1)]],
+      quantity: [this.data.quantity, [Validators.required, Validators.min(1)]],
     })
   }
 
