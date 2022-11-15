@@ -1,21 +1,16 @@
 import { createRepositoryStub, makeHashIDStub } from "@/presentation/helpers"
-import { HttpRequest } from "@/presentation/protocols"
-import { LoadCustomersOrdersController } from "../customer"
+import { LoadOrdersController } from "./load-orders"
 
 const makeSut = () => {
     const { repositoryStub, collectionStub } = createRepositoryStub()
     const encoder = makeHashIDStub()
-    const sut = new LoadCustomersOrdersController(repositoryStub, encoder)
+    const sut = new LoadOrdersController(repositoryStub, encoder)
     return { sut, repositoryStub, collectionStub }
 }
 describe('LoadOrdersController', () => {
     it('should return an array', async () => {
         const { sut } = makeSut()
-        const request: HttpRequest = {
-            body: {},
-            params: {}
-        }
-        const response = await sut.handle(request)
+        const response = await sut.handle()
         expect(response).toEqual([])
     })
 })
