@@ -18,10 +18,23 @@ describe('EditOrderController', () => {
         const response = await sut.handle(request)
         expect(response).toEqual(missingParam('id'))
     })
+    it('should call decoder', async () => {
+        const { sut, encoder } = makeSut()
+        const encoderSpy = jest.spyOn(encoder, 'decode')        
+        const request = {
+            body: {
+                id: 'invalid-id'
+            }, 
+            params: {}
+        }
+        await sut.handle(request)
+        expect(encoderSpy).toHaveBeenCalled()
+        
+    })
     it('should return 400 if invalid id is providen', async () => {
         const { sut, collectionStub } = makeSut()
         jest.spyOn(collectionStub, 'findOne').mockResolvedValueOnce(false)
-        
+
         const request = {
             body: {
                 id: 'invalid-id'
