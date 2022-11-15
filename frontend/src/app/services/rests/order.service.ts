@@ -19,9 +19,9 @@ export class OrdersService {
         return false
     }
     
-    public async load(customerID: string): Promise<Order[]>{
+    public async load(): Promise<Order[]>{
         const axios = createAxios(this.auth.getToken())
-        const response = await axios.get('/customer/orders', { params: { customer: customerID }})
+        const response = await axios.get('/orders')
         return response.data.orders
     }
 }

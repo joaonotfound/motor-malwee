@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { Order } from 'src/app/models';
 import { createAxios } from 'src/helpers/create-axios';
 import { AuthenticationService } from '../authentication.service';
 
@@ -39,6 +40,13 @@ export class GroupsService {
     await axios.delete('/groups', { data: { group: description }})
     this.loadGroups()
   }
+
+  public async loadOrders(customerID: string): Promise<Order[]>{
+    const axios = createAxios(this.auth.getToken())
+    const response = await axios.get('/customer/orders', { params: { customer: customerID }})
+    return response.data.orders
+  }
+  
   public async loadGroups(){
     const axios = createAxios(this.auth.getToken())
     const response = await axios.get('/groups')
