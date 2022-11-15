@@ -18,8 +18,8 @@ export class OrdersItemComponent implements OnInit {
   table_columns: Column[] = [
     { columnName: "Produto", propertyName: 'productDescription'},
     { columnName: 'Quantidade', propertyName: "quantity" },
-    { columnName: 'UnitPrice', propertyName: "unitPrice" },
-    { columnName: 'TotalPrice', propertyName: "totalPrice" }
+    { columnName: 'Preço', propertyName: "unitPrice" },
+    { columnName: 'Total', propertyName: "totalPrice" }
   ]
 
   constructor( 
@@ -36,6 +36,7 @@ export class OrdersItemComponent implements OnInit {
 
   async loadItems(){
     this.items = await this.itemsService.load(this.params.id)
+    console.log(this.items)
   }
   async onCreate(){
     const dialogRef = this.dialog.open(OrderItemModalComponent, { width: '600px' })

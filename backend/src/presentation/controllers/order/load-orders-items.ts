@@ -19,13 +19,14 @@ export class LoadOrdersItemsController {
             return invalidParam('id')
         }
 
-        const response = await loadItems(this.repository)
+        const response = await loadItems(this.repository, privateID)
         return ok({ items: safeOrdersItems(response, this.encoder) })
     }
 }
 
-async function loadItems(repository: Repository){
+async function loadItems(repository: Repository, orderID: number){
     const SQL = "SELECT oi.*, p.description as productDescription FROM OrderItem oi "+ 
-    "LEFT JOIN Product p on oi.product=p.id "
+    "LEFT JOIN Product p on oi.product=p.id "+
+    `WHERE oi.order = '${orderID}'`
     return await repository.execute(SQL)
 }

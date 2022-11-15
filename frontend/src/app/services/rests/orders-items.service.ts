@@ -13,6 +13,6 @@ export class OrdersItemsService {
     public async load(orderID: string): Promise<Order[]>{
         const axios = createAxios(this.auth.getToken())
         const response = await axios.get('/orders/items', { params: { id: orderID }})
-        return response.data.orders
+        return response.data.items
     }
 }

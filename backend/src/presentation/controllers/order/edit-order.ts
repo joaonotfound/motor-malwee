@@ -1,22 +1,32 @@
-import { HashID, OrderEntity, orderEntity, Repository } from "@/domain";
-import { OrderItem } from "@/infra";
+import { HashID,  orderEntity, orderItemEntity, productsEntity, Repository } from "@/domain";
 import { Put, RequiredParams } from "@/presentation/decorators";
-import { invalidParam } from "@/presentation/helpers";
+import { invalidParam, ok } from "@/presentation/helpers";
 import { HttpRequest } from "@/presentation/protocols";
 
-const handleOrdersItem =  async (ordersItem: Partial<OrderItem>, repository: Repository, orderID: number) => {
-    const isValidOrdersItem = () => {
-        const keys1 = Object.keys({ ...ordersItem, id: '' }).sort()
-        const keys2 = Object.keys(orderEntity).sort()
-        return JSON.stringify(keys1) == JSON.stringify(keys2)        
-    }
-    if(!isValidOrdersItem()){
-        return
-    }
+const handleOrdersItem =  async (ordersItem: Partial<any>, repository: Repository, orderID: number, encoder: HashID) => {
+    
+    const { product: productParam, quantity } = ordersItem
+    if(!productParam && quantity) return
+
     if(!ordersItem.id){
-        return await repository.collection(orderEntity).save({ ...ordersItem, id: orderID } as OrderEntity)
+
+        const productID = encoder.decode(ordersItem.product)
+        const product = await repository.collection(productsEntity).findOne({ id: productID })
+        if(!product) return
+
+        const toSave = {
+            order: orderID,
+            quantity,  
+            product: product.id, 
+            unitPrice: product.price, 
+            totalPrice: product.price * quantity
+        }
+
+        return await repository.collection(orderItemEntity).save(toSave)
     }
-    return await repository.collection(orderEntity).update(ordersItem as OrderEntity)
+    return
+    // console.log('editing')
+    // return await repository.collection(orderItemEntity).update(ordersItem as OrderEntity)
 
 }
 @Put('/orders')
@@ -33,9 +43,9 @@ export class EditOrderController {
         }
 
         for(const ordersItem of ordersItems){
-            await handleOrdersItem(ordersItem, this.repository, publicID)
+            await handleOrdersItem(ordersItem, this.repository, publicID, this.encoder)
         }
 
-        return request
+        return ok({ edited: true})
     }
 }
