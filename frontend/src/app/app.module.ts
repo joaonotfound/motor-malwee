@@ -43,6 +43,7 @@ import { AddressModalComponent } from './modals/address-modal/address-modal.comp
 import { MatDividerModule } from '@angular/material/divider';
 import { OrderModalComponent } from './modals/order-modal/order-modal.component';
 import { OrdersComponent } from './pages/orders/orders.component';
+import { OrdersItemComponent } from './pages/order-item/order-item.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { OrdersComponent } from './pages/orders/orders.component';
     CustomerComponent,
     AddressModalComponent,
     OrderModalComponent,
-    OrdersComponent
+    OrdersComponent,
+    OrdersItemComponent
   ],
   imports: [
     BrowserModule,

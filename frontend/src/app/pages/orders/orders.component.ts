@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Column } from 'src/app/components/table/table.component';
 import { OrderModalComponent } from 'src/app/modals/order-modal/order-modal.component';
+import { Order } from 'src/app/models';
 import { OrdersService } from 'src/app/services';
 
 @Component({
@@ -18,7 +20,10 @@ export class OrdersComponent implements OnInit {
     { columnName: 'Estado', propertyName: "state" }
   ]
 
-  constructor( private readonly dialog: MatDialog, private readonly ordersService: OrdersService ) { }
+  constructor( 
+    private readonly dialog: MatDialog,
+    private readonly ordersService: OrdersService,
+    private readonly router: Router ) { }
 
   ngOnInit(): void {
     this.loadOrders()
@@ -26,6 +31,10 @@ export class OrdersComponent implements OnInit {
 
   async loadOrders(){
     this.orders = await this.ordersService.load()
+  }
+
+  async onEdit(order: Order) {
+    this.router.navigate(['/dashboard/orders-items'], { queryParams: { id: order.id }})
   }
 
   createOrder(){  
