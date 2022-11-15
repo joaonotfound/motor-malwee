@@ -1,3 +1,2 @@
 
-
-<button mat-flat-button (click)="createOrder()">criar ordem</button>
+<app-table [data]="orders" [title]="'Pedidos de venda'" (onCreate)="createOrder()" [columns]="table_columns" [contentName]="'vendas'"></app-table>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Column } from 'src/app/components/table/table.component';
 import { OrderModalComponent } from 'src/app/modals/order-modal/order-modal.component';
 import { OrdersService } from 'src/app/services';
 
@@ -10,18 +11,29 @@ import { OrdersService } from 'src/app/services';
 })
 export class OrdersComponent implements OnInit {
 
+  orders: any = []
+  table_columns: Column[] = [
+    { columnName: 'Cliente', propertyName: "companyName" },
+    { columnName: 'Cidade', propertyName: "city" },
+    { columnName: 'Estado', propertyName: "state" }
+  ]
+
   constructor( private readonly dialog: MatDialog, private readonly ordersService: OrdersService ) { }
 
   ngOnInit(): void {
+    this.loadOrders()
   }
 
-  createOrder(){
+  async loadOrders(){
+    this.orders = await this.ordersService.load()
+  }
+
+  createOrder(){  
     const dialogRef = this.dialog.open(OrderModalComponent, { width: '600px' })
 
     dialogRef.afterClosed().subscribe(async response => {
       if(response){
-        this.ordersService.create(response)
-      }
-    });
-  }
-}
+        this.ordersService.create(response).then(_ => this.loadOrders())
+    }})
+
+  }}
