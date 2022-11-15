@@ -44,6 +44,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { OrderModalComponent } from './modals/order-modal/order-modal.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { OrdersItemComponent } from './pages/order-item/order-item.component';
+import { OrderItemModalComponent } from './modals/order-item-modal/order-item-modal.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { OrdersItemComponent } from './pages/order-item/order-item.component';
     AddressModalComponent,
     OrderModalComponent,
     OrdersComponent,
-    OrdersItemComponent
+    OrdersItemComponent,
+    OrderItemModalComponent
   ],
   imports: [
     BrowserModule,

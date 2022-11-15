@@ -1,0 +1,28 @@
+<div class="modal">
+    <h1 mat-dialog-title> Adicionar Ordem de Pedido </h1>
+  
+    <form [formGroup]="formGroup">
+      <mat-dialog-content>
+        <mat-form-field appearance="outline">
+            <mat-label>Produto</mat-label>
+            <mat-select required [disabled]="!products" formControlName="product">
+              <mat-option *ngFor="let product of products" [value]="product.id">
+                {{product.description}}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-form-field appearance="outline">
+            <mat-label>Quantidade</mat-label>
+            <input autofocus formControlName="quantity" matInput placeholder="Quantidade" />
+            <mat-error>Insira um número maior que 0</mat-error>
+          </mat-form-field> -->
+        </mat-form-field>
+      </mat-dialog-content>
+    </form>
+    <div mat-dialog-actions class="mat-dialog-actions">
+      <button mat-flat-button (click)="cancel()"> cancelar </button>
+      <button mat-flat-button [disabled]="formGroup.invalid" color="primary" (click)="close()"> adicionar </button>
+    </div>
+  
+  </div>
