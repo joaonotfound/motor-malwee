@@ -25,7 +25,7 @@ export class LoadOrdersController {
 async function loadOrders(repository: Repository){
     const SQL = 
     "SELECT "+ 
-        "c.id as CustomerID, a.id as AddressID, c.companyName, a.city, a.state, a.country "+ 
+        "o.id, c.id as CustomerID, a.id as AddressID, c.companyName, a.city, a.state, a.country "+ 
     "from `Order` o "+
     "left join Address a on o.address =  a.id "+
     "LEFT JOIN Customer c on o.customer = c.id "

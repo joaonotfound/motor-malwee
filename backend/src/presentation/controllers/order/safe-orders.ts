@@ -5,6 +5,7 @@ export const safeOrders = (values: Array<any>, encoder: HashID): Array<Partial<R
     return values.map(order => (
         {
             ...order,
+            id: encoder.encode(order.id),
             CustomerID: encoder.encode(order.CustomerID),
             AddressID: encoder.encode(order.AddressID)
         }
