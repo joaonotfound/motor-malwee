@@ -23,10 +23,10 @@ describe('DeleteOrderController', () => {
         const { sut, encoder } = makeSut()
         const decodeSpy = jest.spyOn(encoder, 'decode')
         const request: HttpRequest = {
-            body: {
+            body: {},
+            params: {
                 id: 'valid-id'
-            },
-            params: {}
+            }
         }
         await sut.handle(request)
         expect(decodeSpy).toHaveBeenCalledWith('valid-id')
