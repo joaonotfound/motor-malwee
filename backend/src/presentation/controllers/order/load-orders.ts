@@ -28,7 +28,8 @@ async function loadOrders(repository: Repository){
         "o.id, c.id as CustomerID, a.id as AddressID, c.companyName, a.city, a.state, a.country "+ 
     "from `Order` o "+
     "left join Address a on o.address =  a.id "+
-    "LEFT JOIN Customer c on o.customer = c.id "
+    "LEFT JOIN Customer c on o.customer = c.id "+
+    "WHERE o.status = 1"
 
     return await repository.execute(SQL)
 }

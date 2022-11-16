@@ -27,6 +27,6 @@ export class LoadOrdersItemsController {
 async function loadItems(repository: Repository, orderID: number){
     const SQL = "SELECT oi.*, p.description as productDescription FROM OrderItem oi "+ 
     "LEFT JOIN Product p on oi.product=p.id "+
-    `WHERE oi.order = '${orderID}'`
+    `WHERE oi.order = '${orderID}' AND oi.status = 1`
     return await repository.execute(SQL)
 }

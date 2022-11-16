@@ -37,6 +37,11 @@ export class OrdersComponent implements OnInit {
     this.router.navigate(['/dashboard/orders-items'], { queryParams: { id: order.id }})
   }
 
+  async onDelete(order: Order){
+    await this.ordersService.delete(order.id!)
+    this.loadOrders()
+  }
+
   createOrder(){  
     const dialogRef = this.dialog.open(OrderModalComponent, { width: '600px' })
 
