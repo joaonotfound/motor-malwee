@@ -1,10 +1,11 @@
-import { makeHashIDStub, missingParam } from "@/presentation/helpers"
+import { createRepositoryStub, makeHashIDStub, missingParam } from "@/presentation/helpers"
 import { HttpRequest } from "@/presentation/protocols"
 import { DeleteOrderController } from "./delete-order"
 
 const makeSut = () => {
     const encoder = makeHashIDStub()
-    const sut = new DeleteOrderController(encoder)
+    const { repositoryStub } = createRepositoryStub()
+    const sut = new DeleteOrderController(encoder, repositoryStub)
     return { sut, encoder }
 }
 
