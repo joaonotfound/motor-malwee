@@ -1,14 +1,13 @@
-import { HashID } from "@/domain";
+import { HashID, orderEntity, Repository } from "@/domain";
 import { RequiredParams } from "@/presentation/decorators";
 import { HttpRequest } from "@/presentation/protocols";
 
-
 export class DeleteOrderController {
-    constructor( private readonly encoder: HashID ){}
+    constructor( private readonly encoder: HashID, private readonly repository: Repository ){}
     @RequiredParams(['id'])
     async handle(request: HttpRequest){
         const { id } = request.body
         const privateID = this.encoder.decode(id)
-        return privateID
+        await this.repository.collection(orderEntity).deactivate({ id: privateID })
     }
 }
