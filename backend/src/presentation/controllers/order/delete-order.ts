@@ -1,7 +1,8 @@
 import { HashID, orderEntity, Repository } from "@/domain";
-import { RequiredParams } from "@/presentation/decorators";
+import { Del, RequiredParams } from "@/presentation/decorators";
 import { HttpRequest } from "@/presentation/protocols";
 
+@Del('/orders')
 export class DeleteOrderController {
     constructor( private readonly encoder: HashID, private readonly repository: Repository ){}
     @RequiredParams(['id'])
