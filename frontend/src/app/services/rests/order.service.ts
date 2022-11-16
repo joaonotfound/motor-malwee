@@ -28,6 +28,11 @@ export class OrdersService {
         return false
     }
 
+    public async delete(id: string){
+        const axios = createAxios(this.auth.getToken())
+        await axios.delete('/orders', { params: { id }})
+    }
+    
     public async load(): Promise<Order[]>{
         const axios = createAxios(this.auth.getToken())
         const response = await axios.get('/orders')
