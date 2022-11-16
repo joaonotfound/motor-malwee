@@ -1,4 +1,4 @@
-import { HashID, productsEntity, Repository } from "@/domain";
+import { collectionEntity, HashID, productsEntity, Repository, subGroupEntity } from "@/domain";
 import { Put, RequiredParams } from "@/presentation/decorators";
 import { invalidParam, ok } from "@/presentation/helpers";
 import { HttpRequest } from "@/presentation/protocols";
@@ -16,7 +16,17 @@ export class EditProductsController{
         if(!matchProduct){
             return invalidParam('id')
         }
-        await this.repository.collection(productsEntity).update({ ...product, id: privateID })
+        const matchCollection = await this.repository.collection(collectionEntity).findOne({ description: product.collection })
+        if(!matchCollection){
+            return invalidParam('collection')
+        }
+        const matchSubgroup = await this.repository.collection(subGroupEntity).findOne({ description: product.subgroup })
+        if(!matchSubgroup){
+            return invalidParam('subgroup')
+        }
+        console.log(product)
+        await this.repository.collection(productsEntity).update({ ...product, id: privateID, fk_collection: matchCollection.id, fk_subgroup: matchSubgroup.id})
+
         return ok({ edited: true })
     }
 }

@@ -1,9 +1,10 @@
 import { FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GroupsService } from 'src/app/services/rests/groups.service';
 import { Collection, CollectionsService } from 'src/app/services/rests/collections.service';
 import { SubGroup, SubGroups, SubGroupsService } from 'src/app/services/rests/sub-groups.service';
+import { Product } from 'src/app/models';
 
 @Component({
   selector: 'app-create-product-modal',
@@ -16,8 +17,16 @@ export class CreateProductModalComponent implements OnInit {
   subgroups: SubGroups = []
   collections$ = this.collections()
 
+  data: Product = {
+    description: '',
+    price: 0,
+    group: '',
+    subgroup: '',    
+    collection: ''    
+  };
+
   // collections: Collection[] = [{ description: 'qwer'}, { description: 'qwer'}]
-  formGroup = this.createFormGroup()
+  formGroup: any = null;
 
   get description(){
     return this.formGroup.get('description')
@@ -43,11 +52,11 @@ export class CreateProductModalComponent implements OnInit {
 
   createFormGroup(){
     return this.formBuilder.group({
-      description: ['', [ Validators.required ]],
-      price: [0, [ Validators.required ]],
-      group: ['', [ Validators.required ]],
-      subgroup: ['', [ Validators.required ]],
-      collection: ['', [ Validators.required ]]
+      description: [this.data.description, [ Validators.required ]],
+      price: [this.data.price, [ Validators.required ]],
+      group: [this.data.group, [ Validators.required ]],
+      subgroup: [this.data.subgroup, [ Validators.required ]],
+      collection: [this.data.collection, [ Validators.required ]]
     })
   }
 
@@ -60,8 +69,15 @@ export class CreateProductModalComponent implements OnInit {
     private readonly groupsService: GroupsService,
     private readonly subgroupsService: SubGroupsService,
     private readonly collectionService: CollectionsService,
-    private readonly formBuilder: FormBuilder
-  ) {}
+    private readonly formBuilder: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) private raw_data: Product
+  ) {
+    if (this.raw_data) {
+      this.data = Object.assign({}, this.data, raw_data)
+      console.log('new_data', this.data)
+    }
+    this.formGroup = this.createFormGroup()
+  }
 
   ngOnInit(): void {    
     // .subscribe(groups => this.groups$ = groups)

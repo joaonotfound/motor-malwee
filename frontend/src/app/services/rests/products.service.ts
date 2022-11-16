@@ -26,6 +26,11 @@ export class ProductsService {
     await axios.delete('/products', { data: { product: description }})
   }
 
+  async edit(product: Product){
+    const axios = createAxios(this.auth.getToken())
+    await axios.put('/products', product)
+  }
+  
   public async load(): Promise<Product[]>{
     const axios = createAxios(this.auth.getToken())
     const response = await axios.get('/products')
