@@ -46,7 +46,7 @@ export class AddressModalComponent implements OnInit {
   }
 
   async searchZip(){
-   if(this.zip?.length > 8){   
+   if(this.zip?.length > 7){   
       const address = await this.zipService.load(this.zip!)
       this.formGroup.get('street')?.setValue(address?.street!)    
       this.formGroup.get('district')?.setValue(address?.district!)    
