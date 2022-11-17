@@ -31,7 +31,9 @@ export class LoginComponent implements OnInit {
   }
 
   async login(){
-    if(this.form.invalid) return
+    if(this.form.invalid) {
+      this.form.markAllAsTouched()
+    }
 
     const username = this.form.get('email')?.value
     const password = this.form.get('password')?.value

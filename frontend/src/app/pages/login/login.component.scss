@@ -1,42 +1,37 @@
 
-.logo {
-    width:  100%;
-    height: auto
-    &-button{
-        margin-top: 0.6rem;
-    }
-  }
 
-mat-card{
-    width:   20rem;
+mat-card {
+    width: 25rem;
     border-radius: 2%;
     margin: auto;
+    padding: 3rem;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+
+    &-actions {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+    }
+    &-footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 2rem;
+    }
 }
 
-.login-container{
-    background-color: white;
+.header {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+
+    width: 100%;
+    margin-bottom: 3rem;
 }
 
 .form {
     flex-direction: column;
-    display:     flex;
-    padding:     15px;
-    gap:         0.4rem;
-
-    &-header{
-        padding-bottom: 2rem;
-        padding-top: 2rem;
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        align-items: center;
-        justify-content: center;
-    }
-
-    &-actions {
-        display: flex;
-        width: 100%;
-        justify-content: space-between;
-        align-items: center;
-    }
+    display: flex;
+    gap: 0.4rem;
 }
