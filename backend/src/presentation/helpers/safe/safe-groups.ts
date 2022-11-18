@@ -1,5 +1,5 @@
-import { GroupEntity } from "@/domain"
+import { GroupEntity, HashID } from "@/domain"
 
-export const safeGroups = (values: Array<any>): GroupEntity[] => {
-     return values.map(group => ({ description: group.description }))
+export const safeGroups = (values: Array<any>, encoder: HashID): GroupEntity[] => {
+     return values.map(group => ({ id: encoder.encode(group.id),  description: group.description }))
 }

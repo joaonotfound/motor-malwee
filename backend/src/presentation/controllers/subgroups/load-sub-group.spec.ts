@@ -1,10 +1,11 @@
-import { createRepositoryStub, invalidParam, missingParam } from "@/presentation/helpers"
+import { createRepositoryStub, invalidParam, makeHashIDStub, missingParam } from "@/presentation/helpers"
 import { HttpRequest } from "@/presentation/protocols"
 import { LoadSubGroupsController } from "./load-sub-group"
 
 const makeSut = () => {
     const { repositoryStub, collectionStub } = createRepositoryStub()
-    const sut = new LoadSubGroupsController(repositoryStub)
+    const encoder = makeHashIDStub()
+    const sut = new LoadSubGroupsController(repositoryStub, encoder)
     return { sut, repositoryStub, collectionStub }
 }
 describe('LoadSubGroups', () => {

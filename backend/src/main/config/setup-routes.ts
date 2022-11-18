@@ -34,7 +34,7 @@ export async function setupRoutes(app: express.Application){
     const loginController = new LoginController(emailValidator, repository, md5Encrypter, jwtTokenManager)
 
     const createGroupController = new CreateGroupController(repository)
-    const loadGroupsController = new LoadGroupsController(repository)
+    const loadGroupsController = new LoadGroupsController(repository, idHashser)
     const editGroupsController = new EditGroupController(repository)
     const deleteGroupController = new DeleteGroupController(repository)
 
@@ -49,7 +49,7 @@ export async function setupRoutes(app: express.Application){
     const editProductsController = new EditProductsController(idHashser, repository)
 
     const createSubGroupController = new CreateSubGroupController(repository)
-    const loadSubGroupController = new LoadSubGroupsController(repository)
+    const loadSubGroupController = new LoadSubGroupsController(repository, idHashser)
     const deleteSubgroupController = new DeleteSubgroupController(repository)
 
     const createCustomerController = new CreateCustomerController(repository)
