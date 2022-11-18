@@ -29,10 +29,6 @@ export class EditGroupModalComponent implements OnInit {
     return this.formGroup.get('description')
   }
 
-  // private async loadSubgroups(){
-  //   this.subgroups = await this.subgroupsServices.load(this.previous_data);
-  // }
-
   createFormGroup() {
     return this.formBuilder.group({
       description: [this.raw_data.description, [Validators.required]]
@@ -52,16 +48,10 @@ export class EditGroupModalComponent implements OnInit {
     this.editor = raw_data.id ? true : false
   }
 
-  ngOnInit(): void {
-    // if(this.editor){
-    //   this.loadSubgroups()
-    // }    
-  }
+  ngOnInit(): void {}
   
   async onDelete(subgroup: SubGroup){
     this.subgroups = this.subgroups.filter(item => item.description != subgroup.description)
-    // await this.subgroupsServices.delete(subgroup.description, this.previous_data.description)
-    // this.loadSubgroups()
   }
 
   onCreate() {
@@ -70,11 +60,6 @@ export class EditGroupModalComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async subgroup => {
       if (subgroup) {
         this.subgroups = [...this.subgroups, subgroup]
-        // const created = await this.subgroupsServices.create(this.description?.value!, response)
-        // if (created) {
-          // this.subgroupsServices.load({ description: this.description?.value! }).then(
-            // subgroups => this.subgroups = subgroups
-          // )
         }
       }
     );

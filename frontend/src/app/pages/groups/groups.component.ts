@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { SubGroup, SubGroupsService } from 'src/app/services';
+import { SubGroupsService } from 'src/app/services';
 import { Column } from '../../components/table/table.component';
-import { CreateGroupModalComponent } from '../../modals/create-group-modal/create-group-modal.component';
 import { EditGroupModalComponent } from '../../modals/edit-group-modal/edit-group-modal.component';
 import { Group, Groups, GroupsService } from '../../services/rests/groups.service';
 
@@ -32,11 +31,6 @@ export class GroupsComponent implements OnInit {
       if(response){
         const { previous_group, new_group } = response
         this.groupsService.edit(previous_group, new_group)
-        // new_group.subgroups
-        //   .map(
-        //     (i: SubGroup) => i.id 
-        //     ? this.subgroupsService.edit(i)
-        //     : this.subgroupsService.create(group.description!, i))
       }
     });
   }
