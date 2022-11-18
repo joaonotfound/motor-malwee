@@ -4,7 +4,7 @@ import { Order } from 'src/app/models';
 import { createAxios } from 'src/helpers/create-axios';
 import { AuthenticationService } from '../authentication.service';
 
-export type Group = { description: string }
+export type Group = { id?: string, description: string }
 export type Groups = Array<Group>
 
 @Injectable({
