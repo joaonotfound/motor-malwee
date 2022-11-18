@@ -1,4 +1,4 @@
-import { groupEntity, Repository } from "@/domain";
+import { groupEntity, Repository, subGroupEntity } from "@/domain";
 import { Post, RequiredParams } from "@/presentation/decorators";
 import { alreadyInUse, ok } from "@/presentation/helpers";
 import { HttpRequest } from "@/presentation/protocols";
@@ -10,7 +10,7 @@ export class CreateGroupController {
     ){}
     @RequiredParams(['description'])
     async handle(request: HttpRequest) {
-        const { description } = request.body
+        const { description, subgroups } = request.body
 
         const group = await this.repository.collection(groupEntity).findOne({ description })
         
@@ -18,7 +18,15 @@ export class CreateGroupController {
             return alreadyInUse('description')
         }
 
-        await this.repository.collection(groupEntity).save({ description })        
+        const createdGroup = await this.repository.collection(groupEntity).save({ description })        
+
+        if(subgroups instanceof Array){
+            for(const subgroup of subgroups){
+                if(subgroup.description || !subgroup.id){
+                    await this.repository.collection(subGroupEntity).save({ ...subgroup, fk_group: createdGroup.id })
+                }
+            }
+        }
 
         return ok({ created: true })
     }

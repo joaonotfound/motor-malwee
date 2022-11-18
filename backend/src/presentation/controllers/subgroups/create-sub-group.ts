@@ -8,7 +8,7 @@ export class CreateSubGroupController {
     constructor(
         private readonly repository: Repository
     ){}
-    @RequiredParams(['subgroup', 'group'])
+    @RequiredParams(['group'])
     async handle(request: HttpRequest){
         const { group, subgroup } = request.body
         const match_group = await this.repository.collection(groupEntity).findOne({ description: group })
