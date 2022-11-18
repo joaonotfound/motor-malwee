@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SubGroupsService } from 'src/app/services';
 import { Column } from '../../components/table/table.component';
-import { EditGroupModalComponent } from '../../modals/edit-group-modal/edit-group-modal.component';
+import { GroupModalComponent } from '../../modals/group-modal/group-modal.component';
 import { Group, Groups, GroupsService } from '../../services/rests/groups.service';
 
 @Component({
@@ -25,7 +25,7 @@ export class GroupsComponent implements OnInit {
   }
   async openEditModal(group: Group) {
     const subgroups = await this.subgroupsService.load(group)
-    const dialogRef = this.dialog.open(EditGroupModalComponent, { data: {...group, subgroups: subgroups }, width: '600px' })
+    const dialogRef = this.dialog.open(GroupModalComponent, { data: {...group, subgroups: subgroups }, width: '600px' })
 
     dialogRef.afterClosed().subscribe(async response => {
       if(response){
@@ -38,7 +38,7 @@ export class GroupsComponent implements OnInit {
     this.groupsService.delete(group.description)
   }
   openCreateModal(){
-    const dialogRef = this.dialog.open(EditGroupModalComponent, { data: false, width: '400px' })
+    const dialogRef = this.dialog.open(GroupModalComponent, { data: false, width: '400px' })
 
     dialogRef.afterClosed().subscribe(async ({ new_group }) => {
       if(new_group){

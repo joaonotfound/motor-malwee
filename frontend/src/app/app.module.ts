@@ -23,7 +23,7 @@ import { MatTableModule } from '@angular/material/table';
 import { CreateGroupModalComponent } from './modals/create-group-modal/create-group-modal.component'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatCardModule } from '@angular/material/card';
-import { EditGroupModalComponent } from './modals/edit-group-modal/edit-group-modal.component';
+import { GroupModalComponent } from './modals/group-modal/group-modal.component';
 import { CreateSubgroupModalComponent } from './modals/create-subgroup-modal/create-subgroup-modal.component';
 import { CollectionsComponent } from './pages/collections/collections.component';
 import { CreateCollectionModalComponent } from './modals/create-collection-modal/create-collection-modal.component';
@@ -57,7 +57,7 @@ import { OrderItemModalComponent } from './modals/order-item-modal/order-item-mo
     GroupsComponent,
     TableComponent,
     CreateGroupModalComponent,
-    EditGroupModalComponent,
+    GroupModalComponent,
     CreateSubgroupModalComponent,
     CollectionsComponent,
     CreateCollectionModalComponent,

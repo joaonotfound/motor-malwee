@@ -9,11 +9,11 @@ import { CreateSubgroupModalComponent } from '../create-subgroup-modal/create-su
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-edit-group-modal',
-  templateUrl: './edit-group-modal.component.html',
-  styleUrls: ['./edit-group-modal.component.scss']
+  selector: 'app-group-modal',
+  templateUrl: './group-modal.component.html',
+  styleUrls: ['./group-modal.component.scss']
 })
-export class EditGroupModalComponent implements OnInit {
+export class GroupModalComponent implements OnInit {
 
   tableColumns: Column[] = [
     { columnName: 'Descrição', propertyName: "description" }
@@ -35,7 +35,7 @@ export class EditGroupModalComponent implements OnInit {
     })
   }
   constructor(
-    private readonly dialogRef: MatDialogRef<EditGroupModalComponent>,
+    private readonly dialogRef: MatDialogRef<GroupModalComponent>,
     private readonly dialog: MatDialog,
     private readonly formBuilder: FormBuilder,
     @Optional() @Inject(MAT_DIALOG_DATA) public readonly raw_data: Group & { subgroups: SubGroups }
