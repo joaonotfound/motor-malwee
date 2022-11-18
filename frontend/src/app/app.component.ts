@@ -10,6 +10,9 @@ export class AppComponent {
   title = 'frontend';
 
   constructor( private readonly router: Router ){
-    this.router.navigateByUrl('/login')
+    const authenticationToken = localStorage['authentication-token']
+    if(!authenticationToken){
+      this.router.navigateByUrl('/login')
+    }    
   }
 }
