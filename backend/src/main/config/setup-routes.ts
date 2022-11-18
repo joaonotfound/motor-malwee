@@ -6,7 +6,7 @@ import * as express from 'express'
 import { Router } from "express"
 
 import { HashIDs, JWTTokenManager, MD5Encrypter, MikroRepository, ValidatorEmail} from '@/infra'
-import { EditSubGroupController, LoadGroupsController, CreateAccountController, CreateSubGroupController, LoadSubGroupsController, LoginController, PrivateController, CreateProductController, LoadProductsController, CreateCustomerController, LoadCustomerController, LoadAddressController, CreateOrderController, LoadOrdersController } from '@/presentation'
+import { EditSubGroupController, LoadGroupsController, CreateAccountController, CreateSubGroupController, LoadSubGroupsController, LoginController, PrivateController, CreateProductController, LoadProductsController, CreateCustomerController, LoadCustomerController, LoadAddressController, CreateOrderController, LoadOrdersController, EditGroupController } from '@/presentation'
 import { entities } from '../entities'
 import { createRouters } from '../helpers'
 import { CreateGroupController } from '@/presentation/controllers/groups/create-group'
@@ -35,7 +35,7 @@ export async function setupRoutes(app: express.Application){
 
     const createGroupController = new CreateGroupController(repository)
     const loadGroupsController = new LoadGroupsController(repository, idHashser)
-    const editGroupsController = new EditSubGroupController(repository)
+    const editGroupsController = new EditGroupController(repository, idHashser)
     const deleteGroupController = new DeleteGroupController(repository)
 
     const createCollectionController = new CreateCollectionController(repository)
