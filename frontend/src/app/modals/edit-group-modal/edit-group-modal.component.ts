@@ -1,9 +1,9 @@
 import { FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Optional } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Group } from 'src/app/services/rests/groups.service';
 import { MatDialogRef } from '@angular/material/dialog';
-import { SubGroup, SubGroups, SubGroupsService } from 'src/app/services/rests/sub-groups.service';
+import { SubGroup, SubGroups } from 'src/app/services/rests/sub-groups.service';
 import { Column } from 'src/app/components/table/table.component';
 import { CreateSubgroupModalComponent } from '../create-subgroup-modal/create-subgroup-modal.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -18,8 +18,10 @@ export class EditGroupModalComponent implements OnInit {
   tableColumns: Column[] = [
     { columnName: 'Descrição', propertyName: "description" }
   ]
-  subgroups: SubGroups = []
   previous_data: Group
+  subgroups: SubGroup[] = []
+
+  editor: boolean = false
 
   formGroup = this.createFormGroup()
 
@@ -27,9 +29,9 @@ export class EditGroupModalComponent implements OnInit {
     return this.formGroup.get('description')
   }
 
-  private async loadSubgroups(){
-    this.subgroups = await this.subgroupsServices.load(this.previous_data);
-  }
+  // private async loadSubgroups(){
+  //   this.subgroups = await this.subgroupsServices.load(this.previous_data);
+  // }
 
   createFormGroup() {
     return this.formBuilder.group({
@@ -39,46 +41,53 @@ export class EditGroupModalComponent implements OnInit {
   constructor(
     private readonly dialogRef: MatDialogRef<EditGroupModalComponent>,
     private readonly dialog: MatDialog,
-    private readonly subgroupsServices: SubGroupsService,
     private readonly formBuilder: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public readonly raw_data: Group
+    @Optional() @Inject(MAT_DIALOG_DATA) public readonly raw_data: Group & { subgroups: SubGroups }
   ) {
-    this.previous_data = { ...raw_data }
+    console.log('data: ', raw_data)
+    this.previous_data = raw_data
+      ? { ...raw_data }
+      : { description: '' }
+    this.subgroups = raw_data.subgroups ? [...raw_data.subgroups] : []
+    this.editor = raw_data.id ? true : false
   }
 
   ngOnInit(): void {
-    this.loadSubgroups()
+    // if(this.editor){
+    //   this.loadSubgroups()
+    // }    
   }
   
-  async deleteSubgroup(subgroup: SubGroup){
-    await this.subgroupsServices.delete(subgroup.description, this.previous_data.description)
-    this.loadSubgroups()
+  async onDelete(subgroup: SubGroup){
+    this.subgroups = this.subgroups.filter(item => item.description != subgroup.description)
+    // await this.subgroupsServices.delete(subgroup.description, this.previous_data.description)
+    // this.loadSubgroups()
   }
 
-  openCreateSubGrupoModal() {
+  onCreate() {
     const dialogRef = this.dialog.open(CreateSubgroupModalComponent, { width: '400px' })
 
-    dialogRef.afterClosed().subscribe(async response => {
-      if (response) {
-        const created = await this.subgroupsServices.create(this.description?.value!, response)
-        if (created) {
-          this.subgroupsServices.load({ description: this.description?.value! }).then(
-            subgroups => this.subgroups = subgroups
-          )
+    dialogRef.afterClosed().subscribe(async subgroup => {
+      if (subgroup) {
+        this.subgroups = [...this.subgroups, subgroup]
+        // const created = await this.subgroupsServices.create(this.description?.value!, response)
+        // if (created) {
+          // this.subgroupsServices.load({ description: this.description?.value! }).then(
+            // subgroups => this.subgroups = subgroups
+          // )
         }
       }
-    });
+    );
   }
   cancel() {
     this.dialogRef.close()
   }
 
   create() {
-    const new_group: Group = {
-      description: this.description?.value!
+    const new_group = {
+      description: this.description?.value!,
+      subgroups: this.subgroups
     }
-
     this.dialogRef.close({ previous_group: this.previous_data, new_group })
   }
-
 }

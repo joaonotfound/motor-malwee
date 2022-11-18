@@ -7,7 +7,7 @@
         <input autofocus required formControlName='description' matInput placeholder="Nome do grupo" />
         <mat-error>Insira a descrição do grupo</mat-error>
       </mat-form-field>
-      <app-table [size]="'small'" [title]="'Subgrupos'" [contentName]="'subgrupo'" (onDelete)="deleteSubgroup($event)" (onCreate)="openCreateSubGrupoModal()" [data]="subgroups"
+      <app-table [size]="'small'" [title]="'Subgrupos'" [contentName]="'subgrupo'" (onDelete)="onDelete($event)" (onCreate)="onCreate()" [data]="subgroups"
         [columns]="tableColumns"></app-table>
     </mat-dialog-content>
   </form>
