@@ -3,10 +3,34 @@
 mat-row{
     width: 100%;
 }
+.mat-card-header-text{
+    margin: 0 0;
+}
 mat-card{
-    padding: 1.5rem;
-    padding-top: 2rem;
+    padding: 0;
     box-shadow: 0 0 0 black;
+    &-title > h1, &-title {
+        font-weight: 400;
+        margin-bottom: 0 !important;
+    }
+    &-content {
+        padding: 0;
+    }
+    &-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        &.small{
+            padding: 0;
+            padding-bottom: 0.5rem;
+            & h1 {
+                font-size: 1rem;
+                padding-left: 4px;
+                text-transform: lowercase;
+            }
+        }
+    }
 }
 .header{
     padding: 0;

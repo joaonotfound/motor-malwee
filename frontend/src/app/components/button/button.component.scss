@@ -1,9 +1,21 @@
 @import '../../../variables.scss';
 
 button {
-    background-color: $primary-color;
-    font-weight: bold;
-    color: white;
-    padding: 4px 16px;    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: lighter;
+    padding: 4px 12px;
+    margin: 0;
     border-radius: 7%;
+}
+
+.primary{
+    background-color: $primary-color;    
+    color: white;
+}
+
+.light {
+    font-size: 1rem;
+    color: $primary-color;
 }

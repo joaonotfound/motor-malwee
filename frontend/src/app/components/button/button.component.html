@@ -1,1 +1,6 @@
-<button mat-button><ng-content></ng-content></button>
+<button mat-button class="{{style}}">
+    <span>
+        <ng-content></ng-content>
+    </span>    
+    <mat-icon *ngIf="icon">{{icon}}</mat-icon>
+</button>

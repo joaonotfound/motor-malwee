@@ -15,7 +15,7 @@ export class TableComponent implements OnInit {
   @Input() columns: Column[] = []
   @Input() data: any = []
   @Input() title: string = ''
-  
+  @Input() size: 'normal' | 'small' = 'normal'
   @Output() onCreate = new EventEmitter()
   @Output() onEdit = new EventEmitter()
   @Output() onDelete = new EventEmitter()

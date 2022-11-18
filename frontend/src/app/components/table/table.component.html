@@ -1,13 +1,15 @@
 <mat-card class="mat-elevation-z0 outline">
-    <mat-card-title>
-      <h1>{{title}}</h1>
-    </mat-card-title>
+    <mat-card-header class="{{size}}">
+        <mat-card-title>
+            <h1>{{title}}</h1>
+        </mat-card-title>
+        <m-button [icon]="'add'" [style]="'light'" *ngIf="onCreate.observers.length!=0" (click)="onCreate.emit()">
+            criar 
+        </m-button>
+    </mat-card-header>
     <mat-card-content>
-        <div class="header">
-            <m-button *ngIf="onCreate.observers.length!=0" (click)="onCreate.emit()">
-                <mat-icon>add</mat-icon>
-            </m-button>
-            <mat-form-field *ngIf="onFilter.observers.length!=0" class="example-form-field table-header"
+        <div class="header" *ngIf="onFilter.observers.length!=0">
+            <mat-form-field class="example-form-field table-header"
                 style="margin-bottom: -1.25em" appearance="outline">
                 <input matInput type="text" placeholder="Filtrar" [(ngModel)]="filter"
                     (ngModelChange)="onFilter.emit(filter)" />
@@ -18,13 +20,13 @@
                 <mat-header-cell *matHeaderCellDef>{{column.columnName}}</mat-header-cell>
                 <mat-cell *matCellDef="let element"> {{element[column.propertyName]}}</mat-cell>
             </ng-container>
-            
+
             <ng-container matColumnDef="_options">
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
                 <mat-cell mat-cell *matCellDef="let element">
                     <button mat-icon-button (click)="onEdit.emit(element)">
                         <mat-icon>edit</mat-icon>
-                    </button>                    
+                    </button>
                 </mat-cell>
             </ng-container>
 
@@ -33,10 +35,10 @@
                 <mat-cell mat-cell *matCellDef="let element">
                     <button mat-icon-button (click)="openDeleteModal(element)">
                         <mat-icon>delete</mat-icon>
-                    </button>                    
+                    </button>
                 </mat-cell>
             </ng-container>
-            
+
             <mat-header-row *matHeaderRowDef="getDisplayedColumns()"></mat-header-row>
             <mat-row *matRowDef="let row; columns: getDisplayedColumns();"></mat-row>
         </mat-table>
