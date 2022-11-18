@@ -6,7 +6,7 @@ import * as express from 'express'
 import { Router } from "express"
 
 import { HashIDs, JWTTokenManager, MD5Encrypter, MikroRepository, ValidatorEmail} from '@/infra'
-import {  EditGroupController, LoadGroupsController, CreateAccountController, CreateSubGroupController, LoadSubGroupsController, LoginController, PrivateController, CreateProductController, LoadProductsController, CreateCustomerController, LoadCustomerController, LoadAddressController, CreateOrderController, LoadOrdersController } from '@/presentation'
+import { EditSubGroupController, LoadGroupsController, CreateAccountController, CreateSubGroupController, LoadSubGroupsController, LoginController, PrivateController, CreateProductController, LoadProductsController, CreateCustomerController, LoadCustomerController, LoadAddressController, CreateOrderController, LoadOrdersController } from '@/presentation'
 import { entities } from '../entities'
 import { createRouters } from '../helpers'
 import { CreateGroupController } from '@/presentation/controllers/groups/create-group'
@@ -35,7 +35,7 @@ export async function setupRoutes(app: express.Application){
 
     const createGroupController = new CreateGroupController(repository)
     const loadGroupsController = new LoadGroupsController(repository, idHashser)
-    const editGroupsController = new EditGroupController(repository)
+    const editGroupsController = new EditSubGroupController(repository)
     const deleteGroupController = new DeleteGroupController(repository)
 
     const createCollectionController = new CreateCollectionController(repository)
@@ -51,6 +51,7 @@ export async function setupRoutes(app: express.Application){
     const createSubGroupController = new CreateSubGroupController(repository)
     const loadSubGroupController = new LoadSubGroupsController(repository, idHashser)
     const deleteSubgroupController = new DeleteSubgroupController(repository)
+    const editSubGroupController = new EditSubGroupController(repository)
 
     const createCustomerController = new CreateCustomerController(repository)
     const loadCustomersController = new LoadCustomersController(repository, idHashser)
@@ -68,7 +69,7 @@ export async function setupRoutes(app: express.Application){
     const editOrdersController = new EditOrderController(repository, idHashser)
     const deleteOrderController = new DeleteOrderController(idHashser, repository)
 
-    const routers = createRouters(jwtTokenManager, createOrderController, loadAddressController, createAddressController, deleteProductController, deleteGroupController, createAccountController, privateController, loginController, createGroupController, loadGroupsController, loadSubGroupController, createSubGroupController, editGroupsController, createCollectionController, editCollectionController, loadCollectionsController, createProductController, loadProductsController, createCustomerController, loadCustomerController, deleteCustomerController, deleteCollectionController, deleteSubgroupController, loadCustomersController, deleteAddressController, editAddressController, loadOrderController, loadOrdersItemsController, editOrdersController, deleteOrderController, editProductsController)            
+    const routers = createRouters(jwtTokenManager, createOrderController, loadAddressController, createAddressController, deleteProductController, deleteGroupController, createAccountController, privateController, loginController, createGroupController, loadGroupsController, loadSubGroupController, createSubGroupController, editGroupsController, createCollectionController, editCollectionController, loadCollectionsController, createProductController, loadProductsController, createCustomerController, loadCustomerController, deleteCustomerController, deleteCollectionController, deleteSubgroupController, loadCustomersController, deleteAddressController, editAddressController, loadOrderController, loadOrdersItemsController, editOrdersController, deleteOrderController, editProductsController, editSubGroupController)            
 
     routers.forEach((router: Router) => {
         app.use(router)    
