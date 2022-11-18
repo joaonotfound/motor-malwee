@@ -20,7 +20,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { GroupsComponent } from './pages/groups/groups.component';
 import { TableComponent } from './components/table/table.component'
 import { MatTableModule } from '@angular/material/table';
-import { CreateGroupModalComponent } from './modals/create-group-modal/create-group-modal.component'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatCardModule } from '@angular/material/card';
 import { GroupModalComponent } from './modals/group-modal/group-modal.component';
@@ -56,7 +55,6 @@ import { OrderItemModalComponent } from './modals/order-item-modal/order-item-mo
     HeaderComponent,
     GroupsComponent,
     TableComponent,
-    CreateGroupModalComponent,
     GroupModalComponent,
     CreateSubgroupModalComponent,
     CollectionsComponent,
