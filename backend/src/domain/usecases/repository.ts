@@ -10,5 +10,6 @@ export interface Collection<T>{
 
 export interface Repository {
     collection: <T extends Entity>(entity: T) => Collection<T>,
-    execute: (query: string) => Promise<Array<any>>
+    execute: (query: string) => Promise<Array<any>>,
+    ensureSchema: () => void
 }

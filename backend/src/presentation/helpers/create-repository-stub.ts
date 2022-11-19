@@ -18,6 +18,7 @@ class RepositoryStub implements Repository {
     constructor(private _collection: Collection<any>) { }
     collection(_: any) { return this._collection }
     async execute(_: string) { return [] }
+    ensureSchema(){}
 }
 
 export function createRepositoryStub() {

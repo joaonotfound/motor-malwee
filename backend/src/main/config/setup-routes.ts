@@ -24,6 +24,8 @@ import { EditProductsController } from '@/presentation/controllers/products/edit
 export async function setupRoutes(app: express.Application){
 
     const repository = await MikroRepository.create(entities)
+    repository.ensureSchema()
+    
     const jwtTokenManager = new JWTTokenManager()
     const md5Encrypter = new MD5Encrypter()
     const emailValidator = new ValidatorEmail()

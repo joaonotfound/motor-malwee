@@ -13,6 +13,11 @@ class MikroHelper {
         const orm = await MikroHelper.getOrmInstance();
         return orm.em.fork();
     }
+
+    public ensureSchema(){
+        MikroHelper.orm.getSchemaGenerator().createSchema()
+    }
+    
     public close() {
         MikroHelper.killOrmInstance()
     }

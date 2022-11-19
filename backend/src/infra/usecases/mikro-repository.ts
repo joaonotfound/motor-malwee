@@ -57,11 +57,15 @@ export class MikroRepository implements Repository{
         private readonly entities: Zip
     ){ }
 
+    public ensureSchema() {
+        mikroHelper.ensureSchema()
+    }
+
     public static async create(entities: Zip): Promise<MikroRepository>{
         const em = await mikroHelper.getEm()
         return new MikroRepository(em, entities)
     }
-
+    
     private findOrmEntity<T extends Entity>(entity: T) {
         return this.entities.find( zip => entity.constructor == zip.value.constructor )?.ormEntity
     }
