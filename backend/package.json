@@ -7,6 +7,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@mikro-orm/cli": "^5.4.2",
     "@mikro-orm/core": "^5.4.2",
     "@mikro-orm/mysql": "^5.4.2",
     "cors": "^2.8.5",
@@ -31,8 +32,9 @@
     "test:integration": "npm test -- --watch -c jest-integration-config.js",
     "test:staged": "jest --passWithNoTests --findRelatedTests",
     "test:ci": "npm test -- --coverage",
-    "start": "rm -rf ./dist && npm run build && node ./dist/main/index.js",
-    "build": "tsc &&  tsc-alias"
+    "start": "npm run build && npm run start:nobuild",
+    "start:nobuild": "node ./dist/main/index.js",
+    "build": "rm -rf ./dist &&tsc &&  tsc-alias"
   },
   "mikro-orm": {
     "useTsNode": true,
@@ -41,8 +43,7 @@
       "./dist/mikro-orm.config.js"
     ]
   },
-  "devDependencies": {
-    "@mikro-orm/cli": "^5.4.2",
+  "devDependencies": {    
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.14",
     "@types/jest": "^29.2.0",

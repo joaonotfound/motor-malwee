@@ -1,0 +1,32 @@
+services:
+  malwee-database: 
+    image: mysql
+    networks:
+      - malwee-network  
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - db_data:/var/lib/mysql
+      
+  malwee-backend:
+    container_name: malwee-backend
+    image: malwee
+    restart: always
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    depends_on:
+      - malwee-database
+    environment:
+      - DB_HOST=malwee-database
+    ports:
+      - 60:5000  
+    networks:
+      - malwee-network
+
+networks:
+  malwee-network:
+    driver: bridge
+
+volumes:
+    db_data:
