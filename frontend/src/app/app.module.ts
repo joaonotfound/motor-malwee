@@ -46,6 +46,7 @@ import { OrdersItemComponent } from './pages/order-item/order-item.component';
 import { OrderItemModalComponent } from './modals/order-item-modal/order-item-modal.component';
 import { AuthGuard } from './guards/auth-guard';
 import { CanDeactivateGuard } from './guards/can-deactivate-form.guard';
+import { CustomerResolver } from './guards/customer.resolver';
 
 @NgModule({
   declarations: [
@@ -97,7 +98,7 @@ import { CanDeactivateGuard } from './guards/can-deactivate-form.guard';
     MatSelectModule,
     MatDividerModule
   ],
-  providers: [AuthGuard, CanDeactivateGuard],
+  providers: [AuthGuard, CanDeactivateGuard, CustomerResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

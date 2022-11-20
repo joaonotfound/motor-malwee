@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth-guard';
+import { CustomerResolver } from './guards/customer.resolver';
 import { CollectionsComponent } from './pages/collections/collections.component';
 import { CustomerComponent } from './pages/customer/customer.component';
 import { CustomersComponent } from './pages/customers/customers.component';
@@ -22,7 +23,7 @@ const routes: Routes = [
             { path: 'groups', component: GroupsComponent },
             { path: "collections", component: CollectionsComponent },
             { path: "products", component: ProductsComponent },
-            { path: 'customer', component: CustomerComponent },
+            { path: 'customer', component: CustomerComponent, resolve: { customer: CustomerResolver }},
             { path: 'customers', component: CustomersComponent },
             { path: "statistics", component: StatisticsComponent },
             { path: "orders", component: OrdersComponent },

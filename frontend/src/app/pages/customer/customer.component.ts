@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AddressesService } from 'src/app/services/rests/addressess.service';
-import { CustomersService } from 'src/app/services/rests/customers.service';
 import { Column } from 'src/app/components/table/table.component';
 import { AddressModalComponent } from 'src/app/modals/address-modal/address-modal.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -13,7 +12,7 @@ import { Address } from 'src/app/models';
   styleUrls: ['./customer.component.scss']
 })
 export class CustomerComponent implements OnInit {
-  params: any;
+  customer: any;
   addresses = []
   table_columns: Column[] = [
     { columnName: 'Cep', propertyName: "zip" },
@@ -22,30 +21,25 @@ export class CustomerComponent implements OnInit {
   ]
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly customerService: CustomersService,
     private readonly addressesService: AddressesService,
     private readonly dialog: MatDialog
   ) {
-    this.route.queryParams.subscribe(params => {
-      this.params = params
-      this.loadInfo()
+    this.route.data.subscribe((data: any) => {
+      this.customer = data.customer
     })
   }
 
   async updateAddresses(){
-    this.addresses = await this.addressesService.load(this.params.id)
+    this.addresses = await this.addressesService.load(this.customer.id)
     console.log(this.addresses)
   }
-  async loadInfo(){
-    console.log(this.params)
-    const customer = await this.customerService.loadOne(this.params.id);
-  }
+
   onEditAddress(data: Address){
     const dialogRef = this.dialog.open(AddressModalComponent, { width: '600px', data })
 
     dialogRef.afterClosed().subscribe(async response => {
       if(response){
-        const address = { ...response, customer: this.params.id }
+        const address = { ...response, customer: this.customer.id }
         await this.addressesService.edit(address)
         this.updateAddresses()
       }
@@ -60,7 +54,7 @@ export class CustomerComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(async response => {
       if(response){
-        const address = { ...response, customer: this.params.id }
+        const address = { ...response, customer: this.customer.id }
         this.addressesService.create(address)
         this.updateAddresses()
       }
