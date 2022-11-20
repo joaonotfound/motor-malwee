@@ -47,6 +47,7 @@ import { OrderItemModalComponent } from './modals/order-item-modal/order-item-mo
 import { AuthGuard } from './guards/auth-guard';
 import { CanDeactivateGuard } from './guards/can-deactivate-form.guard';
 import { CustomerResolver } from './guards/customer.resolver';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { CustomerResolver } from './guards/customer.resolver';
     OrderModalComponent,
     OrdersComponent,
     OrdersItemComponent,
-    OrderItemModalComponent
+    OrderItemModalComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
