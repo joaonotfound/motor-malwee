@@ -24,7 +24,6 @@ export class DashboardComponent implements OnInit {
     this.sidebar.opened.subscribe(
       opened => {         
         this.sidebarOpened = opened
-        console.log('changing state...', this.sidebarOpened)
       })
   }
 

@@ -42,7 +42,6 @@ export class GroupsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(async ({ new_group }) => {
       if(new_group){
-        console.log(new_group)
         const created = await this.groupsService.createGroup(new_group)
         if(created){
           this.groupsService.loadGroups()

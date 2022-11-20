@@ -24,7 +24,6 @@ export class EditProductsController{
         if(!matchSubgroup){
             return invalidParam('subgroup')
         }
-        console.log(product)
         await this.repository.collection(productsEntity).update({ ...product, id: privateID, fk_collection: matchCollection.id, fk_subgroup: matchSubgroup.id})
 
         return ok({ edited: true })

@@ -74,7 +74,6 @@ export class CreateProductModalComponent implements OnInit {
   ) {
     if (this.raw_data) {
       this.data = Object.assign({}, this.data, raw_data)
-      console.log('new_data', this.data)
     }
     this.formGroup = this.createFormGroup()
   }

@@ -32,7 +32,6 @@ export class GroupsService {
   public async edit(previous_group: Group, new_group: Group){
     const axios = createAxios(this.auth.getToken())
     const response = await axios.put('/groups', { group: previous_group.description, new_group })
-    console.log(response)
     this.loadGroups()
   }
   async delete(description: string){

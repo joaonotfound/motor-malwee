@@ -36,7 +36,6 @@ export class OrdersItemComponent implements OnInit {
 
   async loadItems(){
     this.items = await this.itemsService.load(this.params.id)
-    console.log(this.items)
   }
   async onCreate(){
     const dialogRef = this.dialog.open(OrderItemModalComponent, { width: '600px' })

@@ -18,7 +18,7 @@ export class EditAddressController{
             return invalidParam('id')
         }
         const updatedData = Object.assign({}, address, { id: addressPrivateId, customer: matchAddress.customer } )
-        console.log(updatedData)
+    
         await this.repository.collection(addressEntity).update(updatedData)
 
         return ok({ edited: true })

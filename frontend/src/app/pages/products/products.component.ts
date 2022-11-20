@@ -36,7 +36,6 @@ export class ProductsComponent implements OnInit {
     this.products = await this.productsService.load();
   }
   onEdit(product: any){
-    console.log(product)
     const dialogRef = this.dialog.open(CreateProductModalComponent, { width: '400px', data: product })
 
     dialogRef.afterClosed().subscribe(async response => {

@@ -23,9 +23,7 @@ export class TableComponent implements OnInit {
 
   constructor(
     private readonly dialog: MatDialog
-  ) {
-    console.log(this.onFilter)
-  }
+  ) {}
 
   getDisplayedColumns(){
     const response = [...this.columns.map(column => column.propertyName)]
@@ -51,9 +49,7 @@ export class TableComponent implements OnInit {
     })
   }
 
-  selectedRow(row: any){
-    console.log(row)
-  }
+  selectedRow(row: any){}
 
   ngOnInit(): void {
   }

@@ -12,11 +12,9 @@ export const validateOrderItem = async (orderItems: PublicOrderItem[], repositor
         const productID = encoder.decode(orderItem.product)
         const matchProduct = await repository.collection(productsEntity).findOne({ id: productID })
         if(!matchProduct){
-            console.log('invalid-product')
             return false
         }
         if(orderItem.quantity == 0 || orderItem.unitPrice == 0 || orderItem.totalPrice == 0){
-            console.log(orderItem)
             return false
         }
     }

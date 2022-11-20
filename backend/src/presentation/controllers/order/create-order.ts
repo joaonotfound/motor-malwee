@@ -10,12 +10,11 @@ const saveOrderItems = async (orderItems: PublicOrderItem[], order: OrderEntity,
     if(!orderItems) return    
     if(!await validateOrderItem(orderItems, repository, encoder)) return
 
-    console.log('reached 1')
     const toSave: OrderItemEntity[] = []
     for(const orderItem of orderItems){
         toSave.push({...orderItem, order: order.id, product: encoder.decode(orderItem.product)})
     }
-    console.log('reached 2')
+
     for(const save of toSave){
         await repository.collection(orderItemEntity).save(save)
     }    

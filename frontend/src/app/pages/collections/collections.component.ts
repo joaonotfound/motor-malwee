@@ -35,9 +35,8 @@ export class CollectionsComponent implements OnInit {
       subscription.unsubscribe()
     });
   }
-  filter(query: string){
-    console.log(query)
-  }
+  filter(query: string){}
+  
   onDelete(collection: Collection){
     this.collectionsService.delete(collection.description)
   }

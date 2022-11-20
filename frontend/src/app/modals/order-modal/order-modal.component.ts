@@ -41,7 +41,6 @@ export class OrderModalComponent implements OnInit {
   async loadAddresses() {
     const customerID = this.formGroup.get('customer')
     this.addresses = await this.addressService.load(customerID.value!)
-    console.log(this.addresses, customerID)
   }
 
   ngOnInit(): void {
@@ -49,7 +48,6 @@ export class OrderModalComponent implements OnInit {
   }
 
   createFormGroup() {
-    console.log(this.data)
     return this.formBuilder.group({
       customer: [this.data.customer, [Validators.required]],
       address: [this.data.address, [Validators.required]],

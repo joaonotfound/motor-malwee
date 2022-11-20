@@ -61,7 +61,6 @@ export class AddressModalComponent implements OnInit {
   }
 
   createFormGroup(){
-    console.log(this.data)
     return this.formBuilder.group({
       zip: [this.data.zip, [ Validators.minLength(8), Validators.maxLength(9)]],
       street: [this.data.street, [Validators.required]],

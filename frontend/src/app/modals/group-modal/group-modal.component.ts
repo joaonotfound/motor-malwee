@@ -40,7 +40,6 @@ export class GroupModalComponent implements OnInit {
     private readonly formBuilder: FormBuilder,
     @Optional() @Inject(MAT_DIALOG_DATA) public readonly raw_data: Group & { subgroups: SubGroups }
   ) {
-    console.log('data: ', raw_data)
     this.previous_data = raw_data
       ? { ...raw_data }
       : { description: '' }

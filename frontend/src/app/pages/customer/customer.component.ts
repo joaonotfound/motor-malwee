@@ -31,7 +31,6 @@ export class CustomerComponent implements OnInit {
 
   async updateAddresses(){
     this.addresses = await this.addressesService.load(this.customer.id)
-    console.log(this.addresses)
   }
 
   onEditAddress(data: Address){
