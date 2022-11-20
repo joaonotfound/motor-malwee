@@ -8,6 +8,7 @@ import { CustomersComponent } from './pages/customers/customers.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { GroupsComponent } from './pages/groups/groups.component';
 import { LoginComponent } from './pages/login/login.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { OrdersItemComponent } from './pages/order-item/order-item.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { ProductsComponent } from './pages/products/products.component';
@@ -29,7 +30,9 @@ const routes: Routes = [
             { path: "orders", component: OrdersComponent },
             { path: "orders-items", component: OrdersItemComponent }
           ]
-  }
+  },
+  { path: "", component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: "**", component: NotFoundComponent}
 ];
 
 @NgModule({
