@@ -44,6 +44,7 @@ import { OrderModalComponent } from './modals/order-modal/order-modal.component'
 import { OrdersComponent } from './pages/orders/orders.component';
 import { OrdersItemComponent } from './pages/order-item/order-item.component';
 import { OrderItemModalComponent } from './modals/order-item-modal/order-item-modal.component';
+import { AuthGuard } from './guards/auth-guard';
 
 @NgModule({
   declarations: [
@@ -95,7 +96,7 @@ import { OrderItemModalComponent } from './modals/order-item-modal/order-item-mo
     MatSelectModule,
     MatDividerModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

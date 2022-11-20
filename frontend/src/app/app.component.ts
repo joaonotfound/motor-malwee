@@ -9,10 +9,6 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'frontend';
 
-  constructor( private readonly router: Router ){
-    const authenticationToken = localStorage['authentication-token']
-    if(!authenticationToken){
-      this.router.navigateByUrl('/login')
-    }    
+  constructor(){
   }
 }
