@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Collection, Collections, CollectionsService } from '../../services/rests/collections.service';
 import { Column } from '../../components/table/table.component';
 import { MatDialog } from '@angular/material/dialog';
-import { CreateCollectionModalComponent } from '../../modals/create-collection-modal/create-collection-modal.component';
+import { CollectionModalComponent } from '../../modals/collection-modal/collection-modal.component';
 import { EditCollectionModalComponent } from '../../modals/edit-collection-modal/edit-collection-modal.component';
 
 @Component({
@@ -24,12 +24,11 @@ export class CollectionsComponent implements OnInit {
     return this.collectionsService.collections();
   }
 
-  openEditModal(collection: Collection) {
-    const dialogRef = this.dialog.open(EditCollectionModalComponent, { data: collection, width: '600px' })
+  openEditModal(previous_collection: Collection) {
+    const dialogRef = this.dialog.open(CollectionModalComponent, { data: previous_collection, width: '600px' })
 
-    const subscription = dialogRef.afterClosed().subscribe(async response => {
-      if(response){
-        const { previous_collection, new_collection } = response
+    const subscription = dialogRef.afterClosed().subscribe(async new_collection => {
+      if(new_collection){
         this.collectionsService.edit(previous_collection, new_collection)
       }
       subscription.unsubscribe()
@@ -42,7 +41,7 @@ export class CollectionsComponent implements OnInit {
   }
 
   openCreateModal(){
-    const dialogRef = this.dialog.open(CreateCollectionModalComponent, { width: '400px' })
+    const dialogRef = this.dialog.open(CollectionModalComponent, { width: '400px' })
 
     const subscription = dialogRef.afterClosed().subscribe(async response => {
       if(response){

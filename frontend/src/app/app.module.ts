@@ -25,7 +25,7 @@ import { MatCardModule } from '@angular/material/card';
 import { GroupModalComponent } from './modals/group-modal/group-modal.component';
 import { SubgroupModalComponent } from './modals/subgroup-modal/subgroup-modal.component';
 import { CollectionsComponent } from './pages/collections/collections.component';
-import { CreateCollectionModalComponent } from './modals/create-collection-modal/create-collection-modal.component';
+import { CollectionModalComponent } from './modals/collection-modal/collection-modal.component';
 import { EditCollectionModalComponent } from './modals/edit-collection-modal/edit-collection-modal.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { CreateProductModalComponent } from './modals/create-product-modal/create-product-modal.component'
@@ -62,7 +62,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
     GroupModalComponent,
     SubgroupModalComponent,
     CollectionsComponent,
-    CreateCollectionModalComponent,
+    CollectionModalComponent,
     EditCollectionModalComponent,
     ProductsComponent,
     CreateProductModalComponent,

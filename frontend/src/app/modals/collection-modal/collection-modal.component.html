@@ -1,9 +1,9 @@
 <div class="modal">
-  <h1 mat-dialog-title> Criar coleção </h1>
+  <h1 mat-dialog-title> Coleção </h1>
 
   <form [formGroup]="formGroup">
     <mat-dialog-content>
-      <mat-form-field>
+      <mat-form-field appearance="outline">
         <mat-label>Descrição</mat-label>
         <input autofocus formControlName="description" matInput placeholder="Nome da coleção" />
         <mat-error>Insira a descrição da coleção</mat-error>
@@ -12,7 +12,7 @@
   </form>
   <div mat-dialog-actions class="mat-dialog-actions">
     <button mat-flat-button (click)="cancel()"> cancelar </button>
-    <button mat-flat-button [disabled]="formGroup.invalid" color="primary" (click)="create()"> criar </button>
+    <button mat-flat-button [disabled]="formGroup.invalid" color="primary" (click)="confirm()"> salvar </button>
   </div>
 
 </div>

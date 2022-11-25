@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateCollectionModalComponent } from './create-collection-modal.component';
+import { CollectionModalComponent } from './collection-modal.component';
 
 describe('CreateCollectionModalComponent', () => {
-  let component: CreateCollectionModalComponent;
-  let fixture: ComponentFixture<CreateCollectionModalComponent>;
+  let component: CollectionModalComponent;
+  let fixture: ComponentFixture<CollectionModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreateCollectionModalComponent ]
+      declarations: [ CollectionModalComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CreateCollectionModalComponent);
+    fixture = TestBed.createComponent(CollectionModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
