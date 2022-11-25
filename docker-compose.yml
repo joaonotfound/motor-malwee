@@ -9,7 +9,6 @@ services:
       - db_data:/var/lib/mysql
       
   malwee-backend:
-    container_name: malwee-backend
     image: malwee
     restart: always
     build:
@@ -20,7 +19,7 @@ services:
     environment:
       - DB_HOST=malwee-database
     ports:
-      - 60:5000  
+      - 60:60  
     networks:
       - malwee-network
 
