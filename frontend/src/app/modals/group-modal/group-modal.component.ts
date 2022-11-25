@@ -7,6 +7,7 @@ import { SubGroup, SubGroups } from 'src/app/services/rests/sub-groups.service';
 import { Column } from 'src/app/components/table/table.component';
 import { SubgroupModalComponent } from '../subgroup-modal/subgroup-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { v4 } from 'uuid'
 
 @Component({
   selector: 'app-group-modal',
@@ -19,7 +20,7 @@ export class GroupModalComponent implements OnInit {
     { columnName: 'Descrição', propertyName: "description" }
   ]
   previous_data: Group
-  subgroups: SubGroup[] = []
+  subgroups: Array<SubGroup & Partial<{ private_id: string }>> = []
 
   editor: boolean = false
 
@@ -47,10 +48,26 @@ export class GroupModalComponent implements OnInit {
     this.editor = raw_data.id ? true : false
   }
 
-  ngOnInit(): void {}
-  
-  async onDelete(subgroup: SubGroup){
+  ngOnInit(): void { }
+
+  async onDelete(subgroup: SubGroup) {
     this.subgroups = this.subgroups.filter(item => item.description != subgroup.description)
+  }
+
+  onEdit(subgroup: SubGroup) {
+    const dialogRef = this.dialog.open(SubgroupModalComponent, { width: '400px', data: subgroup })
+    dialogRef.afterClosed().subscribe(async subgroup => {
+      this.subgroups = this.subgroups.map(
+        subgroup_f => subgroup_f.private_id != undefined
+          && (subgroup_f.private_id == subgroup.private_id)
+          ? subgroup
+          : subgroup_f)
+      this.subgroups = this.subgroups.map(
+        subgroup_f => subgroup_f.id != undefined
+          && (subgroup_f.id == subgroup.id)
+          ? subgroup
+          : subgroup_f)
+    })
   }
 
   onCreate() {
@@ -58,9 +75,9 @@ export class GroupModalComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(async subgroup => {
       if (subgroup) {
-        this.subgroups = [...this.subgroups, subgroup]
-        }
+        this.subgroups = [...this.subgroups, { private_id: v4(), ...subgroup }]
       }
+    }
     );
   }
   cancel() {

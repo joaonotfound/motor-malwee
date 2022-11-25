@@ -34,6 +34,6 @@ export class SubGroupsService {
   }
   public async edit(subgroup: SubGroup) {
     const axios = createAxios(this.auth.getToken())
-    const response = await axios.put('/subgroups', { subgroup: subgroup })
+    await axios.put('/subgroups', { subgroup })
   }
 }
