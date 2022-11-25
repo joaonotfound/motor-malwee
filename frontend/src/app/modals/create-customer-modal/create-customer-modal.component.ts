@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
-import { Customer } from 'src/app/models/entities';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Column } from 'src/app/components/table/table.component';
+import { AddressModalComponent } from '../address-modal/address-modal.component';
 
 @Component({
   selector: 'app-create-customer-modal',
@@ -10,13 +11,20 @@ import { Customer } from 'src/app/models/entities';
 })
 export class CreateCustomerModalComponent implements OnInit {
 
+  customer: any;
+  addresses: any[] = []
+  table_columns: Column[] = [
+    { columnName: 'Cep', propertyName: "zip" },
+    { columnName: 'Rua', propertyName: "street" },
+    { columnName: 'Cidade', propertyName: "city" },    
+  ]
 
-  // data: Partial<Customer> = {}
   formGroup = this.createFormGroup()
 
   constructor(
-    private readonly dialog: MatDialogRef<CreateCustomerModalComponent>,
-    private readonly formBuilder: FormBuilder
+    private readonly dialogRef: MatDialogRef<CreateCustomerModalComponent>,
+    private readonly formBuilder: FormBuilder,
+    private readonly dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -32,6 +40,15 @@ export class CreateCustomerModalComponent implements OnInit {
     return this.formGroup.get('companyName')
   }
 
+  onCreateAddress(){
+    const dialogRef = this.dialog.open(AddressModalComponent, { width: '600px' })
+
+    dialogRef.afterClosed().subscribe(async address => {
+      if(address){
+        this.addresses = [...this.addresses, address]
+      }
+    });
+  }
   createFormGroup() {
     return this.formBuilder.group({
       popularName: ['', [Validators.required]],
@@ -40,14 +57,15 @@ export class CreateCustomerModalComponent implements OnInit {
     })
   }
   cancel() {
-    this.dialog.close()
+    this.dialogRef.close()
   }
 
   create() {
-    this.dialog.close({
+    this.dialogRef.close({
       popularName: this.popularName?.value,
       CPNJ: this.CPNJ?.value,
-      companyName: this.companyName?.value
+      companyName: this.companyName?.value,
+      addresses: this.addresses
     })
   }
 

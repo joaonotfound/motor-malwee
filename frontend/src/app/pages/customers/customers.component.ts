@@ -43,7 +43,7 @@ export class CustomersComponent implements OnInit {
     this.customers = await this.customersService.load()
   }
   openCreateModal(){
-    const dialogRef = this.dialog.open(CreateCustomerModalComponent, { width: '400px' })
+    const dialogRef = this.dialog.open(CreateCustomerModalComponent, { width: '600px' })
 
     dialogRef.afterClosed().subscribe(async response => {
       if(response){

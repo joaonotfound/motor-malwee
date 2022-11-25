@@ -25,6 +25,9 @@
       </mat-form-field>
     </mat-dialog-content>
   </form>
+
+  <app-table [size]="'small'" [data]="addresses" [title]="'Endereços'" (onCreate)="onCreateAddress()"  [columns]="table_columns" [contentName]="'endereços'"></app-table>
+
   <div mat-dialog-actions class="mat-dialog-actions">
     <button mat-flat-button (click)="cancel()"> cancelar </button>
     <button mat-flat-button color="primary" [disabled]="formGroup.invalid" (click)="create()"> criar </button>
