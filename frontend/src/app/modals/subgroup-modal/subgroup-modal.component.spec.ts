@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateSubgroupModalComponent } from './create-subgroup-modal.component';
+import { SubgroupModalComponent } from './subgroup-modal.component';
 
 describe('CreateSubgroupModalComponent', () => {
-  let component: CreateSubgroupModalComponent;
-  let fixture: ComponentFixture<CreateSubgroupModalComponent>;
+  let component: SubgroupModalComponent;
+  let fixture: ComponentFixture<SubgroupModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreateSubgroupModalComponent ]
+      declarations: [ SubgroupModalComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CreateSubgroupModalComponent);
+    fixture = TestBed.createComponent(SubgroupModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

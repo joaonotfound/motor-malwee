@@ -5,7 +5,7 @@ import { Group } from 'src/app/services/rests/groups.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { SubGroup, SubGroups } from 'src/app/services/rests/sub-groups.service';
 import { Column } from 'src/app/components/table/table.component';
-import { CreateSubgroupModalComponent } from '../create-subgroup-modal/create-subgroup-modal.component';
+import { SubgroupModalComponent } from '../subgroup-modal/subgroup-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -54,7 +54,7 @@ export class GroupModalComponent implements OnInit {
   }
 
   onCreate() {
-    const dialogRef = this.dialog.open(CreateSubgroupModalComponent, { width: '400px' })
+    const dialogRef = this.dialog.open(SubgroupModalComponent, { width: '400px' })
 
     dialogRef.afterClosed().subscribe(async subgroup => {
       if (subgroup) {
